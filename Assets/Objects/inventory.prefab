@@ -1,0 +1,101 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3411023690433181778
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3411023690433181788}
+  - component: {fileID: 3411023690433181789}
+  - component: {fileID: 3642679157071542859}
+  - component: {fileID: 821614538529501703}
+  m_Layer: 0
+  m_Name: inventory
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3411023690433181788
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3411023690433181778}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 36.807888, y: 112.245094, z: -95.09375}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3411023690433181789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3411023690433181778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96d7d37594450cb4a9555725035152b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventorySlot: {fileID: 169076, guid: 8590ae9dd07d18d49a49b092889561e8, type: 3}
+  inventoryItem: {fileID: 197196, guid: 6baca13da4ff36d4e87e971092d2ffc1, type: 3}
+  selectedBlock: 0
+  bp: {fileID: 0}
+  grassBlocks: 0
+  dirtBlocks: 0
+  stoneBlocks: 0
+  leaves: 0
+  logs: 0
+  planks: 0
+  coal: 0
+  iron: 0
+  clay: 0
+  mud: 0
+  workbench: 0
+  furnace: 0
+  anvil: 0
+  chair: 0
+  table: 0
+  iron_ingot: 0
+  mud_brick: 0
+  wooden_rod: 0
+  magic_crystal: 0
+  paper: 0
+  iron_sword: 0
+  iron_pickaxe: 0
+  iron_axe: 0
+  selectedBlockAmmountText: {fileID: 0}
+  selectedBlockText: {fileID: 0}
+  slots: []
+--- !u!114 &3642679157071542859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3411023690433181778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57876d77688cba648b87bfd9db9e17e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &821614538529501703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3411023690433181778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 019e139eff4527a45a442acb4e0d406c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

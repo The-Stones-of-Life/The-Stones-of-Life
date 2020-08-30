@@ -1,0 +1,8 @@
+{
+	Type:Item
+	Name:"Test Item"
+	{
+		hasDurability:false
+		texture:test_item.png
+	}
+}

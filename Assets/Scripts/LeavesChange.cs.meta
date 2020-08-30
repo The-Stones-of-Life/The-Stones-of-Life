@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 816a97e788198b549bc104a70ee55a74
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - Leaves: {fileID: 7277948877536891444, guid: fbecad3255a07ee4eb8ffaa229e5333b,
+      type: 3}
+  - leaves_spring: {fileID: 21300000, guid: 55f698a79ce83c042bfc508dbfe66360, type: 3}
+  - leaves_summer: {fileID: 21300000, guid: c2360bff481c66f409f51e1a6aed7cf0, type: 3}
+  - leaves_fall: {fileID: 21300000, guid: 666ba7212ff086049b5bb7803baf31cb, type: 3}
+  - leaves_winter: {fileID: 21300000, guid: 90410a18573912b49bd3a3e03a8e5420, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

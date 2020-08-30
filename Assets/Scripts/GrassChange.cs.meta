@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: d4123ae3aa14be34298f96c7a21011f1
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - Grass: {fileID: 3657357154763145980, guid: 1508caf3f00507a40a07ed28c9c60cd9, type: 3}
+  - grass_spring: {fileID: 21300000, guid: 63b25deb84a92004793a2bd517ab1674, type: 3}
+  - grass_summer: {fileID: 21300000, guid: ee738fce06b50a242a657fb5c99ba052, type: 3}
+  - grass_fall: {fileID: 21300000, guid: 9a3272037a055b24ca36ce14a4fe8ee1, type: 3}
+  - grass_winter: {fileID: 21300000, guid: c5240c3e98c8b7d449156b138716a051, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

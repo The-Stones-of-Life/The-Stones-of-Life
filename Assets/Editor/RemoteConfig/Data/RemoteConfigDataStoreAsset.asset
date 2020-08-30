@@ -1,0 +1,90 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 469c24fdb3bd6431b92cc1465bd9166b, type: 3}
+  m_Name: RemoteConfigDataStoreAsset
+  m_EditorClassIdentifier: 
+  rsKeyList:
+  - metadata:
+      entityId: c2ea3ccc-6b9f-4e45-8ee3-e238a7b02be3
+    rs:
+      key: CMBlockHealth
+      type: int
+      value: 0
+  - metadata:
+      entityId: 92eeec92-242f-42a2-9a28-abb60e50d234
+    rs:
+      key: CMPlayerHealth
+      type: int
+      value: 500
+  - metadata:
+      entityId: daed5a69-4ae3-43dc-8b74-f9a7cbaead3c
+    rs:
+      key: CMPlayerHunger
+      type: int
+      value: 500
+  - metadata:
+      entityId: 269c8f07-0407-4ed8-8ea6-783578fc507b
+    rs:
+      key: Event1Bool
+      type: bool
+      value: False
+  rsLastCachedKeyList:
+  - metadata:
+      entityId: c2ea3ccc-6b9f-4e45-8ee3-e238a7b02be3
+    rs:
+      key: CMBlockHealth
+      type: int
+      value: 0
+  - metadata:
+      entityId: 92eeec92-242f-42a2-9a28-abb60e50d234
+    rs:
+      key: CMPlayerHealth
+      type: int
+      value: 500
+  - metadata:
+      entityId: daed5a69-4ae3-43dc-8b74-f9a7cbaead3c
+    rs:
+      key: CMPlayerHunger
+      type: int
+      value: 500
+  - metadata:
+      entityId: 269c8f07-0407-4ed8-8ea6-783578fc507b
+    rs:
+      key: Event1Bool
+      type: bool
+      value: False
+  configId: b743246c-ce9f-4e26-add8-4ce6af62d5c6
+  currentEnvironmentId: 37b507aa-c3e0-492c-bd1a-52c19e9f1a0e
+  environments:
+  - id: 37b507aa-c3e0-492c-bd1a-52c19e9f1a0e
+    appId: 
+    name: TSOL (Default)
+    description: 
+    createdAt: 2020-07-08T17:33:25Z
+    updatedAt: 2020-07-08T17:33:25Z
+  - id: 39f4d35d-2c78-4a68-a851-1e9d24ac3e71
+    appId: 
+    name: Release
+    description: 
+    createdAt: 2020-07-08T17:36:02Z
+    updatedAt: 2020-07-08T17:36:02Z
+  - id: a5c65960-244d-4860-8cd7-d6c7366182ef
+    appId: 
+    name: Development
+    description: 
+    createdAt: 2020-07-08T17:36:02Z
+    updatedAt: 2020-07-08T17:36:02Z
+  rulesList: []
+  lastCachedRulesList: []
+  addedRulesIDs: []
+  updatedRulesIDs: []
+  deletedRulesIDs: []

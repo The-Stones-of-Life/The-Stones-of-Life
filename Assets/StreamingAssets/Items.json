@@ -1,0 +1,72 @@
+[
+	{
+		"id": 0,
+		"title": "Grass",
+		"value": 1,
+		"stats": {
+			"power": 0,
+			"defense": 0,
+			"vitality": 0
+		},
+		"description": "A block of grass.",
+		"stackable": true,
+		"rarity": 2,
+		"slug":  "grass"
+	},
+	{
+		"id": 1,
+		"title": "Dirt",
+		"value": 1,
+		"stats": {
+			"power": 0,
+			"defense": 0,
+			"vitality": 0
+		},
+		"description": "A block of dirt.",
+		"stackable": true,
+		"rarity": 6,
+		"slug": "dirt"
+	},
+	{
+		"id": 2,
+		"title": "Stone",
+		"value": 1,
+		"stats": {
+			"power": 0,
+			"defense": 0,
+			"vitality": 0
+		},
+		"description": "A block of stone.",
+		"stackable": true,
+		"rarity": 6,
+		"slug":  "stone"
+	},
+	{
+		"id": 3,
+		"title": "Leaves",
+		"value": 1,
+		"stats": {
+			"power": 0,
+			"defense": 0,
+			"vitality": 0
+		},
+		"description": "Some leaves.",
+		"stackable": true,
+		"rarity": 6,
+		"slug":  "leaves"
+	},
+	{
+		"id": 4,
+		"title": "Log",
+		"value": 1,
+		"stats": {
+			"power": 0,
+			"defense": 0,
+			"vitality": 0
+		},
+		"description": "A block of wood.",
+		"stackable": true,
+		"rarity": 6,
+		"slug":  "log"
+	}
+]
