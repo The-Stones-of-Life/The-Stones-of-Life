@@ -12,7 +12,7 @@ public class OptionsMenu : MonoBehaviour
  
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Backspace) && isOpen == false) {
+        if (Input.GetKeyDown(KeyCode.Backspace) && isOpen == false && Player.uiLock == false) {
 			
 			OM.SetActive(true);
 			isOpen = true;

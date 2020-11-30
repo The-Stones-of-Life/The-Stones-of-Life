@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class Crafting : MonoBehaviour
 {
-  
-	private Inventory2 inv;
-
 	public GameObject plankRecipe;
 	public GameObject dirtRecipe;
 	public GameObject workbenchRecipe;
@@ -17,7 +14,6 @@ public class Crafting : MonoBehaviour
 	
     void Start()
     {
-        inv = GameObject.Find("Inventory").GetComponent<Inventory2>();
     }
 	
 	void Update()
@@ -25,7 +21,7 @@ public class Crafting : MonoBehaviour
 		
 		if (Input.GetKeyDown(KeyCode.C)) {
 			
-			if (isOpen == false) {
+			if (isOpen == false && Player.uiLock == false) {
 				
 				handCrafting.SetActive(true);
 				isOpen = true;
@@ -42,7 +38,7 @@ public class Crafting : MonoBehaviour
 			}
 		}
 
-        if (inv.logs >= 1) {
+        if (Inventory.logs >= 1) {
 			
 			plankRecipe.SetActive(true);
 			
@@ -51,16 +47,7 @@ public class Crafting : MonoBehaviour
 			plankRecipe.SetActive(false);
 		}
 		
-		if (inv.leaves >= 1) {
-			
-			dirtRecipe.SetActive(true);
-			
-		}
-		else {
-			dirtRecipe.SetActive(false);
-		}
-	
-		if (inv.planks >= 20) {
+		if (Inventory.planks >= 12) {
 			
 			workbenchRecipe.SetActive(true);
 			
@@ -72,27 +59,23 @@ public class Crafting : MonoBehaviour
 	
 	public void CraftPlanks() {
 		
-		inv.logs -= 1;
-		inv.planks += 5;
+		Player.inventory.RemoveItem(new Item { itemType = Item.ItemType.Log, amount = 1 });
+		Inventory.logs -= 1;
+		
+		Player.inventory.AddItem(new Item { itemType = Item.ItemType.Planks, amount = 6 });
+		Inventory.planks += 6;
 		
 	}
 	
 	public void CraftWorkbench() {
 		
-		inv.planks -= 20;
-		inv.workbench += 1;
+		Player.inventory.RemoveItem(new Item { itemType = Item.ItemType.Planks, amount = 12 });
+		Inventory.planks -= 12;
+		
+		Player.inventory.AddItem(new Item { itemType = Item.ItemType.Workbench, amount = 1 });
+		Inventory.workbench += 1;
 		
 	}
-	
-	public void CraftDirt() {
-		
-		inv.leaves -= 1;
-		inv.dirtBlocks += 5;
-		
-	}
-	
-
-	
 	
 	public void OpenCraftingMenu() {
 		

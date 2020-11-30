@@ -25,7 +25,7 @@ public class Spells : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.N) && isSMOpen == false) {
+        if (Input.GetKeyDown(KeyCode.N) && isSMOpen == false && Player.uiLock == false) {
 			isSMOpen = true;
 			SpellMenu.SetActive(true);
 		}

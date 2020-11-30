@@ -1,27 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TerrainEngine2D;
 
 public class Spacecraft : MonoBehaviour
 {
+	public SpriteRenderer player;
+	public CameraController cc;
 	
-	public static bool isFueling = false;
-	public static int fuel = 0;
+	public Rigidbody2D rb;
 	
-	void OnTriggerStay2D(Collider2D coll)
-    {
-		if (coll.gameObject.tag == "Player") {
-			
-			if (Input.GetKeyDown(KeyCode.F)) {
-				
-				if (COL.filled_oil >= 10) {
-					
-					fuel += 10;
-					
-				}
-				
-			}
-			
+	void Update() {
+		
+		if (Input.GetKeyDown(KeyCode.Space)) {
+			rb.AddForce(new Vector2(0, 8));
 		}
-    }
+		
+	}
+	
+	void OnMouseDown() {
+		
+		player.enabled = false;
+		cc.objectToFollow = this.transform;
+		
+	}
 }

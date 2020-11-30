@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Microsoft.Xna.Framework;
 
 public class AnvilOpen : MonoBehaviour
 {

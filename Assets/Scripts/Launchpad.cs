@@ -4,12 +4,4 @@ using UnityEngine;
 
 public class Launchpad : MonoBehaviour
 {
-    void OnTriggerEnter2D(Collider2D coll)
-    {
-        if (coll.gameObject.tag == "COL" && coll.gameObject.tag == "SC") {
-			
-			Spacecraft.isFueling = true;
-			
-		}
-    }
 }

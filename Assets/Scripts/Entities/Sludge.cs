@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class Sludge : MonoBehaviour
 {
-    public int health = 20;
+    public int health = 50;
 	public GameObject sludgeBall;
 	public Transform trans;
+	
+	Vector3 localScale;
+	
+	public Rigidbody2D rb;
 	
     void Update()
     {
@@ -22,41 +26,7 @@ public class Sludge : MonoBehaviour
 	
 	void OnMouseDown() {
 		
-		if (IronSword.isHolding == true) {
-			
-			health -= IronSword.damage;
-			IronSword.durability -= 100;			
-		}
-		else {
-		  health -= 1;
-		}
-		
-		if (StoneSword.isHolding == true) {
-			
-			health -= StoneSword.damage;
-			StoneSword.durability -= 100;			
-		}
-		else {
-		  health -= 1;
-		}
-		
-		if (GoldSword.isHolding == true) {
-			
-			health -= GoldSword.damage;
-			GoldSword.durability -= 100;			
-		}
-		else {
-		  health -= 1;
-		}
-		
-		if (DiamondSword.isHolding == true) {
-			
-			health -= DiamondSword.damage;
-			DiamondSword.durability -= 100;			
-		}
-		else {
-		  health -= 1;
-		}
+		health -= Player.Instance.damage;
 		
 	}
 	
@@ -64,15 +34,6 @@ public class Sludge : MonoBehaviour
 	{
 		if (coll.gameObject.tag == "Player") {
 			Health.health -= 7 - PlayerDefence.defense;
-		}
-	}
-	
-	void OnTriggerEnter2D(Collider2D coll) {
-		
-		if (coll.gameObject.tag == "FireSpell") {
-			
-			health -= 15;
-			
 		}
 	}
 }

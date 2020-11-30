@@ -47,6 +47,13 @@ public class Worksation : MonoBehaviour
 	public GameObject diamondAxeRecipe;
 	public GameObject diamondPickaxeRecipe;
 	public GameObject goldIngotRecipe;
+	public GameObject ironWireRecipe;
+	public GameObject electronicCaseRecipe;
+	public GameObject ironButtonRecipe;
+	public GameObject basicScreenRecipe;
+	public GameObject retroConsolRecipe;
+	public GameObject stoneArrowRecipe;
+	public GameObject woodenBowRecipe;
 
     void Start()
     {
@@ -54,70 +61,17 @@ public class Worksation : MonoBehaviour
     }
 
     void Update()
-    {
-        if (inv.logs >= 1) {
+	{
+		if (Inventory.stoneBlocks >= 10 && Inventory.planks >= 5 && Inventory.coal >= 2) {
 			
-			plankRecipe.SetActive(true);
+			furnaceRecipe.SetActive(true);
 			
 		}
 		else {
-			plankRecipe.SetActive(false);
+			furnaceRecipe.SetActive(false);
 		}
 		
-		if (inv.iron_ingot >= 10 && inv.wooden_rod >= 1) {
-			
-			ironSwordRecipe.SetActive(true);
-			
-		}
-		else {
-			ironSwordRecipe.SetActive(false);
-		}
-		
-		if (inv.iron_ingot >= 7 && inv.wooden_rod >= 1) {
-			
-			ironPickaxeRecipe.SetActive(true);
-			
-		}
-		else {
-			ironPickaxeRecipe.SetActive(false);
-		}
-		
-		if (inv.iron_ingot >= 5 && inv.wooden_rod >= 1) {
-			
-			ironAxeRecipe.SetActive(true);
-			
-		}
-		else {
-			ironAxeRecipe.SetActive(false);
-		}
-		
-		if (inv.iron_ingot >= 5) {
-			
-			anvilRecipe.SetActive(true);
-			
-		}
-		else {
-			anvilRecipe.SetActive(false);
-		}
-		
-		if (inv.planks >= 5) {
-			
-			chairRecipe.SetActive(true);
-			
-		}
-		else {
-			chairRecipe.SetActive(false);
-		}
-		
-		if (inv.planks >= 7) {
-			
-			tableRecipe.SetActive(true);
-			
-		}
-		else {
-			tableRecipe.SetActive(false);
-		}
-		if (inv.iron >= 2) {
+		if (Inventory.ironOre >= 4) {
 			
 			ironIngotRecipe.SetActive(true);
 			
@@ -126,274 +80,83 @@ public class Worksation : MonoBehaviour
 			ironIngotRecipe.SetActive(false);
 		}
 		
-		if (inv.mud >= 3) {
+		if (Inventory.ironIngot >= 1) {
 			
-			mudBrickRecipe.SetActive(true);
-			
-		}
-		else {
-			mudBrickRecipe.SetActive(false);
-		}
-		if (inv.stoneBlocks >= 20 && inv.coal >= 3) {
-			
-			furnaceRecipe.SetActive(true);
+			ironWireRecipe.SetActive(true);
 			
 		}
 		else {
-			furnaceRecipe.SetActive(false);
-		}
-		if (inv.logs >= 2) {
-			
-			paperRecipe.SetActive(true);
-			
-		}
-		else {
-			paperRecipe.SetActive(false);
-		}
-		if (inv.planks >= 5 && inv.magic_crystal >= 2) {
-			
-			arcaneWorkbenchRecipe.SetActive(true);
-			
-		}
-		else {
-			arcaneWorkbenchRecipe.SetActive(false);
-		}
-		if (inv.magic_crystal >= 1 && inv.wooden_rod >= 1) {
-			
-			magicStaffRecipe.SetActive(true);
-			
-		}
-		else {
-			magicStaffRecipe.SetActive(false);
-		}
-		if (inv.magic_crystal >= 1 && inv.paper >= 10) {
-			
-			spellBookRecipe.SetActive(true);
-			
-		}
-		else {
-			spellBookRecipe.SetActive(false);
-		}
-		if (inv.paper >= 1) {
-			
-			paperScrollRecipe.SetActive(true);
-			
-		}
-		else {
-			paperScrollRecipe.SetActive(false);
-		}
-		if (inv.magic_crystal >= 1) {
-			
-			magicDustRecipe.SetActive(true);
-			
-		}
-		else {
-			magicDustRecipe.SetActive(false);
-		}
-		if (inv.dirtBlocks >= 1) {
-			
-			testSpellRecipe.SetActive(true);
-			
-		}
-		else {
-			testSpellRecipe.SetActive(false);
+			ironWireRecipe.SetActive(false);
 		}
 		
-		if (inv.iron_ingot >= 12) {
+		if (Inventory.ironIngot >= 2) {
 			
-			ironHelmetRecipe.SetActive(true);
-			
-		}
-		else {
-			ironHelmetRecipe.SetActive(false);
-		}
-		if (inv.iron_ingot >= 24) {
-			
-			ironChestplateRecipe.SetActive(true);
+			ironButtonRecipe.SetActive(true);
 			
 		}
 		else {
-			ironChestplateRecipe.SetActive(false);
-		}
-		if (inv.iron_ingot >= 17) {
-			
-			ironLeggingsRecipe.SetActive(true);
-			
-		}
-		else {
-			ironLeggingsRecipe.SetActive(false);
-		}
-		if (inv.paper_scroll >= 1 && inv.magic_dust >= 15) {
-			
-			fireSpellRecipe.SetActive(true);
-			
-		}
-		else {
-			fireSpellRecipe.SetActive(false);
-		}
-		if (inv.iron_ingot >= 5) {
-			
-			mechanicalWorkbenchRecipe.SetActive(true);
-			
-		}
-		else {
-			mechanicalWorkbenchRecipe.SetActive(false);
-		}
-		if (inv.iron_ingot >= 35) {
-			
-			spacecraftBaseRecipe.SetActive(true);
-			
-		}
-		else {
-			spacecraftBaseRecipe.SetActive(false);
-		}
-		if (inv.iron_ingot >= 35) {
-			
-			spacecraftEngineRecipe.SetActive(true);
-			
-		}
-		else {
-			spacecraftEngineRecipe.SetActive(false);
-		}
-		if (inv.iron_ingot >= 5) {
-			
-			spacecraftFinRecipe.SetActive(true);
-			
-		}
-		else {
-			spacecraftFinRecipe.SetActive(false);
-		}
-		if (inv.iron_ingot >= 10) {
-			
-			spacecraftNoseRecipe.SetActive(true);
-			
-		}
-		else {
-			spacecraftNoseRecipe.SetActive(false);
-		}
-		if (inv.spacecraft_fin >= 2 && inv.spacecraft_base >= 1 && inv.spacecraft_engine >= 1 && inv.spacecraft_nose >= 1) {
-			
-			spacecraftRecipe.SetActive(true);
-			
-		}
-		else {
-			spacecraftRecipe.SetActive(false);
-		}
-		if (inv.planks >= 2 && inv.coal >= 5) {
-			
-			campfireRecipe.SetActive(true);
-			
-		}
-		else {
-			campfireRecipe.SetActive(false);
-		}
-		if (inv.raw_chicken >= 1) {
-			
-			cookedChickenRecipe.SetActive(true);
-			
-		}
-		else {
-			cookedChickenRecipe.SetActive(false);
-		}
-		if (inv.mud_brick >= 10) {
-			
-			brickBlockRecipe.SetActive(true);
-			
-		}
-		else {
-			brickBlockRecipe.SetActive(false);
-		}
-		if (inv.stoneBlocks >= 10 && inv.wooden_rod >= 1) {
-			
-			stoneBrickRecipe.SetActive(true);
-			
-		}
-		else {
-			stoneBrickRecipe.SetActive(false);
+			ironButtonRecipe.SetActive(false);
 		}
 		
-		if (inv.stoneBlocks >= 10 && inv.wooden_rod >= 1) {
+		if (Inventory.ironIngot >= 15) {
 			
-			stoneSwordRecipe.SetActive(true);
-			
-		}
-		else {
-			stoneSwordRecipe.SetActive(false);
-		}
-		if (inv.stoneBlocks >= 7 && inv.wooden_rod >= 1) {
-			
-			stonePickaxeRecipe.SetActive(true);
+			electronicCaseRecipe.SetActive(true);
 			
 		}
 		else {
-			stonePickaxeRecipe.SetActive(false);
-		}
-		if (inv.stoneBlocks >= 5 && inv.wooden_rod >= 1) {
-			
-			stoneAxeRecipe.SetActive(true);
-			
-		}
-		else {
-			stoneAxeRecipe.SetActive(false);
+			electronicCaseRecipe.SetActive(false);
 		}
 		
-		if (inv.gold_ingot >= 10 && inv.wooden_rod >= 1) {
+		if (Inventory.ironIngot >= 10) {
 			
-			goldSwordRecipe.SetActive(true);
-			
-		}
-		else {
-			goldSwordRecipe.SetActive(false);
-		}
-		if (inv.gold_ingot >= 7 && inv.wooden_rod >= 1) {
-			
-			goldSwordRecipe.SetActive(true);
+			basicScreenRecipe.SetActive(true);
 			
 		}
 		else {
-			goldSwordRecipe.SetActive(false);
-		}
-		if (inv.gold_ingot >= 5 && inv.wooden_rod >= 1) {
-			
-			goldAxeRecipe.SetActive(true);
-			
-		}
-		else {
-			goldAxeRecipe.SetActive(false);
+			basicScreenRecipe.SetActive(false);
 		}
 		
-		if (inv.diamond_ore >= 10 && inv.wooden_rod >= 1) {
-			
-			diamondSwordRecipe.SetActive(true);
-			
+		if (Inventory.ironWire >= 10 && Inventory.ironButton >= 8 && Inventory.electronicCase >= 1 && Inventory.basicScreen >= 1) {
+			retroConsolRecipe.SetActive(true);
 		}
 		else {
-			diamondSwordRecipe.SetActive(false);
-		}
-		if (inv.diamond_ore >= 7 && inv.wooden_rod >= 1) {
-			
-			diamondPickaxeRecipe.SetActive(true);
-			
-		}
-		else {
-			diamondPickaxeRecipe.SetActive(false);
-		}
-		if (inv.diamond_ore >= 5 && inv.wooden_rod >= 1) {
-			
-			diamondAxeRecipe.SetActive(true);
-			
-		}
-		else {
-			diamondAxeRecipe.SetActive(false);
+			retroConsolRecipe.SetActive(false);
 		}
 		
-		if (inv.gold >= 2) {
+		if (Inventory.ironIngot >= 5) {
 			
-			goldIngotRecipe.SetActive(true);
+			anvilRecipe.SetActive(true);
 			
 		}
 		else {
-			goldIngotRecipe.SetActive(false);
+			anvilRecipe.SetActive(false);
+		}
+		
+		if (Inventory.ironIngot >= 12 && Inventory.sticks >= 2) {
+			
+			ironSwordRecipe.SetActive(true);
+			
+		}
+		else {
+			ironSwordRecipe.SetActive(false);
+		}
+		
+		if (Inventory.sticks >= 5) {
+			
+			woodenBowRecipe.SetActive(true);
+			
+		}
+		else {
+			woodenBowRecipe.SetActive(false);
+		}
+		
+		if (Inventory.sticks >= 1 && Inventory.stoneBlocks >= 2) {
+			
+			stoneArrowRecipe.SetActive(true);
+			
+		}
+		else {
+			stoneArrowRecipe.SetActive(false);
 		}
     }
 	
@@ -403,12 +166,37 @@ public class Worksation : MonoBehaviour
 		inv.planks += 5;
 		
 	}
+	public void CraftWoodenBow() {
+		
+		Player.inventory.RemoveItem(new Item { itemType = Item.ItemType.Sticks, amount = 5 });
+		Inventory.sticks -= 5;
+		
+		Player.inventory.AddItem(new Item { itemType = Item.ItemType.WoodenBow, amount = 1 });		
+		Inventory.woodenBow += 1;
+		
+	}
+	public void CraftStoneArrow() {
+		
+		Player.inventory.RemoveItem(new Item { itemType = Item.ItemType.Sticks, amount = 1 });
+		Inventory.ironIngot -= 1;
+		
+		Player.inventory.RemoveItem(new Item { itemType = Item.ItemType.Stone, amount = 2 });
+		Inventory.stoneBlocks -= 2;
+		
+		Player.inventory.AddItem(new Item { itemType = Item.ItemType.StoneArrow, amount = 4 });		
+		Inventory.stoneArrow += 4;
+		
+	}
 	public void CraftIronSword() {
 		
-		inv.iron_ingot -= 10;
-		inv.wooden_rod -= 1;
-		inv.iron_sword += 1;
+		Player.inventory.RemoveItem(new Item { itemType = Item.ItemType.IronIngot, amount = 12 });
+		Inventory.ironIngot -= 12;
 		
+		Player.inventory.RemoveItem(new Item { itemType = Item.ItemType.Sticks, amount = 2 });
+		Inventory.sticks -= 2;
+		
+		Player.inventory.AddItem(new Item { itemType = Item.ItemType.IronSword, amount = 1 });		
+		Inventory.ironSword += 1;
 	}
 	public void CraftIronAxe() {
 		
@@ -426,8 +214,11 @@ public class Worksation : MonoBehaviour
 	}
 	public void CraftAnvil() {
 		
-		inv.iron_ingot -= 5;
-		inv.anvil += 1;
+		Player.inventory.RemoveItem(new Item { itemType = Item.ItemType.IronIngot, amount = 5 });
+		Inventory.ironIngot -= 5;
+		
+		Player.inventory.AddItem(new Item { itemType = Item.ItemType.Anvil, amount = 1 });		
+		Inventory.anvil += 1;
 		
 	}
 	
@@ -445,9 +236,11 @@ public class Worksation : MonoBehaviour
 	}
 	
 	public void CraftIronIngot() {
-		
-		inv.iron -= 2;
-		inv.iron_ingot += 1;
+
+		Player.inventory.AddItem(new Item { itemType = Item.ItemType.IronIngot, amount = 1 });
+		Player.inventory.RemoveItem(new Item { itemType = Item.ItemType.IronOre, amount = 4 });
+		Inventory.ironOre -= 4;
+		Inventory.ironIngot += 1;
 		
 	}
 	public void CraftMudBrick() {
@@ -458,9 +251,16 @@ public class Worksation : MonoBehaviour
 	}
 	public void CraftFurnace() {
 		
-		inv.stoneBlocks -= 20;
-		inv.coal -= 3;
-		inv.furnace += 1;
+		Player.inventory.RemoveItem(new Item { itemType = Item.ItemType.Stone, amount = 10 });
+		Inventory.stoneBlocks -= 10;
+		
+		Player.inventory.RemoveItem(new Item { itemType = Item.ItemType.Planks, amount = 5 });
+		Inventory.planks -= 5;
+		
+		Player.inventory.RemoveItem(new Item { itemType = Item.ItemType.Coal, amount = 2 });
+		Inventory.coal -= 2;
+		Player.inventory.AddItem(new Item { itemType = Item.ItemType.Furnace, amount = 1 });
+		Inventory.furnace += 1;
 		
 	}
 	public void CraftPaper() {
@@ -666,6 +466,60 @@ public class Worksation : MonoBehaviour
 		
 		inv.gold -= 2;
 		inv.gold_ingot += 1;
+		
+	}
+	public void CraftIronWire() {
+		
+		Player.inventory.RemoveItem(new Item { itemType = Item.ItemType.IronIngot, amount = 1 });		
+		Inventory.ironIngot -= 1;
+		
+		Player.inventory.AddItem(new Item { itemType = Item.ItemType.IronWire, amount = 1 });
+		Inventory.ironWire += 1;
+		
+	}
+	public void CraftIronButton() {
+		
+		Player.inventory.RemoveItem(new Item { itemType = Item.ItemType.IronIngot, amount = 2 });		
+		Inventory.ironIngot -= 2;
+		
+		Player.inventory.AddItem(new Item { itemType = Item.ItemType.IronButton, amount = 1 });
+		Inventory.ironButton += 1;
+		
+	}
+	public void CraftElecttronicCase() {
+		
+		Player.inventory.RemoveItem(new Item { itemType = Item.ItemType.IronIngot, amount = 15 });		
+		Inventory.ironIngot -= 15;
+		
+		Player.inventory.AddItem(new Item { itemType = Item.ItemType.ElectronicCase, amount = 1 });
+		Inventory.electronicCase += 1;
+		
+	}
+	public void CraftBasicScreen() {
+		
+		Player.inventory.RemoveItem(new Item { itemType = Item.ItemType.IronIngot, amount = 10 });		
+		Inventory.ironIngot -= 10;
+		
+		Player.inventory.AddItem(new Item { itemType = Item.ItemType.BasicScreen, amount = 1 });
+		Inventory.basicScreen += 1;
+		
+	}
+	public void CraftRetroConsol() {
+		
+		Player.inventory.RemoveItem(new Item { itemType = Item.ItemType.IronWire, amount = 10 });		
+		Inventory.ironWire -= 10;
+		
+		Player.inventory.RemoveItem(new Item { itemType = Item.ItemType.IronButton, amount = 9 });		
+		Inventory.ironButton -= 8;
+		
+		Player.inventory.RemoveItem(new Item { itemType = Item.ItemType.ElectronicCase, amount = 1 });		
+		Inventory.electronicCase -= 1;
+		
+		Player.inventory.RemoveItem(new Item { itemType = Item.ItemType.BasicScreen, amount = 1 });		
+		Inventory.basicScreen -= 1;
+		
+		Player.inventory.AddItem(new Item { itemType = Item.ItemType.RetroConsol, amount = 1 });
+		Inventory.retroConsol += 1;
 		
 	}
 }

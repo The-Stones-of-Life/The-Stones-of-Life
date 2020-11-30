@@ -55,7 +55,6 @@ public class NetworkManagerTsol : NetworkManager
         {
             // create a gameobject using the name supplied by client
             GameObject playergo = Instantiate(playerPrefab);
-            playergo.GetComponent<Player>().playerName = createPlayerMessage.name;
 
             // set it as the player
             NetworkServer.AddPlayerForConnection(connection, playergo);

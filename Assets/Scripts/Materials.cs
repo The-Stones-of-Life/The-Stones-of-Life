@@ -77,7 +77,7 @@ public class Materials : MonoBehaviour
 			foodMenu.SetActive(false);
 		}
 		
-		if (Input.GetKeyDown(KeyCode.M) && isMOpen == false) {
+		if (Input.GetKeyDown(KeyCode.M) && isMOpen == false && Player.uiLock == false) {
 			isMOpen = true;
 			MaterialsMenu.SetActive(true);
 		}

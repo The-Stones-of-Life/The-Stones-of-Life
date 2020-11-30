@@ -29,9 +29,9 @@ MonoBehaviour:
     referenceMode: 2
     serializationDepthLimit: 32
     assemblyNames:
+    - Assembly-CSharp
     - mod.io.UnityPlugin
     - Assembly-CSharp-firstpass
-    - Assembly-CSharp
     - PhotonUnityNetworking.Demos
     - PhotonUnityNetworking.Utilities
     - Mirror
@@ -41,6 +41,7 @@ MonoBehaviour:
     - Ninja.WebSockets
     - Mirror.Examples
     - PhotonRealtime
+    - V_Animation
     - Mirror.Authenticators
     - PhotonWebSocket
     - Mirror.Weaver

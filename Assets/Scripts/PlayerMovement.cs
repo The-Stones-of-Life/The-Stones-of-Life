@@ -8,7 +8,9 @@ public class PlayerMovement : MonoBehaviour {
 
 	public Animator animator;	
 
-	public static float runSpeed = 40f;
+	public static bool lockMovement = false;
+
+	public static float runSpeed = 20f;
 
 	float horizontalMove = 0f;
 	bool jump = false;
@@ -17,23 +19,25 @@ public class PlayerMovement : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
+		if (lockMovement == false) {
 
-		animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
+			horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
 
-		if (Input.GetButtonDown("Jump"))
-		{
-			jump = true;
+			animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
+
+			if (Input.GetButtonDown("Jump"))
+			{
+				jump = true;
+			}
+
+			if (Input.GetButtonDown("Crouch"))
+			{
+				crouch = true;
+			} else if (Input.GetButtonUp("Crouch"))
+			{
+				crouch = false;
+			}
 		}
-
-		if (Input.GetButtonDown("Crouch"))
-		{
-			crouch = true;
-		} else if (Input.GetButtonUp("Crouch"))
-		{
-			crouch = false;
-		}
-
 	}
 
 	void FixedUpdate ()

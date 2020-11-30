@@ -58,7 +58,7 @@ public class Equipment : MonoBehaviour
 	
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && isEOpen == false) {
+        if (Input.GetKeyDown(KeyCode.E) && isEOpen == false && Player.uiLock == false) {
 			
 			equipmentUI.SetActive(true);
 			isEOpen = true;

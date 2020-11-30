@@ -53,4 +53,8 @@ public class Health : MonoBehaviour
 			health = maxHealth;
 		}
 	}
+	
+	public void damageSelf(int damage) {
+		health -= damage;
+	}
 }
