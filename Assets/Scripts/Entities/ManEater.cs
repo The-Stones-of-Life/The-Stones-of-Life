@@ -13,7 +13,6 @@ public class ManEater : AIBase
 	
 	void OnTriggerEnter2D(Collider2D coll) {
 		if (coll.gameObject.tag == "Player") {
-			pHealth.damageSelf(2);
 			PlayerMovement.lockMovement = true;
 		}
 	}

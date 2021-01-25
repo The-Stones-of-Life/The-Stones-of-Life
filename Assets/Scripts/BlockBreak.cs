@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections;
-using Unity.RemoteConfig;
 using UnityEngine;
 
 public class BlockBreak : MonoBehaviour
@@ -29,19 +28,8 @@ public class BlockBreak : MonoBehaviour
 	
 	public Transform trans;
 
-	void Awake () {
-        // Add a listener to apply settings when successfully retrieved:
-        ConfigManager.FetchCompleted += ApplyRemoteSettings;
-		
-        // Fetch configuration setting from the remote service:
-        ConfigManager.FetchConfigs<userAttributes, appAttributes>(new userAttributes(), new appAttributes());
-    }
-
-	void ApplyRemoteSettings(ConfigResponse configResponse) {
-		
-		CMHealth = ConfigManager.appConfig.GetInt("CMBlockHealth");
-		
-		health += CMHealth;	
+	void Awake()
+	{
 	}
 	
 	void Start() {

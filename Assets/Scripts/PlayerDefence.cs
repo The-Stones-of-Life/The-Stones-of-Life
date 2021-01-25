@@ -12,11 +12,10 @@ public class PlayerDefence : MonoBehaviour
 
     void Start()
     {
-		defT = GameObject.Find("Def").GetComponent<Text>();
+
     }
 	
 	void Update()
     {
-		defT.text = defense.ToString();
     }
 }

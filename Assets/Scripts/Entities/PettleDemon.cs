@@ -42,7 +42,7 @@ public class PettleDemon : AIBase
 	
 	void OnCollisionEnter2D(Collision2D coll) {
 		if (coll.gameObject.tag == "Player") {
-			pHealth.damageSelf(5);
+
 		}
 	}
 }

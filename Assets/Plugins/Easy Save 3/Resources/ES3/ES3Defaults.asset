@@ -30,28 +30,8 @@ MonoBehaviour:
     serializationDepthLimit: 32
     assemblyNames:
     - Assembly-CSharp
-    - mod.io.UnityPlugin
     - Assembly-CSharp-firstpass
-    - PhotonUnityNetworking.Demos
-    - PhotonUnityNetworking.Utilities
-    - Mirror
-    - PhotonChat
-    - Mirror.Components
-    - PhotonUnityNetworking
-    - Ninja.WebSockets
-    - Mirror.Examples
-    - PhotonRealtime
     - V_Animation
-    - Mirror.Authenticators
-    - PhotonWebSocket
-    - Mirror.Weaver
-    - Mirror.Editor
-    - PhotonUnityNetworking.Editor
-    - PunDemos.DemoHubEditor
-    - PhotonUnityNetworking.Utilities.PhotonPlayer.Editor
-    - PhotonUnityNetworking.Utilities.Culling.Editor
-    - PunDemos.DemoSlotcarEditor
-    - Mirror.CompilerSymbols
     showAdvancedSettings: 0
   addMgrToSceneAutomatically: 0
   autoUpdateReferences: 1

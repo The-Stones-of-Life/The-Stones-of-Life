@@ -81,14 +81,6 @@ public class Player : MonoBehaviour {
 		if (Input.GetMouseButtonDown(0)) {
 			Swing();
 		}
-		
-		romFile.onEndEdit.AddListener(delegate{HideRomInput();});
-		
-		if (Input.GetKeyDown(KeyCode.Escape)) {
-			retroScreen.SetActive(false);
-			romFileO.SetActive(false);
-			uiLock = false;
-		}
 	}
 
     private void UseItem(Item item) {
