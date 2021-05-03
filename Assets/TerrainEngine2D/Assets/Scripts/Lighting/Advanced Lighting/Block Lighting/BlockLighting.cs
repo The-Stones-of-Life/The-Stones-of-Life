@@ -12,6 +12,7 @@ namespace TerrainEngine2D.Lighting
     public class BlockLighting : MonoBehaviour
     {
         private World world;
+        private WorldMultiplayer worldMultiplayer;
         [SerializeField]
         [Tooltip("The amount of blocks a light of full intensity will transmit through")]
         private int lightTransmission = 5;
@@ -92,14 +93,29 @@ namespace TerrainEngine2D.Lighting
 
         private void OnEnable()
         {
-            World.OnBlockPlaced += BlockPlaced;
-            World.OnBlockRemoved += BlockRemoved;
+            if (GameObject.Find("NetworkManager") != null) {
+                WorldMultiplayer.OnBlockPlaced += BlockPlaced;
+                WorldMultiplayer.OnBlockRemoved += BlockRemoved;
+            }
+            else
+            {
+                World.OnBlockPlaced += BlockPlaced;
+                World.OnBlockRemoved += BlockRemoved;
+            }
         }
 
         private void OnDisable()
         {
-            World.OnBlockPlaced -= BlockPlaced;
-            World.OnBlockRemoved -= BlockRemoved;
+            if (GameObject.Find("NetworkManager") != null)
+            {
+                WorldMultiplayer.OnBlockPlaced -= BlockPlaced;
+                WorldMultiplayer.OnBlockRemoved -= BlockRemoved;
+            }
+            else
+            {
+                World.OnBlockPlaced -= BlockPlaced;
+                World.OnBlockRemoved -= BlockRemoved;
+            }
         }
 
         private void Start()
@@ -114,25 +130,49 @@ namespace TerrainEngine2D.Lighting
         /// </summary>
         public void Initialize()
         {
-            if (world == null)
-                world = World.Instance;
+            if (GameObject.Find("NetworkManager") != null)
+            {
+                if (worldMultiplayer == null)
+                    worldMultiplayer = WorldMultiplayer.Instance;
 
-            lightSources = new Dictionary<Vector2Int, Color32>();
-            lightSourceMap = new bool[world.WorldWidth, world.WorldHeight];
+                lightSources = new Dictionary<Vector2Int, Color32>();
+                lightSourceMap = new bool[worldMultiplayer.WorldWidth, worldMultiplayer.WorldHeight];
 
-            lightNodes = new Queue<BlockLightNode>();
-            clearNodes = new Queue<BlockLightNode>();
-            updateNodes = new HashSet<BlockLightNode>();
+                lightNodes = new Queue<BlockLightNode>();
+                clearNodes = new Queue<BlockLightNode>();
+                updateNodes = new HashSet<BlockLightNode>();
 
-            //Initialize the light map for the world
-            lightMap = new Color32[world.WorldWidth, world.WorldHeight];
+                //Initialize the light map for the world
+                 lightMap = new Color32[worldMultiplayer.WorldWidth, worldMultiplayer.WorldHeight];
 
-            //Calculate the color intensity drop values
-            spreadIntensityDrop = (byte)(byte.MaxValue / (lightSpread + 1));
-            transmissionIntensityDrop = (byte)(byte.MaxValue / (lightTransmission + 1));
-            transmissionIntensityDrop = (byte)Mathf.Max(0, transmissionIntensityDrop - spreadIntensityDrop);
+                //Calculate the color intensity drop values
+                spreadIntensityDrop = (byte)(byte.MaxValue / (lightSpread + 1));
+                transmissionIntensityDrop = (byte)(byte.MaxValue / (lightTransmission + 1));
+                transmissionIntensityDrop = (byte)Mathf.Max(0, transmissionIntensityDrop - spreadIntensityDrop);
 
-            initialized = true;
+                initialized = true;
+            } else
+            {
+                if (world == null)
+                    world = World.Instance;
+
+                lightSources = new Dictionary<Vector2Int, Color32>();
+                lightSourceMap = new bool[world.WorldWidth, world.WorldHeight];
+
+                lightNodes = new Queue<BlockLightNode>();
+                clearNodes = new Queue<BlockLightNode>();
+                updateNodes = new HashSet<BlockLightNode>();
+
+                //Initialize the light map for the world
+                lightMap = new Color32[world.WorldWidth, world.WorldHeight];
+
+                //Calculate the color intensity drop values
+                spreadIntensityDrop = (byte)(byte.MaxValue / (lightSpread + 1));
+                transmissionIntensityDrop = (byte)(byte.MaxValue / (lightTransmission + 1));
+                transmissionIntensityDrop = (byte)Mathf.Max(0, transmissionIntensityDrop - spreadIntensityDrop);
+
+                initialized = true;
+            }
         }
 
         /// <summary>
@@ -300,14 +340,27 @@ namespace TerrainEngine2D.Lighting
         /// <param name="blockLightNodes">The light node queue to spread the lighting across</param>
         private void ClearLightSpread(BlockLightNode clearNode, Queue<BlockLightNode> blockLightNodes)
         {
-            if (clearNode.x < world.WorldWidth - 1 && clearNode.x - clearNode.OriginX < lightSpread)
-                blockLightNodes.Enqueue(new BlockLightNode(clearNode.Color, clearNode.x + 1, clearNode.y, clearNode.OriginX, clearNode.OriginY));
-            if (clearNode.x > 0 && clearNode.OriginX - clearNode.x < lightSpread)
-                blockLightNodes.Enqueue(new BlockLightNode(clearNode.Color, clearNode.x - 1, clearNode.y, clearNode.OriginX, clearNode.OriginY));
-            if (clearNode.y < world.WorldHeight - 1 && clearNode.y - clearNode.OriginY < lightSpread)
-                blockLightNodes.Enqueue(new BlockLightNode(clearNode.Color, clearNode.x, clearNode.y + 1, clearNode.OriginX, clearNode.OriginY));
-            if (clearNode.y > 0 && clearNode.OriginY - clearNode.y < lightSpread)
-                blockLightNodes.Enqueue(new BlockLightNode(clearNode.Color, clearNode.x, clearNode.y - 1, clearNode.OriginX, clearNode.OriginY));
+            if (GameObject.Find("NetworkManager") != null)
+            {
+                if (clearNode.x < worldMultiplayer.WorldWidth - 1 && clearNode.x - clearNode.OriginX < lightSpread)
+                    blockLightNodes.Enqueue(new BlockLightNode(clearNode.Color, clearNode.x + 1, clearNode.y, clearNode.OriginX, clearNode.OriginY));
+                if (clearNode.x > 0 && clearNode.OriginX - clearNode.x < lightSpread)
+                    blockLightNodes.Enqueue(new BlockLightNode(clearNode.Color, clearNode.x - 1, clearNode.y, clearNode.OriginX, clearNode.OriginY));
+                if (clearNode.y < worldMultiplayer.WorldHeight - 1 && clearNode.y - clearNode.OriginY < lightSpread)
+                    blockLightNodes.Enqueue(new BlockLightNode(clearNode.Color, clearNode.x, clearNode.y + 1, clearNode.OriginX, clearNode.OriginY));
+                if (clearNode.y > 0 && clearNode.OriginY - clearNode.y < lightSpread)
+                    blockLightNodes.Enqueue(new BlockLightNode(clearNode.Color, clearNode.x, clearNode.y - 1, clearNode.OriginX, clearNode.OriginY));
+            } else
+            {
+                if (clearNode.x < world.WorldWidth - 1 && clearNode.x - clearNode.OriginX < lightSpread)
+                    blockLightNodes.Enqueue(new BlockLightNode(clearNode.Color, clearNode.x + 1, clearNode.y, clearNode.OriginX, clearNode.OriginY));
+                if (clearNode.x > 0 && clearNode.OriginX - clearNode.x < lightSpread)
+                    blockLightNodes.Enqueue(new BlockLightNode(clearNode.Color, clearNode.x - 1, clearNode.y, clearNode.OriginX, clearNode.OriginY));
+                if (clearNode.y < world.WorldHeight - 1 && clearNode.y - clearNode.OriginY < lightSpread)
+                    blockLightNodes.Enqueue(new BlockLightNode(clearNode.Color, clearNode.x, clearNode.y + 1, clearNode.OriginX, clearNode.OriginY));
+                if (clearNode.y > 0 && clearNode.OriginY - clearNode.y < lightSpread)
+                    blockLightNodes.Enqueue(new BlockLightNode(clearNode.Color, clearNode.x, clearNode.y - 1, clearNode.OriginX, clearNode.OriginY));
+            }
         }
 
 
@@ -318,14 +371,28 @@ namespace TerrainEngine2D.Lighting
         /// <param name="blockLightNodes">The light node queue to spread the lighting across</param>
         private void SpreadLight(BlockLightNode lightNode, Queue<BlockLightNode> blockLightNodes)
         {
-            if (lightNode.x < world.WorldWidth - 1)
-                blockLightNodes.Enqueue(new BlockLightNode(lightNode.Color, lightNode.x + 1, lightNode.y, lightNode.OriginX, lightNode.OriginY));
-            if (lightNode.x > 0)
-                blockLightNodes.Enqueue(new BlockLightNode(lightNode.Color, lightNode.x - 1, lightNode.y, lightNode.OriginX, lightNode.OriginY));
-            if (lightNode.y < world.WorldHeight - 1)
-                blockLightNodes.Enqueue(new BlockLightNode(lightNode.Color, lightNode.x, lightNode.y + 1, lightNode.OriginX, lightNode.OriginY));
-            if (lightNode.y > 0)
-                blockLightNodes.Enqueue(new BlockLightNode(lightNode.Color, lightNode.x, lightNode.y - 1, lightNode.OriginX, lightNode.OriginY));
+            if (GameObject.Find("NetworkManager") != null)
+            {
+                if (lightNode.x < worldMultiplayer.WorldWidth - 1)
+                    blockLightNodes.Enqueue(new BlockLightNode(lightNode.Color, lightNode.x + 1, lightNode.y, lightNode.OriginX, lightNode.OriginY));
+                if (lightNode.x > 0)
+                    blockLightNodes.Enqueue(new BlockLightNode(lightNode.Color, lightNode.x - 1, lightNode.y, lightNode.OriginX, lightNode.OriginY));
+                if (lightNode.y < worldMultiplayer.WorldHeight - 1)
+                    blockLightNodes.Enqueue(new BlockLightNode(lightNode.Color, lightNode.x, lightNode.y + 1, lightNode.OriginX, lightNode.OriginY));
+                if (lightNode.y > 0)
+                    blockLightNodes.Enqueue(new BlockLightNode(lightNode.Color, lightNode.x, lightNode.y - 1, lightNode.OriginX, lightNode.OriginY));
+
+            } else
+            {
+                if (lightNode.x < world.WorldWidth - 1)
+                    blockLightNodes.Enqueue(new BlockLightNode(lightNode.Color, lightNode.x + 1, lightNode.y, lightNode.OriginX, lightNode.OriginY));
+                if (lightNode.x > 0)
+                    blockLightNodes.Enqueue(new BlockLightNode(lightNode.Color, lightNode.x - 1, lightNode.y, lightNode.OriginX, lightNode.OriginY));
+                if (lightNode.y < world.WorldHeight - 1)
+                    blockLightNodes.Enqueue(new BlockLightNode(lightNode.Color, lightNode.x, lightNode.y + 1, lightNode.OriginX, lightNode.OriginY));
+                if (lightNode.y > 0)
+                    blockLightNodes.Enqueue(new BlockLightNode(lightNode.Color, lightNode.x, lightNode.y - 1, lightNode.OriginX, lightNode.OriginY));
+            }
         }
 
         /// <summary>
@@ -337,11 +404,21 @@ namespace TerrainEngine2D.Lighting
         /// <returns>Returns the amount of light intensity to drop in bytes</returns>
         private byte GetIntensityDrop(int x, int y)
         {
-            //If there is a block in the light layer at the given coordinates than add the transmissionIntensityDrop to the total
-            //This transmissionIntensityDrop value represents the amount of light blocked/absorbed by the terrain
-            if (world.GetBlockLayer(world.LightLayer).IsBlockAt(x, y))
-                return (byte)(spreadIntensityDrop + transmissionIntensityDrop);
-            return spreadIntensityDrop;
+            if (GameObject.Find("NetworkManager") != null)
+            {
+                //If there is a block in the light layer at the given coordinates than add the transmissionIntensityDrop to the total
+                //This transmissionIntensityDrop value represents the amount of light blocked/absorbed by the terrain
+                if (worldMultiplayer.GetBlockLayer(worldMultiplayer.LightLayer).IsBlockAt(x, y))
+                    return (byte)(spreadIntensityDrop + transmissionIntensityDrop);
+                return spreadIntensityDrop;
+            } else
+            {
+                //If there is a block in the light layer at the given coordinates than add the transmissionIntensityDrop to the total
+                //This transmissionIntensityDrop value represents the amount of light blocked/absorbed by the terrain
+                if (world.GetBlockLayer(world.LightLayer).IsBlockAt(x, y))
+                    return (byte)(spreadIntensityDrop + transmissionIntensityDrop);
+                return spreadIntensityDrop;
+            }
         }
 
         /// <summary>
@@ -500,33 +577,72 @@ namespace TerrainEngine2D.Lighting
         /// <param name="blockType">The type of block placed</param>
         private void BlockPlaced(int x, int y, byte layer, byte blockType)
         {
-            if (layer == world.LightLayer)
+            if (GameObject.Find("NetworkManager") != null)
             {
-                BlockInfo blockInfo = world.GetBlockLayer(layer).GetBlockInfo(blockType);
-                if (blockInfo.MultiBlock)
+                if (layer == worldMultiplayer.LightLayer)
                 {
-                    for (int i = 0; i < blockInfo.TextureWidth; i++)
+                    BlockInfo blockInfo = worldMultiplayer.GetBlockLayer(layer).GetBlockInfo(blockType);
+                    if (blockInfo.MultiBlock)
                     {
-                        for (int j = 0; j < blockInfo.TextureHeight; j++)
+                        for (int i = 0; i < blockInfo.TextureWidth; i++)
                         {
-                            //If there is no block in the AmbientLightLayer there must be an ambient light source there (which should not be removed)
-                            if (world.GetBlockLayer(world.AmbientLightLayer).IsBlockAt(x + i, y + j))
+                            for (int j = 0; j < blockInfo.TextureHeight; j++)
                             {
-                                if (!RemoveLightSource(new Vector2Int(x + i, y + j)))
+                                //If there is no block in the AmbientLightLayer there must be an ambient light source there (which should not be removed)
+                                if (worldMultiplayer.GetBlockLayer(worldMultiplayer.AmbientLightLayer).IsBlockAt(x + i, y + j))
+                                {
+                                    if (!RemoveLightSource(new Vector2Int(x + i, y + j)))
+                                        UpdateLight(x + i, y + j);
+                                }
+                                else
                                     UpdateLight(x + i, y + j);
-                            } else
-                                UpdateLight(x + i, y + j);
+                            }
                         }
                     }
-                }
-                else
-                {
-                    if (world.GetBlockLayer(world.AmbientLightLayer).IsBlockAt(x, y))
+                    else
                     {
-                        if (!RemoveLightSource(new Vector2Int(x, y)))
+                        if (world.GetBlockLayer(world.AmbientLightLayer).IsBlockAt(x, y))
+                        {
+                            if (!RemoveLightSource(new Vector2Int(x, y)))
+                                UpdateLight(x, y);
+                        }
+                        else
                             UpdateLight(x, y);
-                    } else
-                        UpdateLight(x, y);
+                    }
+                }
+            }
+            else
+            {
+                if (layer == world.LightLayer)
+                {
+                    BlockInfo blockInfo = world.GetBlockLayer(layer).GetBlockInfo(blockType);
+                    if (blockInfo.MultiBlock)
+                    {
+                        for (int i = 0; i < blockInfo.TextureWidth; i++)
+                        {
+                            for (int j = 0; j < blockInfo.TextureHeight; j++)
+                            {
+                                //If there is no block in the AmbientLightLayer there must be an ambient light source there (which should not be removed)
+                                if (world.GetBlockLayer(world.AmbientLightLayer).IsBlockAt(x + i, y + j))
+                                {
+                                    if (!RemoveLightSource(new Vector2Int(x + i, y + j)))
+                                        UpdateLight(x + i, y + j);
+                                }
+                                else
+                                    UpdateLight(x + i, y + j);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (world.GetBlockLayer(world.AmbientLightLayer).IsBlockAt(x, y))
+                        {
+                            if (!RemoveLightSource(new Vector2Int(x, y)))
+                                UpdateLight(x, y);
+                        }
+                        else
+                            UpdateLight(x, y);
+                    }
                 }
             }
         }
@@ -540,21 +656,43 @@ namespace TerrainEngine2D.Lighting
         /// <param name="blockType">The type of block removed</param>
         private void BlockRemoved(int x, int y, byte layer, byte blockType)
         {
-            if (layer == world.LightLayer)
+            if (GameObject.Find("NetworkManager") != null)
             {
-                BlockInfo blockInfo = world.GetBlockLayer(layer).GetBlockInfo(blockType);
-                if (blockInfo.MultiBlock)
+                if (layer == worldMultiplayer.LightLayer)
                 {
-                    for (int i = 0; i < blockInfo.TextureWidth; i++)
+                    BlockInfo blockInfo = worldMultiplayer.GetBlockLayer(layer).GetBlockInfo(blockType);
+                    if (blockInfo.MultiBlock)
                     {
-                        for (int j = 0; j < blockInfo.TextureHeight; j++)
+                        for (int i = 0; i < blockInfo.TextureWidth; i++)
                         {
-                            UpdateLight(x + i, y + j);
+                            for (int j = 0; j < blockInfo.TextureHeight; j++)
+                            {
+                                UpdateLight(x + i, y + j);
+                            }
                         }
                     }
+                    else
+                        UpdateLight(x, y);
                 }
-                else
-                    UpdateLight(x, y);
+            }
+            else
+            {
+                if (layer == world.LightLayer)
+                {
+                    BlockInfo blockInfo = world.GetBlockLayer(layer).GetBlockInfo(blockType);
+                    if (blockInfo.MultiBlock)
+                    {
+                        for (int i = 0; i < blockInfo.TextureWidth; i++)
+                        {
+                            for (int j = 0; j < blockInfo.TextureHeight; j++)
+                            {
+                                UpdateLight(x + i, y + j);
+                            }
+                        }
+                    }
+                    else
+                        UpdateLight(x, y);
+                }
             }
         }
     }

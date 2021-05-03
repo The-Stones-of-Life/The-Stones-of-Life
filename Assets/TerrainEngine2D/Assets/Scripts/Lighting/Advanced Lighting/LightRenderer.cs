@@ -12,6 +12,7 @@ namespace TerrainEngine2D.Lighting
     public class LightRenderer :MonoBehaviourSingleton<LightRenderer>
     {
         private World world;
+        private WorldMultiplayer worldMultiplayer;
 
         [Header("Cameras")]
         /// <summary>
@@ -78,11 +79,21 @@ namespace TerrainEngine2D.Lighting
 
         private void Start()
         {
-            world = World.Instance;
+            if (GameObject.Find("NetworkManager") != null)
+            {
+                worldMultiplayer = WorldMultiplayer.Instance;
 
-            DownRes = World.WorldData.DownRes;
-            NumberBlurPasses = World.WorldData.NumberBlurPasses;
-            lightRenderTexture.filterMode = FilterMode.Point;
+                DownRes = WorldMultiplayer.WorldData.DownRes;
+                NumberBlurPasses = WorldMultiplayer.WorldData.NumberBlurPasses;
+                lightRenderTexture.filterMode = FilterMode.Point;
+            } else
+            {
+                world = World.Instance;
+
+                DownRes = World.WorldData.DownRes;
+                NumberBlurPasses = World.WorldData.NumberBlurPasses;
+                lightRenderTexture.filterMode = FilterMode.Point;
+            }
         }
 
         private void Update()
@@ -146,9 +157,16 @@ namespace TerrainEngine2D.Lighting
         /// <returns>Returns the color of the pixel</returns>
         public Color GetLightColor(Vector2Int pixelCoordinate)
         {
-            if (world.LightingDisabled || world.BasicLighting)
-                return Color.clear;
-
+            if (GameObject.Find("NetworkManager") != null)
+            {
+                if (worldMultiplayer.LightingDisabled || worldMultiplayer.BasicLighting)
+                    return Color.clear;
+            } else
+            {
+                if (world.LightingDisabled || world.BasicLighting)
+                    return Color.clear;
+            }
+           
             if (pixelCoordinate.x <= 1 || pixelCoordinate.y <= 1 || pixelCoordinate.x >= lightRenderTexture.width - 1 || pixelCoordinate.y >= lightRenderTexture.height - 1)
                 return Color.clear;
 

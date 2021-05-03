@@ -76,11 +76,20 @@ namespace TerrainEngine2D.Lighting
                 Debug.Log("Destroying extra instance of " + gameObject.name);
                 Destroy(gameObject);
             }
-
-            //Set Properties
-            blockLighting.LightSpread = World.WorldData.AmbientLightSpread;
-            blockLighting.LightTransmission = World.WorldData.AmbientLightTransmission;
-            useHeightMap = World.WorldData.UseHeightMap;
+            if (GameObject.Find("NetworkManager") != null)
+            {
+                //Set Properties
+                blockLighting.LightSpread = WorldMultiplayer.WorldData.AmbientLightSpread;
+                blockLighting.LightTransmission = WorldMultiplayer.WorldData.AmbientLightTransmission;
+                useHeightMap = WorldMultiplayer.WorldData.UseHeightMap;
+            }
+            else
+            {
+                //Set Properties
+                blockLighting.LightSpread = World.WorldData.AmbientLightSpread;
+                blockLighting.LightTransmission = World.WorldData.AmbientLightTransmission;
+                useHeightMap = World.WorldData.UseHeightMap;
+            }
         }
 
         protected override void Start()
@@ -94,58 +103,121 @@ namespace TerrainEngine2D.Lighting
         /// </summary>
         public void Initialize()
         {
-            if (Initialized)
-                return;
-
-            if (world == null)
-                world = World.Instance;
-
-            blockLighting.Initialize();
-
-            //Calculate the Height Map data by finding the position of the surface blocks 
-            if (useHeightMap)
+            if (GameObject.Find("NetworkManager") != null)
             {
-                heightMap = new int[world.WorldWidth];
-                for (int x = 0; x < world.WorldWidth; x++)
+                if (Initialized)
+                    return;
+
+                if (worldMultiplayer == null)
+                    worldMultiplayer = WorldMultiplayer.Instance;
+
+                blockLighting.Initialize();
+
+                //Calculate the Height Map data by finding the position of the surface blocks 
+                if (useHeightMap)
                 {
-                    int y = world.WorldHeight - 1;
-                    while (!world.GetBlockLayer(world.AmbientLightLayer).IsBlockAt(x, y) && y > 0)
+                    heightMap = new int[worldMultiplayer.WorldWidth];
+                    for (int x = 0; x < worldMultiplayer.WorldWidth; x++)
                     {
-                        //Place a light source at every position above the terrain surface to imitate sunlight
-                        blockLighting.AddLightSourceBulk(new Vector2Int(x, y), whiteColor32);
-                        y--;
-                    }
-                    heightMap[x] = y;
-                }
-            } else
-            {
-                for (int x = 0; x < world.WorldWidth; x++)
-                {
-                    for (int y = 0; y < world.WorldHeight; y++)
-                    {
-                        if (!world.GetBlockLayer(world.AmbientLightLayer).IsBlockAt(x, y))
+                        int y = worldMultiplayer.WorldHeight - 1;
+                        while (!worldMultiplayer.GetBlockLayer(worldMultiplayer.AmbientLightLayer).IsBlockAt(x, y) && y > 0)
                         {
-                            //Place a light source wherever there isn't an ambient light block to imitate sunlight
+                            //Place a light source at every position above the terrain surface to imitate sunlight
                             blockLighting.AddLightSourceBulk(new Vector2Int(x, y), whiteColor32);
+                            y--;
+                        }
+                        heightMap[x] = y;
+                    }
+                }
+                else
+                {
+                    for (int x = 0; x < world.WorldWidth; x++)
+                    {
+                        for (int y = 0; y < world.WorldHeight; y++)
+                        {
+                            if (!world.GetBlockLayer(world.AmbientLightLayer).IsBlockAt(x, y))
+                            {
+                                //Place a light source wherever there isn't an ambient light block to imitate sunlight
+                                blockLighting.AddLightSourceBulk(new Vector2Int(x, y), whiteColor32);
+                            }
                         }
                     }
                 }
+                blockLighting.ManualGenerateLighting();
+                Initialized = true;
+            } else
+            {
+                if (Initialized)
+                    return;
+
+                if (world == null)
+                    world = World.Instance;
+
+                blockLighting.Initialize();
+
+                //Calculate the Height Map data by finding the position of the surface blocks 
+                if (useHeightMap)
+                {
+                    heightMap = new int[world.WorldWidth];
+                    for (int x = 0; x < world.WorldWidth; x++)
+                    {
+                        int y = world.WorldHeight - 1;
+                        while (!world.GetBlockLayer(world.AmbientLightLayer).IsBlockAt(x, y) && y > 0)
+                        {
+                            //Place a light source at every position above the terrain surface to imitate sunlight
+                            blockLighting.AddLightSourceBulk(new Vector2Int(x, y), whiteColor32);
+                            y--;
+                        }
+                        heightMap[x] = y;
+                    }
+                }
+                else
+                {
+                    for (int x = 0; x < world.WorldWidth; x++)
+                    {
+                        for (int y = 0; y < world.WorldHeight; y++)
+                        {
+                            if (!world.GetBlockLayer(world.AmbientLightLayer).IsBlockAt(x, y))
+                            {
+                                //Place a light source wherever there isn't an ambient light block to imitate sunlight
+                                blockLighting.AddLightSourceBulk(new Vector2Int(x, y), whiteColor32);
+                            }
+                        }
+                    }
+                }
+                blockLighting.ManualGenerateLighting();
+                Initialized = true;
             }
-            blockLighting.ManualGenerateLighting();
-            Initialized = true;
         }
 
         private void Update()
         {
-            if (world.PauseTime)
-                return;
+            if (GameObject.Find("NetworkManager") != null)
+            {
+                if (worldMultiplayer.PauseTime)
+                    return;
+            } else
+            {
+                if (world.PauseTime)
+                    return;
+            }
 
             SetAmbientLightColor();
         }
 
         private void SetAmbientLightColor()
         {
-            float time = world.TimeOfDay;
+            float time;
+
+            if (GameObject.Find("NetworkManager") != null)
+            {
+                time = worldMultiplayer.TimeOfDay;
+            }
+            else
+            {
+                time = world.TimeOfDay;
+            }
+
             //Set the ambient light color based on the time of day
             if (time < SunriseTime || time >= SunsetTime + 1)
                 Camera.main.backgroundColor = NightColor;

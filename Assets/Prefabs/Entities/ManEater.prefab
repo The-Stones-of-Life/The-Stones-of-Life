@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 7467799774446937702}
   m_Layer: 0
   m_Name: ManEater
-  m_TagString: Untagged
+  m_TagString: Entity
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -162,8 +162,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77b4d2cdff73aa64283227a8bdd628c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAffectedByFire: 0
   player: {fileID: 0}
   pHealth: {fileID: 0}
+  fireParticals: {fileID: 401185113885498694, guid: ca3f212e089a0eb4499f70e7262802c4,
+    type: 3}
 --- !u!61 &7467799774446937702
 BoxCollider2D:
   m_ObjectHideFlags: 0

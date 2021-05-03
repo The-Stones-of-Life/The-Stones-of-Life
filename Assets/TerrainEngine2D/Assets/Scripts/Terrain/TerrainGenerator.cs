@@ -11,6 +11,7 @@ namespace TerrainEngine2D
     public abstract class TerrainGenerator : MonoBehaviour
     {
         protected World world;
+        protected WorldMultiplayer worldMultiplayer;
         protected WorldData worldData;
         protected FluidDynamics fluidDynamics;
         protected AdvancedFluidDynamics advancedFluidDynamics;
@@ -43,6 +44,18 @@ namespace TerrainEngine2D
             initialized = true;
         }
 
+        public void InitializeMultiplayer(WorldMultiplayer world, WorldData worldData, FluidDynamics fluidDynamics, AdvancedFluidDynamics advancedFluidDynamics)
+        {
+            this.worldMultiplayer = world;
+            this.worldData = worldData;
+            this.fluidDynamics = fluidDynamics;
+            this.advancedFluidDynamics = advancedFluidDynamics;
+            fluidKey = new Vector2Int[world.WorldWidth, world.WorldHeight];
+            seed = world.Seed;
+            random = new System.Random(seed);
+            initialized = true;
+        }
+
         /// <summary>
         /// Procedurally generates world block data using random and pseudo-random functions
         /// </summary>
@@ -50,7 +63,15 @@ namespace TerrainEngine2D
         public virtual void GenerateData()
         {
             if (!initialized)
-                Initialize(World.Instance, World.WorldData, FluidDynamics.Instance, AdvancedFluidDynamics.Instance);
+            {
+                if (GameObject.Find("NetworkManager") != null)
+                {
+                    InitializeMultiplayer(WorldMultiplayer.Instance, World.WorldData, FluidDynamics.Instance, AdvancedFluidDynamics.Instance);
+                } else
+                {
+                    Initialize(World.Instance, World.WorldData, FluidDynamics.Instance, AdvancedFluidDynamics.Instance);
+                }
+            }
         }
 
         /// <summary>
@@ -82,39 +103,81 @@ namespace TerrainEngine2D
             if (!DoAddBlock(probability))
                 return false;
 
-            world.GetBlockLayer(layer).AddBlock(x, y, (byte)(blockType + BlockLayer.BLOCK_INDEX_OFFSET));
-            //Set the fluid blocks to solid if working with the fluid layer
-            if (layer == world.FluidLayer)
+
+            if (GameObject.Find("NetworkManager") != null)
             {
-                //Get the block information
-                BlockInfo blockInfo = world.GetBlockLayer(layer).GetBlockInfo(x, y);
-                if (blockInfo.MultiBlock)
+
+                worldMultiplayer.GetBlockLayer(layer).AddBlock(x, y, (byte)(blockType + BlockLayer.BLOCK_INDEX_OFFSET));
+                //Set the fluid blocks to solid if working with the fluid layer
+                if (layer == worldMultiplayer.FluidLayer)
                 {
-                    //Loop through the size of the block
-                    for (int posX = x; posX < x + blockInfo.TextureWidth; posX++)
+                    //Get the block information
+                    BlockInfo blockInfo = worldMultiplayer.GetBlockLayer(layer).GetBlockInfo(x, y);
+                    if (blockInfo.MultiBlock)
                     {
-                        for (int posY = y; posY < y + blockInfo.TextureHeight; posY++)
+                        //Loop through the size of the block
+                        for (int posX = x; posX < x + blockInfo.TextureWidth; posX++)
                         {
-                            //If the block is in bounds set the fluid block to solid
-                            if (InBounds(posX, posY))
+                            for (int posY = y; posY < y + blockInfo.TextureHeight; posY++)
                             {
-                                if (world.BasicFluid)
-                                    fluidDynamics.GetFluidBlock(posX, posY).SetSolid();
-                                else
-                                    advancedFluidDynamics.GetFluidBlock(posX, posY).SetSolid();
+                                //If the block is in bounds set the fluid block to solid
+                                if (InBounds(posX, posY))
+                                {
+                                    if (worldMultiplayer.BasicFluid)
+                                        fluidDynamics.GetFluidBlock(posX, posY).SetSolid();
+                                    else
+                                        advancedFluidDynamics.GetFluidBlock(posX, posY).SetSolid();
+                                }
                             }
                         }
                     }
-                }
-                else
-                {
-                    if(world.BasicFluid)
-                        fluidDynamics.GetFluidBlock(x, y).SetSolid();
                     else
-                        advancedFluidDynamics.GetFluidBlock(x, y).SetSolid();
+                    {
+                        if (worldMultiplayer.BasicFluid)
+                            fluidDynamics.GetFluidBlock(x, y).SetSolid();
+                        else
+                            advancedFluidDynamics.GetFluidBlock(x, y).SetSolid();
+                    }
                 }
+                return true;
             }
-            return true;
+            else
+            {
+
+                world.GetBlockLayer(layer).AddBlock(x, y, (byte)(blockType + BlockLayer.BLOCK_INDEX_OFFSET));
+                //Set the fluid blocks to solid if working with the fluid layer
+                if (layer == world.FluidLayer)
+                {
+                    //Get the block information
+                    BlockInfo blockInfo = world.GetBlockLayer(layer).GetBlockInfo(x, y);
+                    if (blockInfo.MultiBlock)
+                    {
+                        //Loop through the size of the block
+                        for (int posX = x; posX < x + blockInfo.TextureWidth; posX++)
+                        {
+                            for (int posY = y; posY < y + blockInfo.TextureHeight; posY++)
+                            {
+                                //If the block is in bounds set the fluid block to solid
+                                if (InBounds(posX, posY))
+                                {
+                                    if (world.BasicFluid)
+                                        fluidDynamics.GetFluidBlock(posX, posY).SetSolid();
+                                    else
+                                        advancedFluidDynamics.GetFluidBlock(posX, posY).SetSolid();
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (world.BasicFluid)
+                            fluidDynamics.GetFluidBlock(x, y).SetSolid();
+                        else
+                            advancedFluidDynamics.GetFluidBlock(x, y).SetSolid();
+                    }
+                }
+                return true;
+            }
         }
 
         /// <summary>
@@ -136,29 +199,58 @@ namespace TerrainEngine2D
         /// <returns>Returns true if the block is successfully removed</returns>
         protected bool RemoveBlock(int x, int y, byte layer)
         {
-            //If there is a block at the coordinates
-            if (world.GetBlockLayer(layer).IsBlockAt(x, y))
+            if (GameObject.Find("NetworkManager") != null)
             {
-                //Get the block information to get the size of the block
-                BlockInfo blockInfo = world.GetBlockLayer(layer).GetBlockInfo(x, y);
-                //Remove the block and get its position
-                Vector2Int blockPos = world.GetBlockLayer(layer).RemoveBlock(x, y);
-                //If working with the fluid layer, set all the blocks to empty
-                if (layer == world.FluidLayer)
+                //If there is a block at the coordinates
+                if (worldMultiplayer.GetBlockLayer(layer).IsBlockAt(x, y))
                 {
-                    if (blockInfo.MultiBlock)
-                        RemoveFluid(blockPos.x, blockPos.y, blockInfo.TextureWidth, blockInfo.TextureHeight);
-                    else
+                    //Get the block information to get the size of the block
+                    BlockInfo blockInfo = worldMultiplayer.GetBlockLayer(layer).GetBlockInfo(x, y);
+                    //Remove the block and get its position
+                    Vector2Int blockPos = worldMultiplayer.GetBlockLayer(layer).RemoveBlock(x, y);
+                    //If working with the fluid layer, set all the blocks to empty
+                    if (layer == worldMultiplayer.FluidLayer)
                     {
-                        if(world.BasicFluid)
-                            fluidDynamics.GetFluidBlock(x, y).SetEmpty();
+                        if (blockInfo.MultiBlock)
+                            RemoveFluid(blockPos.x, blockPos.y, blockInfo.TextureWidth, blockInfo.TextureHeight);
                         else
-                            advancedFluidDynamics.GetFluidBlock(x, y).SetEmpty();
+                        {
+                            if (worldMultiplayer.BasicFluid)
+                                fluidDynamics.GetFluidBlock(x, y).SetEmpty();
+                            else
+                                advancedFluidDynamics.GetFluidBlock(x, y).SetEmpty();
+                        }
                     }
+                    return true;
                 }
-                return true;
+                return false;
             }
-            return false;
+            else
+            {
+                //If there is a block at the coordinates
+                if (world.GetBlockLayer(layer).IsBlockAt(x, y))
+                {
+                    //Get the block information to get the size of the block
+                    BlockInfo blockInfo = world.GetBlockLayer(layer).GetBlockInfo(x, y);
+                    //Remove the block and get its position
+                    Vector2Int blockPos = world.GetBlockLayer(layer).RemoveBlock(x, y);
+                    //If working with the fluid layer, set all the blocks to empty
+                    if (layer == world.FluidLayer)
+                    {
+                        if (blockInfo.MultiBlock)
+                            RemoveFluid(blockPos.x, blockPos.y, blockInfo.TextureWidth, blockInfo.TextureHeight);
+                        else
+                        {
+                            if (world.BasicFluid)
+                                fluidDynamics.GetFluidBlock(x, y).SetEmpty();
+                            else
+                                advancedFluidDynamics.GetFluidBlock(x, y).SetEmpty();
+                        }
+                    }
+                    return true;
+                }
+                return false;
+            }
         }
 
         /// <summary>
@@ -168,10 +260,23 @@ namespace TerrainEngine2D
         /// <param name="y">Y coordinate</param>
         protected void RemoveAllBlocks(int x, int y)
         {
-            //Loop through all the block layers and remove the blocks
-            for(int i = 0; i < world.NumBlockLayers; i++)
+            if (GameObject.Find("NetworkManager") != null)
             {
-                RemoveBlock(x, y, (byte)i);
+
+                //Loop through all the block layers and remove the blocks
+                for (int i = 0; i < worldMultiplayer.NumBlockLayers; i++)
+                {
+                    RemoveBlock(x, y, (byte)i);
+                }
+            }
+            else
+            {
+
+                //Loop through all the block layers and remove the blocks
+                for (int i = 0; i < world.NumBlockLayers; i++)
+                {
+                    RemoveBlock(x, y, (byte)i);
+                }
             }
         }
 
@@ -184,9 +289,17 @@ namespace TerrainEngine2D
         /// <returns>Returns true if the coordinate is within bounds</returns>
         bool InBounds(int x, int y)
         {
-            if (x < 0 || x >= world.WorldWidth || y < 0 || y >= world.WorldHeight)
-                return false;
-            return true;
+            if (GameObject.Find("NetworkManager") != null)
+            {
+                if (x < 0 || x >= worldMultiplayer.WorldWidth || y < 0 || y >= worldMultiplayer.WorldHeight)
+                    return false;
+                return true;
+            } else
+            {
+                if (x < 0 || x >= world.WorldWidth || y < 0 || y >= world.WorldHeight)
+                    return false;
+                return true;
+            }
         }
 
         /// <summary>
@@ -200,19 +313,38 @@ namespace TerrainEngine2D
         /// <returns>Returns true if there is a block</returns>
         protected bool IsBlockAt(int x, int y, byte layer, int width = 1, int height = 1)
         {
-            bool isBlockAt = false;
-            for(int i = x; i < x + width; i++)
+            if (GameObject.Find("NetworkManager") != null)
             {
-                for(int j = y; j < y + height; j++)
+                bool isBlockAt = false;
+                for (int i = x; i < x + width; i++)
                 {
-                    if (world.GetBlockLayer(layer).IsBlockAt(i, j))
+                    for (int j = y; j < y + height; j++)
                     {
-                        isBlockAt = true;
-                        break;
+                        if (worldMultiplayer.GetBlockLayer(layer).IsBlockAt(i, j))
+                        {
+                            isBlockAt = true;
+                            break;
+                        }
                     }
                 }
+                return isBlockAt;
             }
-            return isBlockAt;
+            else
+            {
+                bool isBlockAt = false;
+                for (int i = x; i < x + width; i++)
+                {
+                    for (int j = y; j < y + height; j++)
+                    {
+                        if (world.GetBlockLayer(layer).IsBlockAt(i, j))
+                        {
+                            isBlockAt = true;
+                            break;
+                        }
+                    }
+                }
+                return isBlockAt;
+            }
         }
 
         /// <summary>
@@ -224,19 +356,38 @@ namespace TerrainEngine2D
         /// <returns>Returns true if fluid is successfully added</returns>
         protected bool AddFluid(int x, int y, float weight)
         {
-            //Don't add any fluid if fluid is disabled
-            if (world.FluidDisabled)
-                return false;
-            if (!world.BasicFluid)
-                throw new System.Exception("Using the wrong function, fluid is being added to the Basic Fluid System instead of the Advanced");
-            //Adds fluid to the block if it is not solid and is empty or of the same density
-            FluidBlock fluidBlock = fluidDynamics.GetFluidBlock(x, y);
-            if (!fluidBlock.IsSolid())
+            if (GameObject.Find("NetworkManager") != null)
             {
-                fluidDynamics.GetFluidBlock(x, y).AddWeight(weight);
-                return true;
+                //Don't add any fluid if fluid is disabled
+                if (worldMultiplayer.FluidDisabled)
+                    return false;
+                if (!worldMultiplayer.BasicFluid)
+                    throw new System.Exception("Using the wrong function, fluid is being added to the Basic Fluid System instead of the Advanced");
+                //Adds fluid to the block if it is not solid and is empty or of the same density
+                FluidBlock fluidBlock = fluidDynamics.GetFluidBlock(x, y);
+                if (!fluidBlock.IsSolid())
+                {
+                    fluidDynamics.GetFluidBlock(x, y).AddWeight(weight);
+                    return true;
+                }
+                return false;
             }
-            return false;
+            else
+            {
+                //Don't add any fluid if fluid is disabled
+                if (world.FluidDisabled)
+                    return false;
+                if (!world.BasicFluid)
+                    throw new System.Exception("Using the wrong function, fluid is being added to the Basic Fluid System instead of the Advanced");
+                //Adds fluid to the block if it is not solid and is empty or of the same density
+                FluidBlock fluidBlock = fluidDynamics.GetFluidBlock(x, y);
+                if (!fluidBlock.IsSolid())
+                {
+                    fluidDynamics.GetFluidBlock(x, y).AddWeight(weight);
+                    return true;
+                }
+                return false;
+            }
         }
 
         /// <summary>
@@ -249,19 +400,40 @@ namespace TerrainEngine2D
         /// <returns>Returns true if fluid is successfully added</returns>
         protected bool AddFluid(int x, int y, float weight, byte density)
         {
-            //Don't add any fluid if fluid is disabled
-            if (world.FluidDisabled)
+            if (GameObject.Find("NetworkManager") != null)
+            {
+                //Don't add any fluid if fluid is disabled
+
+                if (worldMultiplayer.FluidDisabled)
+                    return false;
+                if (worldMultiplayer.BasicFluid)
+                    throw new System.Exception("Using the wrong function, fluid is being added to the Advanced Fluid System instead of the Basic");
+                //Adds fluid to the block if it is not solid and is empty or of the same density
+                AdvancedFluidBlock fluidBlock = advancedFluidDynamics.GetFluidBlock(x, y);
+                if (!fluidBlock.IsSolid() && (fluidBlock.Weight == 0 || fluidBlock.Density == density))
+                {
+                    advancedFluidDynamics.GetFluidBlock(x, y).AddWeight(density, weight, worldData.FluidTypes[density].DefaultColor);
+                    return true;
+                }
                 return false;
-            if (world.BasicFluid)
-                throw new System.Exception("Using the wrong function, fluid is being added to the Advanced Fluid System instead of the Basic");
-            //Adds fluid to the block if it is not solid and is empty or of the same density
-            AdvancedFluidBlock fluidBlock = advancedFluidDynamics.GetFluidBlock(x, y);
-            if (!fluidBlock.IsSolid() && (fluidBlock.Weight == 0 || fluidBlock.Density == density))
-            { 
-                advancedFluidDynamics.GetFluidBlock(x, y).AddWeight(density, weight, worldData.FluidTypes[density].DefaultColor);
-                return true;
             }
-            return false;
+            else
+            {
+                //Don't add any fluid if fluid is disabled
+
+                if (world.FluidDisabled)
+                    return false;
+                if (world.BasicFluid)
+                    throw new System.Exception("Using the wrong function, fluid is being added to the Advanced Fluid System instead of the Basic");
+                //Adds fluid to the block if it is not solid and is empty or of the same density
+                AdvancedFluidBlock fluidBlock = advancedFluidDynamics.GetFluidBlock(x, y);
+                if (!fluidBlock.IsSolid() && (fluidBlock.Weight == 0 || fluidBlock.Density == density))
+                {
+                    advancedFluidDynamics.GetFluidBlock(x, y).AddWeight(density, weight, worldData.FluidTypes[density].DefaultColor);
+                    return true;
+                }
+                return false;
+            }
         }
 
         /// <summary>
@@ -276,19 +448,39 @@ namespace TerrainEngine2D
         /// <returns>Returns true if fluid is successfully added</returns>
         protected bool AddFluid(int x, int y, float weight, byte density, Color32 customColor)
         {
-            //Don't add any fluid if fluid is disabled
-            if (world.FluidDisabled)
-                return false;
-            if (world.BasicFluid)
-                throw new System.Exception("Using the wrong function, fluid is being added to the Advanced Fluid System instead of the Basic");
-            //Adds fluid to the block if it is not solid and is empty or of the same density
-            AdvancedFluidBlock fluidBlock = advancedFluidDynamics.GetFluidBlock(x, y);
-            if (!fluidBlock.IsSolid() && (fluidBlock.Weight == 0 || fluidBlock.Density == density))
+
+            if (GameObject.Find("NetworkManager") != null)
             {
-                advancedFluidDynamics.GetFluidBlock(x, y).AddWeight(density, weight, customColor);
-                return true;
+                //Don't add any fluid if fluid is disabled
+                if (worldMultiplayer.FluidDisabled)
+                    return false;
+                if (worldMultiplayer.BasicFluid)
+                    throw new System.Exception("Using the wrong function, fluid is being added to the Advanced Fluid System instead of the Basic");
+                //Adds fluid to the block if it is not solid and is empty or of the same density
+                AdvancedFluidBlock fluidBlock = advancedFluidDynamics.GetFluidBlock(x, y);
+                if (!fluidBlock.IsSolid() && (fluidBlock.Weight == 0 || fluidBlock.Density == density))
+                {
+                    advancedFluidDynamics.GetFluidBlock(x, y).AddWeight(density, weight, customColor);
+                    return true;
+                }
+                return false;
             }
-            return false;
+            else
+            {
+                //Don't add any fluid if fluid is disabled
+                if (world.FluidDisabled)
+                    return false;
+                if (world.BasicFluid)
+                    throw new System.Exception("Using the wrong function, fluid is being added to the Advanced Fluid System instead of the Basic");
+                //Adds fluid to the block if it is not solid and is empty or of the same density
+                AdvancedFluidBlock fluidBlock = advancedFluidDynamics.GetFluidBlock(x, y);
+                if (!fluidBlock.IsSolid() && (fluidBlock.Weight == 0 || fluidBlock.Density == density))
+                {
+                    advancedFluidDynamics.GetFluidBlock(x, y).AddWeight(density, weight, customColor);
+                    return true;
+                }
+                return false;
+            }
         }
 
         /// <summary>
@@ -300,23 +492,50 @@ namespace TerrainEngine2D
         /// <param name="height">Height of area</param>
         protected void RemoveFluid(int x, int y, int width = 1, int height = 1)
         {
-            //Loop through the area
-            for (int posX = x; posX < x + width; posX++)
+            if (GameObject.Find("NetworkManager") != null)
             {
-                for (int posY = y; posY < y + height; posY++)
+                //Loop through the area
+                for (int posX = x; posX < x + width; posX++)
                 {
-                    //If the block is in bounds set the fluid position to empty
-                    if (InBounds(posX, posY))
+                    for (int posY = y; posY < y + height; posY++)
                     {
-                        if (world.BasicFluid)
+                        //If the block is in bounds set the fluid position to empty
+                        if (InBounds(posX, posY))
                         {
-                            if (!fluidDynamics.GetFluidBlock(posX, posY).IsSolid())
-                                fluidDynamics.GetFluidBlock(posX, posY).SetEmpty();
+                            if (worldMultiplayer.BasicFluid)
+                            {
+                                if (!fluidDynamics.GetFluidBlock(posX, posY).IsSolid())
+                                    fluidDynamics.GetFluidBlock(posX, posY).SetEmpty();
+                            }
+                            else
+                            {
+                                if (!advancedFluidDynamics.GetFluidBlock(posX, posY).IsSolid())
+                                    advancedFluidDynamics.GetFluidBlock(posX, posY).SetEmpty();
+                            }
                         }
-                        else
+                    }
+                }
+            }
+            else
+            {
+                //Loop through the area
+                for (int posX = x; posX < x + width; posX++)
+                {
+                    for (int posY = y; posY < y + height; posY++)
+                    {
+                        //If the block is in bounds set the fluid position to empty
+                        if (InBounds(posX, posY))
                         {
-                            if (!advancedFluidDynamics.GetFluidBlock(posX, posY).IsSolid())
-                                advancedFluidDynamics.GetFluidBlock(posX, posY).SetEmpty();
+                            if (world.BasicFluid)
+                            {
+                                if (!fluidDynamics.GetFluidBlock(posX, posY).IsSolid())
+                                    fluidDynamics.GetFluidBlock(posX, posY).SetEmpty();
+                            }
+                            else
+                            {
+                                if (!advancedFluidDynamics.GetFluidBlock(posX, posY).IsSolid())
+                                    advancedFluidDynamics.GetFluidBlock(posX, posY).SetEmpty();
+                            }
                         }
                     }
                 }
@@ -334,40 +553,81 @@ namespace TerrainEngine2D
         /// <param name="newPool">Whether this is the </param>
         protected void GeneratePool(int x, int y, float weight, int maxY, Vector2Int key, bool newPool = true)
         {
-            //Don't generate any pools if fluid is disabled
-            if (world.FluidDisabled)
-                return;
-
-            if (!world.BasicFluid)
+            if (GameObject.Find("NetworkManager") != null)
             {
-                Debug.LogError("Using the wrong function, fluid is being added to the Basic Fluid System instead of the Advanced");
-                return;
+                //Don't generate any pools if fluid is disabled
+                if (worldMultiplayer.FluidDisabled)
+                    return;
+
+                if (!worldMultiplayer.BasicFluid)
+                {
+                    Debug.LogError("Using the wrong function, fluid is being added to the Basic Fluid System instead of the Advanced");
+                    return;
+                }
+
+                FluidBlock fluidBlock = fluidDynamics.GetFluidBlock(x, y);
+                //Don't generate a new pool if there is already fluid in the current position
+                if (newPool && fluidBlock.Weight > 0)
+                    return;
+                //Return if the current position is outside world bounds
+                if (x < 0 || x >= worldMultiplayer.WorldWidth || y < 0 || y >= worldMultiplayer.WorldHeight)
+                    return;
+                //Empty block if it is not a part of this sequence
+                if (fluidKey[x, y] != key && fluidBlock.Weight > 0)
+                    fluidBlock.Weight = 0;
+                //Add fluid if block is empty
+                if (fluidBlock.Weight == 0)
+                {
+                    //Adds fluid to the block
+                    fluidBlock.Weight = weight;
+                    fluidBlock.Stable = true;
+                    //Set the key for the current block
+                    fluidKey[x, y] = key;
+                    //Add fluid to adjacent blocks if below the threshold
+                    GeneratePool(x - 1, y, weight, maxY, key, false);
+                    GeneratePool(x + 1, y, weight, maxY, key, false);
+                    GeneratePool(x, y - 1, weight + fluidDynamics.PressureWeight, maxY, key, false);
+                    if (y < maxY)
+                        GeneratePool(x, y + 1, weight, maxY, key, false);
+                }
             }
-
-            FluidBlock fluidBlock = fluidDynamics.GetFluidBlock(x, y);
-            //Don't generate a new pool if there is already fluid in the current position
-            if (newPool && fluidBlock.Weight > 0)
-                return;
-            //Return if the current position is outside world bounds
-            if (x < 0 || x >= world.WorldWidth || y < 0 || y >= world.WorldHeight)
-                return;
-            //Empty block if it is not a part of this sequence
-            if (fluidKey[x, y] != key && fluidBlock.Weight > 0)
-                fluidBlock.Weight = 0;
-            //Add fluid if block is empty
-            if (fluidBlock.Weight == 0)
+            else
             {
-                //Adds fluid to the block
-                fluidBlock.Weight = weight;
-                fluidBlock.Stable = true;
-                //Set the key for the current block
-                fluidKey[x, y] = key;
-                //Add fluid to adjacent blocks if below the threshold
-                GeneratePool(x - 1, y, weight, maxY, key, false);
-                GeneratePool(x + 1, y, weight, maxY, key, false);
-                GeneratePool(x, y - 1, weight + fluidDynamics.PressureWeight, maxY, key, false);
-                if (y < maxY)
-                    GeneratePool(x, y + 1, weight, maxY, key, false);
+                //Don't generate any pools if fluid is disabled
+                if (world.FluidDisabled)
+                    return;
+
+                if (!world.BasicFluid)
+                {
+                    Debug.LogError("Using the wrong function, fluid is being added to the Basic Fluid System instead of the Advanced");
+                    return;
+                }
+
+                FluidBlock fluidBlock = fluidDynamics.GetFluidBlock(x, y);
+                //Don't generate a new pool if there is already fluid in the current position
+                if (newPool && fluidBlock.Weight > 0)
+                    return;
+                //Return if the current position is outside world bounds
+                if (x < 0 || x >= world.WorldWidth || y < 0 || y >= world.WorldHeight)
+                    return;
+                //Empty block if it is not a part of this sequence
+                if (fluidKey[x, y] != key && fluidBlock.Weight > 0)
+                    fluidBlock.Weight = 0;
+                //Add fluid if block is empty
+                if (fluidBlock.Weight == 0)
+                {
+                    //Adds fluid to the block
+                    fluidBlock.Weight = weight;
+                    fluidBlock.Stable = true;
+                    //Set the key for the current block
+                    fluidKey[x, y] = key;
+                    //Add fluid to adjacent blocks if below the threshold
+                    GeneratePool(x - 1, y, weight, maxY, key, false);
+                    GeneratePool(x + 1, y, weight, maxY, key, false);
+                    GeneratePool(x, y - 1, weight + fluidDynamics.PressureWeight, maxY, key, false);
+                    if (y < maxY)
+                        GeneratePool(x, y + 1, weight, maxY, key, false);
+                }
             }
         }
 
@@ -383,41 +643,83 @@ namespace TerrainEngine2D
         /// <param name="newPool">Whether this is the </param>
         protected void GeneratePool(int x, int y, float weight, byte density, int maxY, Vector2Int key, bool newPool = true)
         {
-            //Don't generate any pools if fluid is disabled
-            if (world.FluidDisabled)
-                return;
+            if (GameObject.Find("NetworkManager") != null)
+            {
+                //Don't generate any pools if fluid is disabled
+                if (worldMultiplayer.FluidDisabled)
+                    return;
 
-            if (world.BasicFluid)
-            {
-                Debug.LogError("Using the wrong function, fluid is being added to the Advanced Fluid System instead of the Basic");
-                return;
+                if (worldMultiplayer.BasicFluid)
+                {
+                    Debug.LogError("Using the wrong function, fluid is being added to the Advanced Fluid System instead of the Basic");
+                    return;
+                }
+                AdvancedFluidBlock advancedFluidBlock = advancedFluidDynamics.GetFluidBlock(x, y);
+                //Don't generate a new pool if there is already fluid in the current position
+                if (newPool && advancedFluidBlock.Weight > 0)
+                    return;
+                //Return if the current position is outside world bounds
+                if (x < 0 || x >= worldMultiplayer.WorldWidth || y < 0 || y >= worldMultiplayer.WorldHeight)
+                    return;
+                //Empty block if it is not a part of this sequence
+                if (fluidKey[x, y] != key && advancedFluidBlock.Weight > 0)
+                    advancedFluidBlock.Weight = 0;
+                //Add fluid if block is empty
+                if (advancedFluidBlock.Weight == 0)
+                {
+                    //Adds fluid to the block
+                    advancedFluidBlock.Weight = weight;
+                    advancedFluidBlock.Stable = true;
+                    advancedFluidBlock.Density = density;
+                    advancedFluidBlock.Color = worldData.FluidTypes[density].DefaultColor;
+                    //Set the key for the current block
+                    fluidKey[x, y] = key;
+                    //Add fluid to adjacent blocks if below the threshold
+                    GeneratePool(x - 1, y, weight, density, maxY, key, false);
+                    GeneratePool(x + 1, y, weight, density, maxY, key, false);
+                    GeneratePool(x, y - 1, weight + advancedFluidDynamics.PressureWeight, density, maxY, key, false);
+                    if (y < maxY)
+                        GeneratePool(x, y + 1, weight, density, maxY, key, false);
+                }
             }
-            AdvancedFluidBlock advancedFluidBlock = advancedFluidDynamics.GetFluidBlock(x, y);
-            //Don't generate a new pool if there is already fluid in the current position
-            if (newPool && advancedFluidBlock.Weight > 0)
-                return;
-            //Return if the current position is outside world bounds
-            if (x < 0 || x >= world.WorldWidth || y < 0 || y >= world.WorldHeight)
-                return;
-            //Empty block if it is not a part of this sequence
-            if (fluidKey[x, y] != key && advancedFluidBlock.Weight > 0)
-                advancedFluidBlock.Weight = 0;
-            //Add fluid if block is empty
-            if (advancedFluidBlock.Weight == 0)
+            else
             {
-                //Adds fluid to the block
-                advancedFluidBlock.Weight = weight;
-                advancedFluidBlock.Stable = true;
-                advancedFluidBlock.Density = density;
-                advancedFluidBlock.Color = worldData.FluidTypes[density].DefaultColor;
-                //Set the key for the current block
-                fluidKey[x, y] = key;
-                //Add fluid to adjacent blocks if below the threshold
-                GeneratePool(x - 1, y, weight, density, maxY, key, false);
-                GeneratePool(x + 1, y, weight, density, maxY, key, false);
-                GeneratePool(x, y - 1, weight + advancedFluidDynamics.PressureWeight, density, maxY, key, false);
-                if (y < maxY)
-                    GeneratePool(x, y + 1, weight, density, maxY, key, false);
+                //Don't generate any pools if fluid is disabled
+                if (world.FluidDisabled)
+                    return;
+
+                if (world.BasicFluid)
+                {
+                    Debug.LogError("Using the wrong function, fluid is being added to the Advanced Fluid System instead of the Basic");
+                    return;
+                }
+                AdvancedFluidBlock advancedFluidBlock = advancedFluidDynamics.GetFluidBlock(x, y);
+                //Don't generate a new pool if there is already fluid in the current position
+                if (newPool && advancedFluidBlock.Weight > 0)
+                    return;
+                //Return if the current position is outside world bounds
+                if (x < 0 || x >= world.WorldWidth || y < 0 || y >= world.WorldHeight)
+                    return;
+                //Empty block if it is not a part of this sequence
+                if (fluidKey[x, y] != key && advancedFluidBlock.Weight > 0)
+                    advancedFluidBlock.Weight = 0;
+                //Add fluid if block is empty
+                if (advancedFluidBlock.Weight == 0)
+                {
+                    //Adds fluid to the block
+                    advancedFluidBlock.Weight = weight;
+                    advancedFluidBlock.Stable = true;
+                    advancedFluidBlock.Density = density;
+                    advancedFluidBlock.Color = worldData.FluidTypes[density].DefaultColor;
+                    //Set the key for the current block
+                    fluidKey[x, y] = key;
+                    //Add fluid to adjacent blocks if below the threshold
+                    GeneratePool(x - 1, y, weight, density, maxY, key, false);
+                    GeneratePool(x + 1, y, weight, density, maxY, key, false);
+                    GeneratePool(x, y - 1, weight + advancedFluidDynamics.PressureWeight, density, maxY, key, false);
+                    if (y < maxY)
+                        GeneratePool(x, y + 1, weight, density, maxY, key, false);
+                }
             }
         }
 
@@ -435,42 +737,85 @@ namespace TerrainEngine2D
         /// <param name="newPool">Whether this is the </param>
         protected void GeneratePool(int x, int y, float weight, byte density, Color32 customColor, int maxY, Vector2Int key, bool newPool = true)
         {
-            //Don't generate any pools if fluid is disabled
-            if (world.FluidDisabled)
-                return;
-
-            if (world.BasicFluid)
+            if (GameObject.Find("NetworkManager") != null)
             {
-                Debug.LogError("Using the wrong function, fluid is being added to the Advanced Fluid System instead of the Basic");
-                return;
+                //Don't generate any pools if fluid is disabled
+                if (worldMultiplayer.FluidDisabled)
+                    return;
+
+                if (worldMultiplayer.BasicFluid)
+                {
+                    Debug.LogError("Using the wrong function, fluid is being added to the Advanced Fluid System instead of the Basic");
+                    return;
+                }
+
+                AdvancedFluidBlock advancedFluidBlock = advancedFluidDynamics.GetFluidBlock(x, y);
+                //Don't generate a new pool if there is already fluid in the current position
+                if (newPool && advancedFluidBlock.Weight > 0)
+                    return;
+                //Return if the current position is outside world bounds
+                if (x < 0 || x >= worldMultiplayer.WorldWidth || y < 0 || y >= worldMultiplayer.WorldHeight)
+                    return;
+                //Empty block if it is not a part of this sequence
+                if (fluidKey[x, y] != key && advancedFluidBlock.Weight > 0)
+                    advancedFluidBlock.Weight = 0;
+                //Add fluid if block is empty
+                if (advancedFluidBlock.Weight == 0)
+                {
+                    //Adds fluid to the block
+                    advancedFluidBlock.Weight = weight;
+                    advancedFluidBlock.Stable = true;
+                    advancedFluidBlock.Density = density;
+                    advancedFluidBlock.Color = customColor;
+                    //Set the key for the current block
+                    fluidKey[x, y] = key;
+                    //Add fluid to adjacent blocks if below the threshold
+                    GeneratePool(x - 1, y, weight, density, customColor, maxY, key, false);
+                    GeneratePool(x + 1, y, weight, density, customColor, maxY, key, false);
+                    GeneratePool(x, y - 1, weight + advancedFluidDynamics.PressureWeight, density, customColor, maxY, key, false);
+                    if (y < maxY)
+                        GeneratePool(x, y + 1, weight, density, customColor, maxY, key, false);
+                }
             }
-
-            AdvancedFluidBlock advancedFluidBlock = advancedFluidDynamics.GetFluidBlock(x, y);
-            //Don't generate a new pool if there is already fluid in the current position
-            if (newPool && advancedFluidBlock.Weight > 0)
-                return;
-            //Return if the current position is outside world bounds
-            if (x < 0 || x >= world.WorldWidth || y < 0 || y >= world.WorldHeight)
-                return;
-            //Empty block if it is not a part of this sequence
-            if (fluidKey[x, y] != key && advancedFluidBlock.Weight > 0)
-                advancedFluidBlock.Weight = 0;
-            //Add fluid if block is empty
-            if (advancedFluidBlock.Weight == 0)
+            else
             {
-                //Adds fluid to the block
-                advancedFluidBlock.Weight = weight;
-                advancedFluidBlock.Stable = true;
-                advancedFluidBlock.Density = density;
-                advancedFluidBlock.Color = customColor;
-                //Set the key for the current block
-                fluidKey[x, y] = key;
-                //Add fluid to adjacent blocks if below the threshold
-                GeneratePool(x - 1, y, weight, density, customColor, maxY, key, false);
-                GeneratePool(x + 1, y, weight, density, customColor, maxY, key, false);
-                GeneratePool(x, y - 1, weight + advancedFluidDynamics.PressureWeight, density, customColor, maxY, key, false);
-                if (y < maxY)
-                    GeneratePool(x, y + 1, weight, density, customColor, maxY, key, false);
+                //Don't generate any pools if fluid is disabled
+                if (world.FluidDisabled)
+                    return;
+
+                if (world.BasicFluid)
+                {
+                    Debug.LogError("Using the wrong function, fluid is being added to the Advanced Fluid System instead of the Basic");
+                    return;
+                }
+
+                AdvancedFluidBlock advancedFluidBlock = advancedFluidDynamics.GetFluidBlock(x, y);
+                //Don't generate a new pool if there is already fluid in the current position
+                if (newPool && advancedFluidBlock.Weight > 0)
+                    return;
+                //Return if the current position is outside world bounds
+                if (x < 0 || x >= world.WorldWidth || y < 0 || y >= world.WorldHeight)
+                    return;
+                //Empty block if it is not a part of this sequence
+                if (fluidKey[x, y] != key && advancedFluidBlock.Weight > 0)
+                    advancedFluidBlock.Weight = 0;
+                //Add fluid if block is empty
+                if (advancedFluidBlock.Weight == 0)
+                {
+                    //Adds fluid to the block
+                    advancedFluidBlock.Weight = weight;
+                    advancedFluidBlock.Stable = true;
+                    advancedFluidBlock.Density = density;
+                    advancedFluidBlock.Color = customColor;
+                    //Set the key for the current block
+                    fluidKey[x, y] = key;
+                    //Add fluid to adjacent blocks if below the threshold
+                    GeneratePool(x - 1, y, weight, density, customColor, maxY, key, false);
+                    GeneratePool(x + 1, y, weight, density, customColor, maxY, key, false);
+                    GeneratePool(x, y - 1, weight + advancedFluidDynamics.PressureWeight, density, customColor, maxY, key, false);
+                    if (y < maxY)
+                        GeneratePool(x, y + 1, weight, density, customColor, maxY, key, false);
+                }
             }
         }
 
@@ -482,32 +827,64 @@ namespace TerrainEngine2D
         /// <param name="maxY">Heighest fluid point</param>
         protected void ClearFluid(int x, int y, int maxY)
         {
-            //Don't clear if fluid is disabled
-            if (world.FluidDisabled)
-                return;
-            //Return if the current position is outside world bounds
-            if (x < 0 || x >= world.WorldWidth || y < 0 || y >= world.WorldHeight)
-                return;
+            if (GameObject.Find("NetworkManager") != null)
+            {
+                //Don't clear if fluid is disabled
+                if (worldMultiplayer.FluidDisabled)
+                    return;
+                //Return if the current position is outside world bounds
+                if (x < 0 || x >= worldMultiplayer.WorldWidth || y < 0 || y >= worldMultiplayer.WorldHeight)
+                    return;
 
-            if (world.BasicFluid)
-            {
-                if (fluidDynamics.GetFluidBlock(x, y).Weight <= 0)
-                    return;
-                fluidDynamics.GetFluidBlock(x, y).Weight = 0;
-            } else
-            {
-                if (advancedFluidDynamics.GetFluidBlock(x, y).Weight <= 0)
-                    return;
-                advancedFluidDynamics.GetFluidBlock(x, y).Weight = 0;
+                if (worldMultiplayer.BasicFluid)
+                {
+                    if (fluidDynamics.GetFluidBlock(x, y).Weight <= 0)
+                        return;
+                    fluidDynamics.GetFluidBlock(x, y).Weight = 0;
+                }
+                else
+                {
+                    if (advancedFluidDynamics.GetFluidBlock(x, y).Weight <= 0)
+                        return;
+                    advancedFluidDynamics.GetFluidBlock(x, y).Weight = 0;
+                }
+
+                //Remove fluid to adjacent blocks if below the threshold
+                ClearFluid(x - 1, y, maxY);
+                ClearFluid(x + 1, y, maxY);
+                ClearFluid(x, y - 1, maxY);
+                if (y < maxY)
+                    ClearFluid(x, y + 1, maxY);
             }
+            else
+            {
+                //Don't clear if fluid is disabled
+                if (world.FluidDisabled)
+                    return;
+                //Return if the current position is outside world bounds
+                if (x < 0 || x >= world.WorldWidth || y < 0 || y >= world.WorldHeight)
+                    return;
 
-            //Remove fluid to adjacent blocks if below the threshold
-            ClearFluid(x - 1, y, maxY);
-            ClearFluid(x + 1, y, maxY);
-            ClearFluid(x, y - 1, maxY);
-            if (y < maxY)
-                ClearFluid(x, y + 1, maxY);
-            
+                if (world.BasicFluid)
+                {
+                    if (fluidDynamics.GetFluidBlock(x, y).Weight <= 0)
+                        return;
+                    fluidDynamics.GetFluidBlock(x, y).Weight = 0;
+                }
+                else
+                {
+                    if (advancedFluidDynamics.GetFluidBlock(x, y).Weight <= 0)
+                        return;
+                    advancedFluidDynamics.GetFluidBlock(x, y).Weight = 0;
+                }
+
+                //Remove fluid to adjacent blocks if below the threshold
+                ClearFluid(x - 1, y, maxY);
+                ClearFluid(x + 1, y, maxY);
+                ClearFluid(x, y - 1, maxY);
+                if (y < maxY)
+                    ClearFluid(x, y + 1, maxY);
+            }    
         }
     }
 }

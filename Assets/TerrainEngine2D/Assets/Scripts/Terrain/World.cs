@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using TerrainEngine2D.Lighting;
+using Mirror;
 
 // Copyright (C) 2018 Matthew K Wilson
 
@@ -9,7 +10,7 @@ namespace TerrainEngine2D
     /// <summary>
     /// The 2D procedurally generated world of blocks
     /// </summary>
-    public class World : MonoBehaviourSingleton<World>
+    public class World : NetworkBehaviour
     {
         //Position of the block for bitmasking
         [Flags] private enum BlockPosition {
@@ -161,10 +162,12 @@ namespace TerrainEngine2D
         }
 
         [SerializeField]
+        [SyncVar]
         private int seed = 12345678;
         /// <summary>
         /// A number used to procedurally generate the terrain data
         /// </summary>
+        /// 
         public int Seed
         {
             get { return seed; }
@@ -318,7 +321,7 @@ namespace TerrainEngine2D
         public BlockLayer[] BlockLayers
         {
             get { return blockLayers; }
-            set { blockLayers = value;}
+            set { blockLayers = value; }
         }
         private int numBlockLayers;
         /// <summary>
@@ -423,9 +426,23 @@ namespace TerrainEngine2D
         /// </summary>
         public static event BlockModifiedAction OnBlockRemoved;
 
-        protected override void Awake()
+        private static World instance;
+        public static World Instance
         {
-            base.Awake();
+            get { return instance; }
+            set { instance = value; }
+        }
+
+        void Awake()
+        {
+            if (instance == null)
+            {
+                instance = this;
+            } else if (instance != this)
+            {
+                Debug.Log("Destroying extra instance of " + gameObject.name);
+                Destroy(gameObject);
+            }
 
             //Check if the world contains the necessary layers
             int lightingLayer = LayerMask.NameToLayer("Lighting");

@@ -31,7 +31,20 @@ MonoBehaviour:
     assemblyNames:
     - Assembly-CSharp
     - Assembly-CSharp-firstpass
+    - SimpleWebTransport
+    - Mirror
+    - Telepathy
+    - Mirror.Cloud
+    - Mirror.Components
+    - Mirror.Examples
     - V_Animation
+    - Mirror.Examples.Cloud.GUI
+    - kcp2k
+    - Mirror.Examples.Cloud.Pong
+    - Mirror.Authenticators
+    - Mirror.Weaver
+    - Mirror.Editor
+    - Mirror.CompilerSymbols
     showAdvancedSettings: 0
   addMgrToSceneAutomatically: 0
   autoUpdateReferences: 1

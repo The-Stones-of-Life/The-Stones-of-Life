@@ -7,7 +7,11 @@ public class Crafting : MonoBehaviour
 	public GameObject plankRecipe;
 	public GameObject dirtRecipe;
 	public GameObject workbenchRecipe;
-	
+	public GameObject torchRecipe;
+	public GameObject flamingTorchRecipe;
+	public GameObject mysteriousTabletRecipe;
+
+
 	public GameObject handCrafting;
 	
 	public bool isOpen = false;
@@ -21,7 +25,7 @@ public class Crafting : MonoBehaviour
 		
 		if (Input.GetKeyDown(KeyCode.C)) {
 			
-			if (isOpen == false && Player.uiLock == false) {
+			if (isOpen == false) {
 				
 				handCrafting.SetActive(true);
 				isOpen = true;
@@ -47,7 +51,7 @@ public class Crafting : MonoBehaviour
 			plankRecipe.SetActive(false);
 		}
 		
-		if (Inventory.planks >= 12) {
+		if (Inventory.planks >= 6) {
 			
 			workbenchRecipe.SetActive(true);
 			
@@ -55,7 +59,40 @@ public class Crafting : MonoBehaviour
 		else {
 			workbenchRecipe.SetActive(false);
 		}
-    }
+
+		if (Inventory.sticks >= 6  && Inventory.coal >= 1)
+		{
+
+			torchRecipe.SetActive(true);
+
+		}
+		else
+		{
+			torchRecipe.SetActive(false);
+		}
+
+		if (Inventory.stoneArrow >= 4 && Inventory.torch >= 1)
+		{
+
+			flamingTorchRecipe.SetActive(true);
+
+		}
+		else
+		{
+			flamingTorchRecipe.SetActive(false);
+		}
+
+		if (Inventory.mysteriousTabletShardOne >= 1 && Inventory.mysteriousTabletShardTwo >= 1 && Inventory.mysteriousTabletShardThree >= 1)
+		{
+
+			mysteriousTabletRecipe.SetActive(true);
+
+		}
+		else
+		{
+			mysteriousTabletRecipe.SetActive(false);
+		}
+	}
 	
 	public void CraftPlanks() {
 		
@@ -69,14 +106,60 @@ public class Crafting : MonoBehaviour
 	
 	public void CraftWorkbench() {
 		
-		Player.inventory.RemoveItem(new Item { itemType = Item.ItemType.Planks, amount = 12 });
-		Inventory.planks -= 12;
+		Player.inventory.RemoveItem(new Item { itemType = Item.ItemType.Planks, amount = 6 });
+		Inventory.planks -= 6;
 		
 		Player.inventory.AddItem(new Item { itemType = Item.ItemType.Workbench, amount = 1 });
 		Inventory.workbench += 1;
 		
 	}
-	
+
+	public void CraftTorches()
+	{
+
+		Player.inventory.RemoveItem(new Item { itemType = Item.ItemType.Sticks, amount = 6 });
+		Inventory.sticks -= 6;
+
+		Player.inventory.RemoveItem(new Item { itemType = Item.ItemType.Coal, amount = 1 });
+		Inventory.coal -= 1;
+
+		Player.inventory.AddItem(new Item { itemType = Item.ItemType.Torch, amount = 6 });
+		Inventory.torch += 6;
+
+	}
+
+	public void CraftFlamingArrows()
+	{
+
+		Player.inventory.RemoveItem(new Item { itemType = Item.ItemType.StoneArrow, amount = 4 });
+		Inventory.stoneArrow -= 4;
+
+		Player.inventory.RemoveItem(new Item { itemType = Item.ItemType.Torch, amount = 1 });
+		Inventory.torch -= 1;
+
+		Player.inventory.AddItem(new Item { itemType = Item.ItemType.FlamingArrows, amount = 4 });
+		Inventory.flamingArrow += 4;
+
+	}
+
+	public void CraftMysteriousTablet()
+	{
+
+		Player.inventory.RemoveItem(new Item { itemType = Item.ItemType.MysertiousTabletShardOne, amount = 1 });
+		Inventory.mysteriousTabletShardOne -= 1;
+
+		Player.inventory.RemoveItem(new Item { itemType = Item.ItemType.MysertiousTabletShardTwo, amount = 1 });
+		Inventory.mysteriousTabletShardTwo -= 1;
+
+		Player.inventory.RemoveItem(new Item { itemType = Item.ItemType.MysertiousTabletShardThree, amount = 1 });
+		Inventory.mysteriousTabletShardThree -= 1;
+
+
+		Player.inventory.AddItem(new Item { itemType = Item.ItemType.MysertiousTablet, amount = 1 });
+		Inventory.mysteriousTablet += 1;
+
+	}
+
 	public void OpenCraftingMenu() {
 		
 		if (isOpen == false) {

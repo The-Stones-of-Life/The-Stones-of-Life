@@ -121,6 +121,13 @@ namespace TerrainEngine2D
 		
 		public enum Layers { Main }
 
+
+
+
+        public GameObject torch;
+
+
+
         protected override void Awake()
         {
             base.Awake();
@@ -264,6 +271,8 @@ namespace TerrainEngine2D
 						return;
 					}
 					if (Player.selectedBlockId == 7 && Inventory.workbench >= 1) {
+                        Debug.Log(Player.selectedBlockId);
+                        Debug.Log(Inventory.workbench);
 						WorldModifier.SetBlock(xGridPosition, yGridPosition, false, (byte)Layers.Main, (byte)7);
 						Player.inventory.RemoveItem(new Item { itemType = Item.ItemType.Workbench, amount = 1 });
 						Inventory.workbench -= 1;
@@ -293,7 +302,21 @@ namespace TerrainEngine2D
 						Inventory.anvil -= 1;
 						return;
 					}
-					return;
+                    if (Player.selectedBlockId == 12 && Inventory.torch >= 1)
+                    {
+                        Instantiate(torch, new Vector2(xGridPosition, yGridPosition), Quaternion.identity);
+                        Player.inventory.RemoveItem(new Item { itemType = Item.ItemType.Torch, amount = 1 });
+                        Inventory.torch -= 1;
+                        return;
+                    }
+                    if (Player.selectedBlockId == 13 && Inventory.sand >= 1)
+                    {
+                        WorldModifier.SetBlock(xGridPosition, yGridPosition, false, (byte)Layers.Main, (byte)12);
+                        Player.inventory.RemoveItem(new Item { itemType = Item.ItemType.Sand, amount = 1 });
+                        Inventory.sand -= 1;
+                        return;
+                    }
+                    return;
 				}
 				
 				if (world.GetBlockLayer(selectedLayers[0]).GetBlockType(xGridPosition, yGridPosition) == 7) {

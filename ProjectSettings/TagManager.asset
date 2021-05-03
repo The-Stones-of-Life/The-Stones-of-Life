@@ -10,6 +10,12 @@ TagManager:
   - Anvil
   - FireSpell
   - Terrain
+  - Fire
+  - Entity
+  - FireArrow
+  - Arrow
+  - Tool
+  - IronArrow
   layers:
   - Default
   - TransparentFX

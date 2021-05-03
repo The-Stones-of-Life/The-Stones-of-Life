@@ -21,9 +21,17 @@ namespace TerrainEngine2D.SideScrollerDemo
             get { return spriteRenderer; }
         }
 
+        public Sprite forestBack;
+        public Sprite desertBack;
+
         private void Awake()
         {
             spriteRenderer = GetComponent<SpriteRenderer>();
+        }
+
+        private void Update()
+        {
+            this.GetComponent<SpriteRenderer>().sprite = forestBack;
         }
     }
 }

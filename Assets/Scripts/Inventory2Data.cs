@@ -10,7 +10,7 @@ public class Inventory2Data
 	
 	public int grassBlocks = 0;
 	public int dirtBlocks = 0;
-	public int stoneBlocks = 0;
+	public int stone = 0;
 	public int leaves = 0;
 	public int logs = 0;
 	public int planks = 0;
@@ -78,12 +78,12 @@ public class Inventory2Data
 	
     public Inventory2Data(Inventory2 inv2)
     {
-       selectedBlock = inv2.selectedBlock;
-	   grassBlocks = inv2.grassBlocks;
-	   dirtBlocks = inv2.dirtBlocks;
-	   stoneBlocks = inv2.stoneBlocks;
-	   leaves = inv2.leaves;
-	   logs = inv2.logs;
+       selectedBlock = Inventory2.selectedBlock;
+	   grassBlocks = Inventory2.grassBlocks;
+	   dirtBlocks = Inventory2.dirtBlocks;
+		stone = Inventory2.stone;
+	   leaves = Inventory2.leaves;
+	   logs = Inventory2.logs;
 	   planks = inv2.planks;
 	   coal = inv2.coal;
 	   iron = inv2.iron;
@@ -94,7 +94,7 @@ public class Inventory2Data
 	   anvil = inv2.anvil;
 	   chair = inv2.chair;
 	   table = inv2.table;
-	   arcane_workbench = inv2.arcane_workbench;
+	   arcane_workbench = Inventory2.arcane_workbench;
 	   crude_oil_ore = inv2.crude_oil_ore;
 	   mechanical_workbench = inv2.mechanical_workbench;
 	   moon_stone = inv2.moon_stone;

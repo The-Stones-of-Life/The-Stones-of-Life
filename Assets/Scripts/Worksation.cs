@@ -54,6 +54,8 @@ public class Worksation : MonoBehaviour
 	public GameObject retroConsolRecipe;
 	public GameObject stoneArrowRecipe;
 	public GameObject woodenBowRecipe;
+	public GameObject glassBottleRecipe;
+	public GameObject healthPotionRecipe;
 
     void Start()
     {
@@ -158,11 +160,29 @@ public class Worksation : MonoBehaviour
 		else {
 			stoneArrowRecipe.SetActive(false);
 		}
-    }
+
+		if (Inventory.sand >= 2)
+        {
+			glassBottleRecipe.SetActive(true);
+        }
+		else
+        {
+			glassBottleRecipe.SetActive(false);
+        }
+
+		if (Inventory.glassBottles >= 4 && Inventory.lifeshroom >= 1)
+		{
+			healthPotionRecipe.SetActive(true);
+		}
+		else
+		{
+			healthPotionRecipe.SetActive(false);
+		}
+	}
 	
 	public void CraftPlanks() {
-		
-		inv.logs -= 1;
+
+		Inventory2.logs -= 1;
 		inv.planks += 5;
 		
 	}
@@ -264,8 +284,8 @@ public class Worksation : MonoBehaviour
 		
 	}
 	public void CraftPaper() {
-		
-		inv.logs -= 2;
+
+		Inventory2.logs -= 2;
 		inv.paper += 10 ;
 		
 	}
@@ -273,7 +293,7 @@ public class Worksation : MonoBehaviour
 		
 		inv.planks -= 5;
 		inv.magic_crystal -= 2 ;
-		inv.arcane_workbench += 1;
+		Inventory2.arcane_workbench += 1;
 		
 	}
 	public void CraftMagicWand() {
@@ -303,8 +323,8 @@ public class Worksation : MonoBehaviour
 		
 	}
 	public void CraftTestSpell() {
-		
-		inv.dirtBlocks -= 1;
+
+		Inventory2.dirtBlocks -= 1;
 		inv.test_spell_scroll += 1;
 		
 	}
@@ -393,29 +413,29 @@ public class Worksation : MonoBehaviour
 		
 	}
 	public void CraftStoneBricks() {
-		
-		inv.stoneBlocks -= 10;
+
+		Inventory2.stone -= 10;
 		inv.stone_bricks += 2;
 		
 	}
 	
 	public void CraftStoneSword() {
-		
-		inv.stoneBlocks -= 10;
+
+		Inventory2.stone -= 10;
 		inv.wooden_rod -= 1;
 		inv.stone_sword += 1;
 		
 	}
 	public void CraftStoneAxe() {
-		
-		inv.stoneBlocks -= 5;
+
+		Inventory2.stone -= 5;
 		inv.wooden_rod -= 1;
 		inv.stone_axe += 1;
 		
 	}
 	public void CraftStonePickaxe() {
-		
-		inv.stoneBlocks -= 7;
+
+		Inventory2.stone -= 7;
 		inv.wooden_rod -= 1;
 		inv.stone_pickaxe += 1;
 		

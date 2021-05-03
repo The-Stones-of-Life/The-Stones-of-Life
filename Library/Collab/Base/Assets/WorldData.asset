@@ -1,0 +1,257 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02c05ee384f57d543b3303e17088dfeb, type: 3}
+  m_Name: WorldData
+  m_EditorClassIdentifier: 
+  GUID: a9b8491db8deaaf41a53a25c5e8ca4ec
+  SavePlayModeChanges: 0
+  ToggleOSD: 1
+  OSDUpdateRate: 0.05
+  OSDUIScale: 1
+  ToggleCursor: 1
+  SaveWorld: 0
+  LoadWorld: 0
+  Name: Unassigned
+  WorldWidth: 512
+  WorldHeight: 512
+  Seed: -12966682
+  WorldDirectory: 
+  ChunkSize: 16
+  ChunkLoadRate: 0.1
+  ChunkLoadDistance: 48
+  EnableInputHandler: 1
+  MaxModifyRadius: 5
+  FluidDisabled: 0
+  FluidLayer: 0
+  RenderFluidAsTexture: 0
+  BasicFluid: 0
+  TopDown: 0
+  RunFluidSimulation: 1
+  FluidUpdateRate: 0
+  MaxFluidWeight: 1
+  MinFluidWeight: 0.005
+  StableFluidAmount: 0.0001
+  FluidPressureWeight: 0.2
+  FluidDropAmount: 0.2
+  MainFluidColor:
+    serializedVersion: 2
+    rgba: 3431886381
+  SecondaryFluidColor:
+    serializedVersion: 2
+    rgba: 3437539142
+  FluidTypes:
+  - {fileID: 11400000, guid: e424ab02549d5ed44a31320da2c129da, type: 2}
+  - {fileID: 11400000, guid: b37ffe5935be88743afd5b3d717faeca, type: 2}
+  AllowSurfaceFilling: 1
+  FluidMixingFactor: 0.1
+  LightingDisabled: 0
+  BasicLighting: 0
+  LightBleedAmount: 2
+  LightLayer: 0
+  BlockLightSpread: 18
+  BlockLightTransmission: 5
+  AmbientLightDisabled: 0
+  AmbientLightLayer: 0
+  AmbientLightSpread: 18
+  AmbientLightTransmission: 5
+  UseHeightMap: 1
+  PauseTime: 0
+  TimeFactor: 100
+  DaylightColor:
+    serializedVersion: 2
+    rgba: 4294957699
+  NightColor:
+    serializedVersion: 2
+    rgba: 4281413939
+  SunriseTime: 7
+  SunsetTime: 19
+  DownRes: 2
+  NumberBlurPasses: 3
+  FallingBlocksDisabled: 1
+  FallingBlockLayer: 0
+  FallingBlocksUpdateRate: 0.05
+  OverlapBlendSquares: 0
+  CullHiddenBlocks: 1
+  PixelsPerBlock: 8
+  ZBlockDistance: 1
+  ZLayerFactor: 1
+  BlockLayers:
+  - colliderLayer: 1
+    name: Main
+    material: {fileID: 2100000, guid: bd45076d1f2a4f747be0fb85bb36d8a8, type: 2}
+    blockInfo:
+    - name: Grass
+      texturePositionX: 0
+      texturePositionY: 33
+      textureWidth: 2
+      textureHeight: 3
+      overlapBlock: 1
+      numVariations: 1
+      transparent: 0
+      fallingBlock: 0
+    - name: Dirt
+      texturePositionX: 0
+      texturePositionY: 30
+      textureWidth: 2
+      textureHeight: 3
+      overlapBlock: 1
+      numVariations: 1
+      transparent: 0
+      fallingBlock: 0
+    - name: Stone
+      texturePositionX: 0
+      texturePositionY: 27
+      textureWidth: 2
+      textureHeight: 3
+      overlapBlock: 1
+      numVariations: 1
+      transparent: 0
+      fallingBlock: 0
+    - name: Log
+      texturePositionX: 0
+      texturePositionY: 24
+      textureWidth: 2
+      textureHeight: 3
+      overlapBlock: 1
+      numVariations: 1
+      transparent: 0
+      fallingBlock: 0
+    - name: Leaves
+      texturePositionX: 0
+      texturePositionY: 21
+      textureWidth: 2
+      textureHeight: 3
+      overlapBlock: 1
+      numVariations: 1
+      transparent: 0
+      fallingBlock: 0
+    - name: Planks
+      texturePositionX: 0
+      texturePositionY: 18
+      textureWidth: 2
+      textureHeight: 3
+      overlapBlock: 1
+      numVariations: 1
+      transparent: 0
+      fallingBlock: 0
+    - name: Workbench
+      texturePositionX: 0
+      texturePositionY: 15
+      textureWidth: 2
+      textureHeight: 3
+      overlapBlock: 1
+      numVariations: 1
+      transparent: 0
+      fallingBlock: 0
+    - name: IronOre
+      texturePositionX: 0
+      texturePositionY: 12
+      textureWidth: 2
+      textureHeight: 3
+      overlapBlock: 1
+      numVariations: 1
+      transparent: 0
+      fallingBlock: 0
+    - name: Furnace
+      texturePositionX: 0
+      texturePositionY: 9
+      textureWidth: 2
+      textureHeight: 3
+      overlapBlock: 1
+      numVariations: 1
+      transparent: 0
+      fallingBlock: 0
+    - name: CoalOre
+      texturePositionX: 0
+      texturePositionY: 6
+      textureWidth: 2
+      textureHeight: 3
+      overlapBlock: 1
+      numVariations: 1
+      transparent: 0
+      fallingBlock: 0
+    - name: Anvil
+      texturePositionX: 0
+      texturePositionY: 3
+      textureWidth: 2
+      textureHeight: 3
+      overlapBlock: 1
+      numVariations: 1
+      transparent: 0
+      fallingBlock: 0
+    - name: Sand
+      texturePositionX: 0
+      texturePositionY: 39
+      textureWidth: 2
+      textureHeight: 3
+      overlapBlock: 1
+      numVariations: 1
+      transparent: 0
+      fallingBlock: 0
+    - name: Snow
+      texturePositionX: 0
+      texturePositionY: 0
+      textureWidth: 2
+      textureHeight: 3
+      overlapBlock: 1
+      numVariations: 1
+      transparent: 0
+      fallingBlock: 0
+  - colliderLayer: 0
+    name: Background
+    material: {fileID: 2100000, guid: 5a2f69a940055e6479cfd328bc75a7ed, type: 2}
+    blockInfo:
+    - name: GrassPlant
+      texturePositionX: 0
+      texturePositionY: 12
+      textureWidth: 2
+      textureHeight: 3
+      overlapBlock: 1
+      numVariations: 1
+      transparent: 0
+      fallingBlock: 0
+    - name: TallGrassPlant
+      texturePositionX: 0
+      texturePositionY: 9
+      textureWidth: 2
+      textureHeight: 3
+      overlapBlock: 1
+      numVariations: 1
+      transparent: 0
+      fallingBlock: 0
+    - name: BrownMushroom
+      texturePositionX: 0
+      texturePositionY: 6
+      textureWidth: 2
+      textureHeight: 3
+      overlapBlock: 1
+      numVariations: 1
+      transparent: 0
+      fallingBlock: 0
+    - name: Lifeshroom
+      texturePositionX: 0
+      texturePositionY: 3
+      textureWidth: 2
+      textureHeight: 3
+      overlapBlock: 1
+      numVariations: 1
+      transparent: 0
+      fallingBlock: 0
+    - name: Sticks
+      texturePositionX: 0
+      texturePositionY: 0
+      textureWidth: 2
+      textureHeight: 3
+      overlapBlock: 1
+      numVariations: 1
+      transparent: 0
+      fallingBlock: 0

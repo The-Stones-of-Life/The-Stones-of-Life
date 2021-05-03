@@ -80,6 +80,25 @@ public class AddBlockItemToInventory : MonoBehaviour
 				Inventory.lifeshroom += 1;
 				Destroy(this.gameObject);
 			}
+			if (id == 14)
+			{
+				Player.inventory.AddItem(new Item { itemType = Item.ItemType.Sand, amount = 1 });
+				Inventory.sand += 1;
+				if (Random.Range(0, 2) == 0)
+                {
+					Player.inventory.AddItem(new Item { itemType = Item.ItemType.MysertiousTabletShardOne, amount = 1 });
+					Inventory.mysteriousTabletShardOne += 1;
+				} else if (Random.Range(0, 2) == 0)
+				{
+					Player.inventory.AddItem(new Item { itemType = Item.ItemType.MysertiousTabletShardTwo, amount = 1 });
+					Inventory.mysteriousTabletShardTwo += 1;
+				} else if (Random.Range(0, 2) == 0)
+				{
+					Player.inventory.AddItem(new Item { itemType = Item.ItemType.MysertiousTabletShardThree, amount = 1 });
+					Inventory.mysteriousTabletShardThree += 1;
+				}
+				Destroy(this.gameObject);
+			}
 		}
     }
 }

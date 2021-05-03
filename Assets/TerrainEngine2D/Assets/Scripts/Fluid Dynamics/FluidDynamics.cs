@@ -118,7 +118,15 @@ namespace TerrainEngine2D
         {
             Instance = this;
 
-            worldData = World.WorldData;
+            if (GameObject.Find("NetworkManager") != null)
+            {
+                worldData = WorldMultiplayer.WorldData;
+            }
+            else
+            {
+                worldData = World.WorldData;
+            }
+
             //Allocates memory for the fluid blocks
             fluidBlocks = new FluidBlock[worldData.WorldWidth, worldData.WorldHeight];
             for (int x = 0; x < worldData.WorldWidth; x++)

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 public class DropedItem : MonoBehaviour
 {
@@ -22,7 +23,10 @@ public class DropedItem : MonoBehaviour
 	public GameObject anvil;
 	public GameObject brownMushroom;
 	public GameObject lifehshroom;
-	
+	public GameObject sand;
+
+	public GameObject dropedItem;
+
 	void Start() {
 	}
 
@@ -35,49 +39,58 @@ public class DropedItem : MonoBehaviour
 	
 	public void DropItem(int id, int x, int y) {
 		if (id == 1) {
-			Instantiate(grass, new Vector2(x, y), Quaternion .identity);
+			dropedItem = Instantiate(grass, new Vector2(x, y), Quaternion .identity);
 		}
 		if (id == 2) {
-			Instantiate(dirt, new Vector2(x, y), Quaternion.identity);
+			dropedItem = Instantiate(dirt, new Vector2(x, y), Quaternion.identity);
 		}
 		if (id == 3) {
-			Instantiate(stone, new Vector2(x, y), Quaternion.identity);
+			dropedItem = Instantiate(stone, new Vector2(x, y), Quaternion.identity);
 		}
 		if (id == 4) {
-			Instantiate(log, new Vector2(x, y), Quaternion.identity);
+			dropedItem = Instantiate(log, new Vector2(x, y), Quaternion.identity);
 		}
 		if (id == 5) {
-			Instantiate(leaves, new Vector2(x, y), Quaternion.identity);
+			dropedItem = Instantiate(leaves, new Vector2(x, y), Quaternion.identity);
 			if (Random.Range(0, 5) == 0) {
-				Instantiate(sticks, new Vector2(x, y + 1), Quaternion.identity);
+				dropedItem = Instantiate(sticks, new Vector2(x, y + 1), Quaternion.identity);
 			}
 		}
 		if (id == 6) {
-			Instantiate(planks, new Vector2(x, y), Quaternion.identity);
+			dropedItem = Instantiate(planks, new Vector2(x, y), Quaternion.identity);
 		}
 		if (id == 7) {
 			Instantiate(workbench, new Vector2(x, y), Quaternion.identity);
 		}
 		if (id == 8) {
-			Instantiate(ironOre, new Vector2(x, y), Quaternion.identity);
+			dropedItem = Instantiate(ironOre, new Vector2(x, y), Quaternion.identity);
 		}
 		if (id == 9) {
-			Instantiate(furnace, new Vector2(x, y), Quaternion.identity);
+			dropedItem = Instantiate(furnace, new Vector2(x, y), Quaternion.identity);
 		}
 		if (id == 10) {
-			Instantiate(coal, new Vector2(x, y), Quaternion.identity);
+			dropedItem = Instantiate(coal, new Vector2(x, y), Quaternion.identity);
 		}
 		if (id == 11) {
-			Instantiate(anvil, new Vector2(x, y), Quaternion.identity);
+			dropedItem = Instantiate(anvil, new Vector2(x, y), Quaternion.identity);
+		}
+		if (id == 12)
+		{
+			dropedItem = Instantiate(sand, new Vector2(x, y), Quaternion.identity);
+		}
+
+		if (dropedItem != null)
+        {
+			NetworkServer.Spawn(dropedItem);
 		}
 	}
 	
 	public void DropBackgroundItem(int id, int x, int y) {
 		if (id == 3) {
-			Instantiate(brownMushroom, new Vector2(x, y), Quaternion .identity);
+			dropedItem = Instantiate(brownMushroom, new Vector2(x, y), Quaternion .identity);
 		}
 		if (id == 4) {
-			Instantiate(lifehshroom, new Vector2(x, y), Quaternion.identity);
+			dropedItem = Instantiate(lifehshroom, new Vector2(x, y), Quaternion.identity);
 		}
 	}
 }

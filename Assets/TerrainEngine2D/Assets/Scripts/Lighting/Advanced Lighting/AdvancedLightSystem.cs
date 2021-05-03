@@ -57,9 +57,18 @@ namespace TerrainEngine2D.Lighting
             blockLights = new List<BlockLightSource>();
             lights = new Dictionary<Vector2Int, LightSource>();
 
-            //Set Properties
-            blockLighting.LightSpread = World.WorldData.BlockLightSpread;
-            blockLighting.LightTransmission = World.WorldData.BlockLightTransmission;
+            if (GameObject.Find("NetworkManager") != null)
+            {
+                //Set Properties
+                blockLighting.LightSpread = WorldMultiplayer.WorldData.BlockLightSpread;
+                blockLighting.LightTransmission = WorldMultiplayer.WorldData.BlockLightTransmission;
+            }
+            else
+            {
+                //Set Properties
+                blockLighting.LightSpread = World.WorldData.BlockLightSpread;
+                blockLighting.LightTransmission = World.WorldData.BlockLightTransmission;
+            }
         }
 
         /// <summary>

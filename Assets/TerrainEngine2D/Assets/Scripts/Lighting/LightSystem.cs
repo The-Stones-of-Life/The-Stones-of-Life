@@ -12,6 +12,7 @@ namespace TerrainEngine2D
     public class LightSystem : MonoBehaviourSingleton<LightSystem>
     {
         private World world;
+        private WorldMultiplayer worldMultiplayer;
         //Reference to the ChunkLoader for information on the currently loaded Chunks
         private ChunkLoader chunkLoader;
 
@@ -60,7 +61,15 @@ namespace TerrainEngine2D
             base.Awake();
             mesh = GetComponent<MeshFilter>().mesh;
             //Set Properties
-            lightBleed = World.WorldData.LightBleedAmount;
+
+            if (GameObject.Find("NetworkManager") != null)
+            {
+                lightBleed = WorldMultiplayer.WorldData.LightBleedAmount;
+            }
+            else
+            {
+                lightBleed = World.WorldData.LightBleedAmount;
+            }
         }
 
         public void Start()
@@ -125,6 +134,29 @@ namespace TerrainEngine2D
 
             if(world == null)
                 this.world = world;
+            //Initialize the light map for the world
+            lightMap = new Color32[world.WorldWidth, world.WorldHeight];
+            for (int x = 0; x < world.WorldWidth; x++)
+            {
+                for (int y = 0; y < world.WorldHeight; y++)
+                {
+                    //Add a black pixel to the lightmap for blocks in the lightlayer
+                    if (world.GetBlockLayer(world.LightLayer).IsBlockAt(x, y))
+                        //Set the alpha of the pixels depending on their distance from air (greater distance from air means higher alpha)
+                        lightMap[x, y] = new Color32(0, 0, 0, (byte)Mathf.RoundToInt(world.GetBlockDistanceFromAir(x, y) / (float)lightBleed * 255));
+                }
+            }
+            update = true;
+            Initialized = true;
+        }
+
+        public void InitializeMultiplayer(WorldMultiplayer world)
+        {
+            if (Initialized)
+                return;
+
+            if (world == null)
+                this.worldMultiplayer = world;
             //Initialize the light map for the world
             lightMap = new Color32[world.WorldWidth, world.WorldHeight];
             for (int x = 0; x < world.WorldWidth; x++)

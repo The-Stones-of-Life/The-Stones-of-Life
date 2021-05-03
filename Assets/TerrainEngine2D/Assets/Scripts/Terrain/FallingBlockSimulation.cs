@@ -60,8 +60,17 @@ namespace TerrainEngine2D
         protected override void Awake()
         {
             base.Awake();
-            //Set Properties
-            updateRate = World.WorldData.FallingBlocksUpdateRate;
+
+            if (GameObject.Find("NetworkManager") != null)
+            {
+                //Set Properties
+                updateRate = WorldMultiplayer.WorldData.FallingBlocksUpdateRate;
+            }
+            else
+            {
+                //Set Properties
+                updateRate = World.WorldData.FallingBlocksUpdateRate;
+            }
         }
 
         private void Start()

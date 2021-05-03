@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Mirror;
 
 // Copyright (C) 2018 Matthew K Wilson
 
@@ -9,10 +10,11 @@ namespace TerrainEngine2D
     /// <summary>
     /// A chunk of blocks for world rendering and collider generation
     /// </summary>
-    public class Chunk : MonoBehaviour
+    public class Chunk : NetworkBehaviour
     {
         //Reference to the world
         private World world;
+        private WorldMultiplayer worldMultiplayer;
         [SerializeField]
         private FluidChunk fluidChunk;
         /// <summary>
@@ -80,25 +82,49 @@ namespace TerrainEngine2D
         /// </summary>
         public void InitializeChunk(int chunkSize, int chunkX, int chunkY)
         {
-            this.chunkSize = chunkSize;
-            this.chunkX = chunkX;
-            this.chunkY = chunkY;
-            world = World.Instance;
-            //Initialize the block grid mesh
-            blockGridMesh = new BlockGridMesh(GetComponent<MeshFilter>().mesh, chunkSize, world.ZBlockDistance, true, world.NumBlockLayers);
-            //Initialize the ColliderGenerator lists if there is a collider layer
-            if (world.ColliderLayers.Length != 0)
-                colliderGenerator.Initialize(chunkSize);
-            
-            materialCache = new Material[world.NumBlockLayers][];
-            for (int i = 0; i < world.NumBlockLayers; i++)
+            if (GameObject.Find("NetworkManager") != null)
             {
-                materialCache[i] = new Material[i + 1];
+                this.chunkSize = chunkSize;
+                this.chunkX = chunkX;
+                this.chunkY = chunkY;
+                worldMultiplayer = WorldMultiplayer.Instance;
+                //Initialize the block grid mesh
+                blockGridMesh = new BlockGridMesh(GetComponent<MeshFilter>().mesh, chunkSize, worldMultiplayer.ZBlockDistance, true, worldMultiplayer.NumBlockLayers);
+                //Initialize the ColliderGenerator lists if there is a collider layer
+                if (worldMultiplayer.ColliderLayers.Length != 0)
+                    colliderGenerator.Initialize(chunkSize);
+
+                materialCache = new Material[worldMultiplayer.NumBlockLayers][];
+                for (int i = 0; i < worldMultiplayer.NumBlockLayers; i++)
+                {
+                    materialCache[i] = new Material[i + 1];
+                }
+                //Set the new position of the chunk
+                transform.position = new Vector3(chunkX, chunkY, 0);
+                BuildChunk();
+                BuildCollider();
+            } else
+            {
+                this.chunkSize = chunkSize;
+                this.chunkX = chunkX;
+                this.chunkY = chunkY;
+                world = World.Instance;
+                //Initialize the block grid mesh
+                blockGridMesh = new BlockGridMesh(GetComponent<MeshFilter>().mesh, chunkSize, world.ZBlockDistance, true, world.NumBlockLayers);
+                //Initialize the ColliderGenerator lists if there is a collider layer
+                if (world.ColliderLayers.Length != 0)
+                    colliderGenerator.Initialize(chunkSize);
+
+                materialCache = new Material[world.NumBlockLayers][];
+                for (int i = 0; i < world.NumBlockLayers; i++)
+                {
+                    materialCache[i] = new Material[i + 1];
+                }
+                //Set the new position of the chunk
+                transform.position = new Vector3(chunkX, chunkY, 0);
+                BuildChunk();
+                BuildCollider();
             }
-            //Set the new position of the chunk
-            transform.position = new Vector3(chunkX, chunkY, 0);
-            BuildChunk();
-            BuildCollider();
         }
 
         /// <summary>
@@ -143,73 +169,146 @@ namespace TerrainEngine2D
         /// </summary>
         void BuildChunk()
         {
-            //Loop through the grid of chunks
-            for (int x = 0; x < chunkSize; x++)
+            if (GameObject.Find("NetworkManager") != null)
             {
-                for (int y = 0; y < chunkSize; y++)
+                //Loop through the grid of chunks
+                for (int x = 0; x < chunkSize; x++)
                 {
-                    //Whether blocks may be hidden behind blocks of higher render order
-                    bool blocksHiddenByOverlapBlock = false;
-                    bool blocksHiddenByDefaultBlock = false;
-                    //Loop through all the layers
-                    for (int layer = world.NumBlockLayers - 1; layer >= 0; layer--)
+                    for (int y = 0; y < chunkSize; y++)
                     {
-                        //Adds block to the grid mesh if the current layer has a block for rendering at that coordinate
-                        if (world.GetBlockLayer(layer).IsRenderblock(x + chunkX, y + chunkY))
+                        //Whether blocks may be hidden behind blocks of higher render order
+                        bool blocksHiddenByOverlapBlock = false;
+                        bool blocksHiddenByDefaultBlock = false;
+                        //Loop through all the layers
+                        for (int layer = worldMultiplayer.NumBlockLayers - 1; layer >= 0; layer--)
                         {
-                            //Get information on the current block
-                            BlockInfo blockInfo = world.GetBlockLayer(layer).GetBlockInfo(x + chunkX, y + chunkY);
-                            //Do not generate the block if it is not a multi-tile block and it is completely hidden
-                            if (world.DoNotGenerateHiddenBlocks && !blockInfo.MultiBlock)
+                            //Adds block to the grid mesh if the current layer has a block for rendering at that coordinate
+                            if (worldMultiplayer.GetBlockLayer(layer).IsRenderblock(x + chunkX, y + chunkY))
                             {
+                                //Get information on the current block
+                                BlockInfo blockInfo = worldMultiplayer.GetBlockLayer(layer).GetBlockInfo(x + chunkX, y + chunkY);
+                                //Do not generate the block if it is not a multi-tile block and it is completely hidden
+                                if (worldMultiplayer.DoNotGenerateHiddenBlocks && !blockInfo.MultiBlock)
+                                {
+                                    if (blockInfo.OverlapBlock)
+                                    {
+                                        if (blocksHiddenByOverlapBlock)
+                                        {
+                                            //Not all overlap blocks are completely hidden, only skip if all the edges are covered as well
+                                            byte bitmask = worldMultiplayer.GetBlockLayer(layer).GetBitmask(x + chunkX, y + chunkY);
+                                            bool noTopBlock = IsBitSet(bitmask, 4);
+                                            bool noRightBlock = IsBitSet(bitmask, 5);
+                                            bool noBottomBlock = IsBitSet(bitmask, 6);
+                                            bool noLeftBlock = IsBitSet(bitmask, 7);
+                                            if (!noTopBlock && !noRightBlock && !noBottomBlock && !noLeftBlock)
+                                                continue;
+                                        }
+                                    }
+                                    else if (blocksHiddenByDefaultBlock)
+                                        continue;
+                                }
+                                //Render order of the block 
+                                float zBlockOrder = worldMultiplayer.GetBlockLayer(layer).ZLayerOrder - worldMultiplayer.GetBlockLayer(layer).GetBlockType(x + chunkX, y + chunkY) * worldMultiplayer.ZBlockDistance;
+                                //Tile variation for that block
+                                Vector2 variation = new Vector2(worldMultiplayer.GetBlockLayer(layer).GetVariation(x + chunkX, y + chunkY), 0);
+                                //Texture position of the block
+                                Vector2 texturePosition = new Vector2(blockInfo.TextureXRelativePosition, blockInfo.TextureYRelativePosition) + variation;
+                                //Generate the proper block type in the BlockGridMesh
                                 if (blockInfo.OverlapBlock)
                                 {
-                                    if (blocksHiddenByOverlapBlock)
-                                    {
-                                        //Not all overlap blocks are completely hidden, only skip if all the edges are covered as well
-                                        byte bitmask = world.GetBlockLayer(layer).GetBitmask(x + chunkX, y + chunkY);
-                                        bool noTopBlock = IsBitSet(bitmask, 4);
-                                        bool noRightBlock = IsBitSet(bitmask, 5);
-                                        bool noBottomBlock = IsBitSet(bitmask, 6);
-                                        bool noLeftBlock = IsBitSet(bitmask, 7);
-                                        if (!noTopBlock && !noRightBlock && !noBottomBlock && !noLeftBlock)
-                                            continue;
-                                    }
+                                    byte bitmask = worldMultiplayer.GetBlockLayer(layer).GetBitmask(x + chunkX, y + chunkY);
+                                    blockGridMesh.CreateOverlapBlock(x, y, zBlockOrder, bitmask, texturePosition, (byte)layer, blockInfo.TileUnitX, blockInfo.TileUnitY, worldMultiplayer.OverlapBlendSquares);
                                 }
-                                else if (blocksHiddenByDefaultBlock)
-                                    continue;
-                            }
-                            //Render order of the block 
-                            float zBlockOrder = world.GetBlockLayer(layer).ZLayerOrder - world.GetBlockLayer(layer).GetBlockType(x + chunkX, y + chunkY) * world.ZBlockDistance;
-                            //Tile variation for that block
-                            Vector2 variation = new Vector2(world.GetBlockLayer(layer).GetVariation(x + chunkX, y + chunkY), 0);
-                            //Texture position of the block
-                            Vector2 texturePosition = new Vector2(blockInfo.TextureXRelativePosition, blockInfo.TextureYRelativePosition) + variation;
-                            //Generate the proper block type in the BlockGridMesh
-                            if (blockInfo.OverlapBlock)
-                            {
-                                byte bitmask = world.GetBlockLayer(layer).GetBitmask(x + chunkX, y + chunkY);
-                                blockGridMesh.CreateOverlapBlock(x, y, zBlockOrder, bitmask, texturePosition, (byte)layer, blockInfo.TileUnitX, blockInfo.TileUnitY, world.OverlapBlendSquares);
-                            }
-                            else
-                                blockGridMesh.CreateBlock(x, y, zBlockOrder, texturePosition, (byte)layer, blockInfo.TileUnitX, blockInfo.TileUnitY, blockInfo.TextureWidth, blockInfo.TextureHeight);
-                            //If a block is not transparent the other blocks behind it may be completely hidden
-                            if (!blockInfo.Transparent)
-                            {
-                                if (blockInfo.OverlapBlock)
-                                    blocksHiddenByOverlapBlock = true;
                                 else
-                                    blocksHiddenByDefaultBlock = true;
+                                    blockGridMesh.CreateBlock(x, y, zBlockOrder, texturePosition, (byte)layer, blockInfo.TileUnitX, blockInfo.TileUnitY, blockInfo.TextureWidth, blockInfo.TextureHeight);
+                                //If a block is not transparent the other blocks behind it may be completely hidden
+                                if (!blockInfo.Transparent)
+                                {
+                                    if (blockInfo.OverlapBlock)
+                                        blocksHiddenByOverlapBlock = true;
+                                    else
+                                        blocksHiddenByDefaultBlock = true;
+                                }
                             }
                         }
                     }
                 }
-            }
 
-            //Update the block grid mesh
-            blockGridMesh.UpdateMesh();
-            //Set the materials in the MeshRenderer
-            UpdateMeshRenderer();
+                //Update the block grid mesh
+                blockGridMesh.UpdateMesh();
+                //Set the materials in the MeshRenderer
+                UpdateMeshRenderer();
+            }
+            else
+            {
+                //Loop through the grid of chunks
+                for (int x = 0; x < chunkSize; x++)
+                {
+                    for (int y = 0; y < chunkSize; y++)
+                    {
+                        //Whether blocks may be hidden behind blocks of higher render order
+                        bool blocksHiddenByOverlapBlock = false;
+                        bool blocksHiddenByDefaultBlock = false;
+                        //Loop through all the layers
+                        for (int layer = world.NumBlockLayers - 1; layer >= 0; layer--)
+                        {
+                            //Adds block to the grid mesh if the current layer has a block for rendering at that coordinate
+                            if (world.GetBlockLayer(layer).IsRenderblock(x + chunkX, y + chunkY))
+                            {
+                                //Get information on the current block
+                                BlockInfo blockInfo = world.GetBlockLayer(layer).GetBlockInfo(x + chunkX, y + chunkY);
+                                //Do not generate the block if it is not a multi-tile block and it is completely hidden
+                                if (world.DoNotGenerateHiddenBlocks && !blockInfo.MultiBlock)
+                                {
+                                    if (blockInfo.OverlapBlock)
+                                    {
+                                        if (blocksHiddenByOverlapBlock)
+                                        {
+                                            //Not all overlap blocks are completely hidden, only skip if all the edges are covered as well
+                                            byte bitmask = world.GetBlockLayer(layer).GetBitmask(x + chunkX, y + chunkY);
+                                            bool noTopBlock = IsBitSet(bitmask, 4);
+                                            bool noRightBlock = IsBitSet(bitmask, 5);
+                                            bool noBottomBlock = IsBitSet(bitmask, 6);
+                                            bool noLeftBlock = IsBitSet(bitmask, 7);
+                                            if (!noTopBlock && !noRightBlock && !noBottomBlock && !noLeftBlock)
+                                                continue;
+                                        }
+                                    }
+                                    else if (blocksHiddenByDefaultBlock)
+                                        continue;
+                                }
+                                //Render order of the block 
+                                float zBlockOrder = world.GetBlockLayer(layer).ZLayerOrder - world.GetBlockLayer(layer).GetBlockType(x + chunkX, y + chunkY) * world.ZBlockDistance;
+                                //Tile variation for that block
+                                Vector2 variation = new Vector2(world.GetBlockLayer(layer).GetVariation(x + chunkX, y + chunkY), 0);
+                                //Texture position of the block
+                                Vector2 texturePosition = new Vector2(blockInfo.TextureXRelativePosition, blockInfo.TextureYRelativePosition) + variation;
+                                //Generate the proper block type in the BlockGridMesh
+                                if (blockInfo.OverlapBlock)
+                                {
+                                    byte bitmask = world.GetBlockLayer(layer).GetBitmask(x + chunkX, y + chunkY);
+                                    blockGridMesh.CreateOverlapBlock(x, y, zBlockOrder, bitmask, texturePosition, (byte)layer, blockInfo.TileUnitX, blockInfo.TileUnitY, world.OverlapBlendSquares);
+                                }
+                                else
+                                    blockGridMesh.CreateBlock(x, y, zBlockOrder, texturePosition, (byte)layer, blockInfo.TileUnitX, blockInfo.TileUnitY, blockInfo.TextureWidth, blockInfo.TextureHeight);
+                                //If a block is not transparent the other blocks behind it may be completely hidden
+                                if (!blockInfo.Transparent)
+                                {
+                                    if (blockInfo.OverlapBlock)
+                                        blocksHiddenByOverlapBlock = true;
+                                    else
+                                        blocksHiddenByDefaultBlock = true;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                //Update the block grid mesh
+                blockGridMesh.UpdateMesh();
+                //Set the materials in the MeshRenderer
+                UpdateMeshRenderer();
+            }
         }
 
         /// <summary>
@@ -228,21 +327,44 @@ namespace TerrainEngine2D
         /// </summary>
         void BuildCollider()
         {
-            //Update collider
-            //Loop through the grid of chunks
-            for (int x = 0; x < chunkSize; x++)
+            if (GameObject.Find("NetworkManager") != null)
             {
-                for (int y = 0; y < chunkSize; y++)
-                {
-                    //Generate collider paths if there are any collider layers
-                    if (world.ColliderLayers.Length != 0)
-                        colliderGenerator.GenColliderPaths(x, y, true, new Vector2Int(0, 0));
-                }
-            }
 
-            //Update the PolygonCollider2D
-            if (world.ColliderLayers.Length != 0)
-                colliderGenerator.UpdateCollider();
+                //Update collider
+                //Loop through the grid of chunks
+                for (int x = 0; x < chunkSize; x++)
+                {
+                    for (int y = 0; y < chunkSize; y++)
+                    {
+                        //Generate collider paths if there are any collider layers
+                        if (worldMultiplayer.ColliderLayers.Length != 0)
+                            colliderGenerator.GenColliderPaths(x, y, true, new Vector2Int(0, 0));
+                    }
+                }
+
+                //Update the PolygonCollider2D
+                if (worldMultiplayer.ColliderLayers.Length != 0)
+                    colliderGenerator.UpdateCollider();
+            }
+            else
+            {
+
+                //Update collider
+                //Loop through the grid of chunks
+                for (int x = 0; x < chunkSize; x++)
+                {
+                    for (int y = 0; y < chunkSize; y++)
+                    {
+                        //Generate collider paths if there are any collider layers
+                        if (world.ColliderLayers.Length != 0)
+                            colliderGenerator.GenColliderPaths(x, y, true, new Vector2Int(0, 0));
+                    }
+                }
+
+                //Update the PolygonCollider2D
+                if (world.ColliderLayers.Length != 0)
+                    colliderGenerator.UpdateCollider();
+            }
         }
 
         /// <summary>
@@ -250,25 +372,51 @@ namespace TerrainEngine2D
         /// </summary>
         void UpdateMeshRenderer()
         {
-            //Sets the materials if there are submeshes in the block grid mesh
-            int subMeshCount = blockGridMesh.GetMesh().subMeshCount;
-            if (subMeshCount > 0)
+            if (GameObject.Find("NetworkManager") != null)
             {
-                //Gets the correct materialCache size based on the number of submeshes
-                Material[] tempMaterials = materialCache[subMeshCount - 1];
-                //Loops through the number of block layers
-                int indexCounter = 0;
-                for (int i = 0; i < world.NumBlockLayers; i++)
+                //Sets the materials if there are submeshes in the block grid mesh
+                int subMeshCount = blockGridMesh.GetMesh().subMeshCount;
+                if (subMeshCount > 0)
                 {
-                    //If the current layer is a material layer (it contains blocks), then add its material to the cache
-                    if (blockGridMesh.IsMaterialLayer(i))
+                    //Gets the correct materialCache size based on the number of submeshes
+                    Material[] tempMaterials = materialCache[subMeshCount - 1];
+                    //Loops through the number of block layers
+                    int indexCounter = 0;
+                    for (int i = 0; i < worldMultiplayer.NumBlockLayers; i++)
                     {
-                        tempMaterials[indexCounter] = world.GetBlockLayer(i).Material;
-                        indexCounter++;
+                        //If the current layer is a material layer (it contains blocks), then add its material to the cache
+                        if (blockGridMesh.IsMaterialLayer(i))
+                        {
+                            tempMaterials[indexCounter] = worldMultiplayer.GetBlockLayer(i).Material;
+                            indexCounter++;
+                        }
                     }
+                    //Sets the materials of the MeshRenderer
+                    meshRenderer.materials = tempMaterials;
                 }
-                //Sets the materials of the MeshRenderer
-                meshRenderer.materials = tempMaterials;
+            }
+            else
+            {
+                //Sets the materials if there are submeshes in the block grid mesh
+                int subMeshCount = blockGridMesh.GetMesh().subMeshCount;
+                if (subMeshCount > 0)
+                {
+                    //Gets the correct materialCache size based on the number of submeshes
+                    Material[] tempMaterials = materialCache[subMeshCount - 1];
+                    //Loops through the number of block layers
+                    int indexCounter = 0;
+                    for (int i = 0; i < world.NumBlockLayers; i++)
+                    {
+                        //If the current layer is a material layer (it contains blocks), then add its material to the cache
+                        if (blockGridMesh.IsMaterialLayer(i))
+                        {
+                            tempMaterials[indexCounter] = world.GetBlockLayer(i).Material;
+                            indexCounter++;
+                        }
+                    }
+                    //Sets the materials of the MeshRenderer
+                    meshRenderer.materials = tempMaterials;
+                }
             }
         }
     }

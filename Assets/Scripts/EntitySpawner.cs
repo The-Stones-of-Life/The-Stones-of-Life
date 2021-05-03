@@ -10,13 +10,13 @@ public class EntitySpawner : MonoBehaviour
    
     void Update()
     {
-        if (Random.Range(1, 5000) == 1) {
+        if (Random.Range(1, 2000) == 1) {
 			
 			Instantiate(pettleDemon, new Vector2(Random.Range(1, 512), 118), Quaternion.identity);
 			
 		}
 		
-		if (Random.Range(1, 50) == 1) {
+		if (Random.Range(1, 2000) == 1) {
 			
 			Instantiate(manEater, new Vector2(Random.Range(1, 512), 118), Quaternion.identity);
 			

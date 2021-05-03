@@ -11,6 +11,7 @@ namespace TerrainEngine2D.Lighting
     public class BlockLightMesh : TexturedMesh
     {
         protected World world;
+        protected WorldMultiplayer worldMultiplayer;
         protected ChunkLoader chunkLoader;
         [HideInInspector]
         [SerializeField]
@@ -43,23 +44,48 @@ namespace TerrainEngine2D.Lighting
 
         protected override void Start()
         {
-            world = World.Instance;
-            chunkLoader = ChunkLoader.Instance;
-            //Set the size of the texture
-            width = chunkLoader.LoadedWorldWidth;
-            height = chunkLoader.LoadedWorldHeight;
+            if (GameObject.Find("NetworkManager") != null)
+            {
+                worldMultiplayer = WorldMultiplayer.Instance;
+                chunkLoader = ChunkLoader.Instance;
+                //Set the size of the texture
+                width = chunkLoader.LoadedWorldWidth;
+                height = chunkLoader.LoadedWorldHeight;
 
-            base.Start();
-            //Set the z position/render order for the light system
-            transform.position = new Vector3(transform.position.x, transform.position.y, world.EndZPoint - world.ZBlockDistance * world.ZLayerFactor * World.LIGHT_SYSTEM_Z_ORDER);
+                base.Start();
+                //Set the z position/render order for the light system
+                transform.position = new Vector3(transform.position.x, transform.position.y, worldMultiplayer.EndZPoint - worldMultiplayer.ZBlockDistance * worldMultiplayer.ZLayerFactor * World.LIGHT_SYSTEM_Z_ORDER);
+
+            } else
+            {
+                world = World.Instance;
+                chunkLoader = ChunkLoader.Instance;
+                //Set the size of the texture
+                width = chunkLoader.LoadedWorldWidth;
+                height = chunkLoader.LoadedWorldHeight;
+
+                base.Start();
+                //Set the z position/render order for the light system
+                transform.position = new Vector3(transform.position.x, transform.position.y, world.EndZPoint - world.ZBlockDistance * world.ZLayerFactor * World.LIGHT_SYSTEM_Z_ORDER);
+            }
         }
 
         protected override void LateUpdate()
         {
-            if (update && !world.LightingDisabled)
+            if (GameObject.Find("NetworkManager") != null)
             {
-                transform.position = new Vector3(chunkLoader.OriginLoadedChunks.x, chunkLoader.OriginLoadedChunks.y, transform.position.z);
-                base.LateUpdate();
+                if (update && !worldMultiplayer.LightingDisabled)
+                {
+                    transform.position = new Vector3(chunkLoader.OriginLoadedChunks.x, chunkLoader.OriginLoadedChunks.y, transform.position.z);
+                    base.LateUpdate();
+                }
+            } else
+            {
+                if (update && !world.LightingDisabled)
+                {
+                    transform.position = new Vector3(chunkLoader.OriginLoadedChunks.x, chunkLoader.OriginLoadedChunks.y, transform.position.z);
+                    base.LateUpdate();
+                }
             }
         }
 

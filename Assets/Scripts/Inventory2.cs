@@ -2,20 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class Inventory2 : MonoBehaviour
 {
+
+	public static int grassBlocks = 0;
 	
-	public static bool changeworld = false;
-	public static bool changedworld = false;
-	
-	public int selectedBlock = 0;
-	
-	public int grassBlocks = 0;
-	public int dirtBlocks = 0;
-	public int stoneBlocks = 0;
-	public int leaves = 0;
-	public int logs = 0;
+	public static int selectedBlock = 0;
+	public static int dirtBlocks = 0;
+	public static int stone = 0;
+	public static int leaves = 0;
+	public static int logs = 0;
 	public int planks = 0;
 	public int coal = 0;
 	public int iron = 0;
@@ -26,7 +24,7 @@ public class Inventory2 : MonoBehaviour
 	public int anvil = 0;
 	public int chair = 0;
 	public int table = 0;
-	public int arcane_workbench = 0;
+	public static int arcane_workbench = 0;
 	public int crude_oil_ore = 0;
 	public int mechanical_workbench = 0;
 	public int moon_stone = 0;
@@ -35,6 +33,7 @@ public class Inventory2 : MonoBehaviour
 	public int launchpad = 0;
 	public int campfire = 0;
 	public int bricks = 0;
+	public int stone_block = 0;
 	public int stone_bricks = 0;
 	public int gold = 0;
 	public int diamond_ore = 0;
@@ -103,17 +102,7 @@ public class Inventory2 : MonoBehaviour
 		
     void Update()
     {		
-		if (changeworld == true) {
-			
-			SaveInv();
-			
-		}
 		
-		if (changedworld == true) {
-			
-			LoadInv();
-			
-		}
 		
         if (Input.GetKeyDown(KeyCode.LeftArrow) && selectedBlock <= 26 && selectedBlock > 0) {
 			
@@ -121,7 +110,7 @@ public class Inventory2 : MonoBehaviour
 			
 		}
 		
-		if (Input.GetKeyDown(KeyCode.RightArrow) && selectedBlock >= 0 && selectedBlock < 26) {
+		if (Input.GetKeyDown(KeyCode.RightArrow) && selectedBlock >= 0 && selectedBlock < 0) {
 			
 			selectedBlock += 1;
 			
@@ -148,7 +137,7 @@ public class Inventory2 : MonoBehaviour
 		selectedBlock = data.selectedBlock;
 		grassBlocks = data.grassBlocks;
 		dirtBlocks = data.dirtBlocks;
-		stoneBlocks = data.stoneBlocks;
+		stone = data.stone;
 		leaves = data.leaves;
 		logs = data.logs;
 		planks = data.planks;

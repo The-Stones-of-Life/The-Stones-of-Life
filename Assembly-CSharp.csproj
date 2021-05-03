@@ -1,0 +1,1220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.20506</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <RootNamespace></RootNamespace>
+    <ProjectGuid>{0C4FD81F-04CA-EEC0-9DDE-D2381C928BFC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <AssemblyName>Assembly-CSharp</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <BaseDirectory>.</BaseDirectory>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Temp\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_4_OR_NEWER;UNITY_2018_4_32;UNITY_2018_4;UNITY_2018;PLATFORM_ARCH_64;UNITY_64;UNITY_INCLUDE_TESTS;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_SPRITES;ENABLE_GRID;ENABLE_TILEMAP;ENABLE_TERRAIN;ENABLE_TEXTURE_STREAMING;ENABLE_DIRECTOR;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_TIMELINE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;INCLUDE_DYNAMIC_GI;INCLUDE_GI;ENABLE_MONO_BDWGC;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;INCLUDE_PUBNUB;ENABLE_VIDEO;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_LOCALIZATION;PLATFORM_STANDALONE_WIN;PLATFORM_STANDALONE;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_OUT_OF_PROCESS_CRASH_HANDLER;ENABLE_EVENT_QUEUE;ENABLE_CLUSTER_SYNC;ENABLE_CLUSTERINPUT;ENABLE_VR;ENABLE_AR;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_STANDARD_2_0;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;ENABLE_VSTU;WEATHER_MAKER_PRESENT;PHOTON_UNITY_NETWORKING;PUN_2_0_OR_NEWER;PUN_2_OR_NEWER;MIRROR;MIRROR_1726_OR_NEWER;MIRROR_3_0_OR_NEWER;MIRROR_3_12_OR_NEWER;MIRROR_4_0_OR_NEWER;MIRROR_5_0_OR_NEWER;MIRROR_6_0_OR_NEWER;MIRROR_7_0_OR_NEWER;MIRROR_8_0_OR_NEWER;MIRROR_9_0_OR_NEWER;MIRROR_10_0_OR_NEWER;MIRROR_11_0_OR_NEWER;MIRROR_12_0_OR_NEWER;MIRROR_13_0_OR_NEWER;MIRROR_14_0_OR_NEWER;MIRROR_15_0_OR_NEWER;MIRROR_16_0_OR_NEWER;MIRROR_17_0_OR_NEWER;MIRROR_18_0_OR_NEWER;MIRROR_24_0_OR_NEWER;MIRROR_26_0_OR_NEWER;MIRROR_27_0_OR_NEWER;MIRROR_28_0_OR_NEWER;MIRROR_29_0_OR_NEWER;MIRROR_30_0_OR_NEWER;CSHARP_7_OR_LATER;CSHARP_7_3_OR_NEWER</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>0169</NoWarn>
+    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Temp\bin\Release\</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>0169</NoWarn>
+    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup>
+    <NoConfig>true</NoConfig>
+    <NoStdLib>true</NoStdLib>
+    <AddAdditionalExplicitAssemblyReferences>false</AddAdditionalExplicitAssemblyReferences>
+    <ImplicitlyExpandNETStandardFacades>false</ImplicitlyExpandNETStandardFacades>
+    <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="UnityEngine">
+      <HintPath>C:\Users\22MartinR\Downloads\Unity\Editor\Data\Managed/UnityEngine/UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor">
+      <HintPath>C:\Users\22MartinR\Downloads\Unity\Editor\Data\Managed/UnityEditor.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+     <Compile Include="Assets\_\Base\BaseScripts\CharacterAimHandler.cs" />
+     <Compile Include="Assets\_\Base\BaseScripts\CharacterPositionMovementHandler.cs" />
+     <Compile Include="Assets\_\Base\BaseScripts\CharacterSwordHandler.cs" />
+     <Compile Include="Assets\_\Base\BaseScripts\CharacterWaypointsHandler.cs" />
+     <Compile Include="Assets\_\Base\BaseScripts\Enemy.cs" />
+     <Compile Include="Assets\_\Base\BaseScripts\Enemy_Base.cs" />
+     <Compile Include="Assets\_\Base\BaseScripts\EnemyHandler.cs" />
+     <Compile Include="Assets\_\Base\BaseScripts\FlyingBody.cs" />
+     <Compile Include="Assets\_\Base\BaseScripts\GameHandler_Setup.cs" />
+     <Compile Include="Assets\_\Base\BaseScripts\HealthSystem.cs" />
+     <Compile Include="Assets\_\Base\BaseScripts\MaterialTintColor.cs" />
+     <Compile Include="Assets\_\Base\BaseScripts\Player.cs" />
+     <Compile Include="Assets\_\Base\BaseScripts\Player_Base.cs" />
+     <Compile Include="Assets\_\Base\BaseScripts\PlayerMultiplayer.cs" />
+     <Compile Include="Assets\_\Base\BaseScripts\PlayerPositionMovement.cs" />
+     <Compile Include="Assets\_\Base\BaseScripts\PlayerPunch.cs" />
+     <Compile Include="Assets\_\Base\BaseScripts\PlayerSword.cs" />
+     <Compile Include="Assets\_\Stuff\CodeMonkey\Assets.cs" />
+     <Compile Include="Assets\_\Stuff\CodeMonkey\CMDebug.cs" />
+     <Compile Include="Assets\_\Stuff\CodeMonkey\MonoBehaviours\CameraFollow.cs" />
+     <Compile Include="Assets\_\Stuff\CodeMonkey\MonoBehaviours\CameraFollowSetup.cs" />
+     <Compile Include="Assets\_\Stuff\CodeMonkey\MonoBehaviours\ComponentActions.cs" />
+     <Compile Include="Assets\_\Stuff\CodeMonkey\MonoBehaviours\PositionRendererSorter.cs" />
+     <Compile Include="Assets\_\Stuff\CodeMonkey\Utils\Button_Sprite.cs" />
+     <Compile Include="Assets\_\Stuff\CodeMonkey\Utils\Button_UI.cs" />
+     <Compile Include="Assets\_\Stuff\CodeMonkey\Utils\FunctionPeriodic.cs" />
+     <Compile Include="Assets\_\Stuff\CodeMonkey\Utils\FunctionTimer.cs" />
+     <Compile Include="Assets\_\Stuff\CodeMonkey\Utils\FunctionUpdater.cs" />
+     <Compile Include="Assets\_\Stuff\CodeMonkey\Utils\UI_Bar.cs" />
+     <Compile Include="Assets\_\Stuff\CodeMonkey\Utils\UI_BarMultiple.cs" />
+     <Compile Include="Assets\_\Stuff\CodeMonkey\Utils\UI_Sprite.cs" />
+     <Compile Include="Assets\_\Stuff\CodeMonkey\Utils\UI_TextComplex.cs" />
+     <Compile Include="Assets\_\Stuff\CodeMonkey\Utils\UtilsClass.cs" />
+     <Compile Include="Assets\_\Stuff\CodeMonkey\Utils\World_Bar.cs" />
+     <Compile Include="Assets\_\Stuff\CodeMonkey\Utils\World_Mesh.cs" />
+     <Compile Include="Assets\_\Stuff\CodeMonkey\Utils\World_Sprite.cs" />
+     <Compile Include="Assets\_\Stuff\GridPathfinding\BinaryTree.cs" />
+     <Compile Include="Assets\_\Stuff\GridPathfinding\GridPathfinding.cs" />
+     <Compile Include="Assets\_\Stuff\GridPathfinding\LastMoveTo.cs" />
+     <Compile Include="Assets\_\Stuff\GridPathfinding\MapPos.cs" />
+     <Compile Include="Assets\_\Stuff\GridPathfinding\PathNode.cs" />
+     <Compile Include="Assets\_\Stuff\GridPathfinding\PathQueue.cs" />
+     <Compile Include="Assets\_\Stuff\GridPathfinding\PathRoute.cs" />
+     <Compile Include="Assets\_\Stuff\GridPathfinding\UnitMovement.cs" />
+     <Compile Include="Assets\_\Stuff\Scripts\AnimatedWalker.cs" />
+     <Compile Include="Assets\_\Stuff\Scripts\Blood_Handler.cs" />
+     <Compile Include="Assets\_\Stuff\Scripts\Dirt_Handler.cs" />
+     <Compile Include="Assets\_\Stuff\Scripts\FullscreenPlayMode.cs" />
+     <Compile Include="Assets\_\Stuff\Scripts\GameAssets.cs" />
+     <Compile Include="Assets\_\Stuff\Scripts\Generic_Mesh_Script.cs" />
+     <Compile Include="Assets\_\Stuff\Scripts\ScreenshotHandler.cs" />
+     <Compile Include="Assets\_\Stuff\Scripts\SetSpriteSorting.cs" />
+     <Compile Include="Assets\_\Stuff\Scripts\Shoot_Flash.cs" />
+     <Compile Include="Assets\_\Stuff\Scripts\Sound_Manager.cs" />
+     <Compile Include="Assets\_\Stuff\Scripts\SpriteAnimator.cs" />
+     <Compile Include="Assets\_\Stuff\Scripts\UVVectors.cs" />
+     <Compile Include="Assets\_\Stuff\Scripts\V_UnitSkeleton_Composite_Walker.cs" />
+     <Compile Include="Assets\_\Stuff\Scripts\V_UnitSkeleton_Composite_Weapon.cs" />
+     <Compile Include="Assets\_\Stuff\Scripts\WeaponTracer.cs" />
+     <Compile Include="Assets\_\Stuff\V_ObjectSystem\V_IActiveInactive.cs" />
+     <Compile Include="Assets\_\Stuff\V_ObjectSystem\V_IDestroySelf.cs" />
+     <Compile Include="Assets\_\Stuff\V_ObjectSystem\V_IHasWorldPosition.cs" />
+     <Compile Include="Assets\_\Stuff\V_ObjectSystem\V_IObjectActiveLogic.cs" />
+     <Compile Include="Assets\_\Stuff\V_ObjectSystem\V_IObjectTransform.cs" />
+     <Compile Include="Assets\_\Stuff\V_ObjectSystem\V_IObjectTransformBody.cs" />
+     <Compile Include="Assets\_\Stuff\V_ObjectSystem\V_Main.cs" />
+     <Compile Include="Assets\_\Stuff\V_ObjectSystem\V_Object.cs" />
+     <Compile Include="Assets\_\Stuff\V_ObjectSystem\V_ObjectLogic_SkeletonUpdater.cs" />
+     <Compile Include="Assets\_\Stuff\V_ObjectSystem\V_ObjectTransform.cs" />
+     <Compile Include="Assets\_\Stuff\V_ObjectSystem\V_ObjectTransform_LateUpdate.cs" />
+     <Compile Include="Assets\_\Stuff\V_ObjectSystem\V_ObjectTransformBody.cs" />
+     <Compile Include="Assets\_\Stuff\V_ObjectSystem\V_TimeScaleManager.cs" />
+     <Compile Include="Assets\48 Particle Effect Pack\Script\csDestroyEffect.cs" />
+     <Compile Include="Assets\48 Particle Effect Pack\Script\csMouseOrbit.cs" />
+     <Compile Include="Assets\48 Particle Effect Pack\Script\csParticleEffectPackLightControl.cs" />
+     <Compile Include="Assets\48 Particle Effect Pack\Script\csParticleMove.cs" />
+     <Compile Include="Assets\48 Particle Effect Pack\Script\csShowAllEffect.cs" />
+     <Compile Include="Assets\48 Particle Effect Pack\ShurikenEffectEditor\csShurikenEffectChanger.cs" />
+     <Compile Include="Assets\48 Particle Effect Pack\ShurikenEffectEditor\csShurikenEffectEditor.cs" />
+     <Compile Include="Assets\AddBlockItemToInventory.cs" />
+     <Compile Include="Assets\BuiltinCommands.cs" />
+     <Compile Include="Assets\CommandAutocomplete.cs" />
+     <Compile Include="Assets\CommandHistory.cs" />
+     <Compile Include="Assets\CommandLog.cs" />
+     <Compile Include="Assets\CommandShell.cs" />
+     <Compile Include="Assets\EntityJump.cs" />
+     <Compile Include="Assets\GameManaer.cs" />
+     <Compile Include="Assets\Hotbar.cs" />
+     <Compile Include="Assets\JoinLobby.cs" />
+     <Compile Include="Assets\Joystick Pack\Examples\JoystickPlayerExample.cs" />
+     <Compile Include="Assets\Joystick Pack\Examples\JoystickSetterExample.cs" />
+     <Compile Include="Assets\Joystick Pack\Scripts\Base\Joystick.cs" />
+     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\DynamicJoystick.cs" />
+     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\FixedJoystick.cs" />
+     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\FloatingJoystick.cs" />
+     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\VariableJoystick.cs" />
+     <Compile Include="Assets\LeaveLobby.cs" />
+     <Compile Include="Assets\LFC\Scripts\___FpS.cs" />
+     <Compile Include="Assets\LFC\Scripts\AutoRotate.cs" />
+     <Compile Include="Assets\LFC\Scripts\LFC.cs" />
+     <Compile Include="Assets\loadsceene.cs" />
+     <Compile Include="Assets\ModTool\Example\ModItem.cs" />
+     <Compile Include="Assets\ModTool\Example\ModMenu.cs" />
+     <Compile Include="Assets\multiplayer\CharacterController2D.cs" />
+     <Compile Include="Assets\NewNetworkManager.cs" />
+     <Compile Include="Assets\npcmove.cs" />
+     <Compile Include="Assets\OriginalExample\Scripts\OriginalTerrainGenerator.cs" />
+     <Compile Include="Assets\PlayerStatus.cs" />
+     <Compile Include="Assets\RainMaker\Demo\DemoScript.cs" />
+     <Compile Include="Assets\RainMaker\Demo\DemoScript2D.cs" />
+     <Compile Include="Assets\RainMaker\Demo\DemoScriptStartRainOnSpaceBar.cs" />
+     <Compile Include="Assets\RainMaker\Demo\Standard Assets\Environment\Water\Water\Scripts\Displace.cs" />
+     <Compile Include="Assets\RainMaker\Demo\Standard Assets\Environment\Water\Water\Scripts\GerstnerDisplace.cs" />
+     <Compile Include="Assets\RainMaker\Demo\Standard Assets\Environment\Water\Water\Scripts\MeshContainer.cs" />
+     <Compile Include="Assets\RainMaker\Demo\Standard Assets\Environment\Water\Water\Scripts\PlanarReflection.cs" />
+     <Compile Include="Assets\RainMaker\Demo\Standard Assets\Environment\Water\Water\Scripts\SpecularLighting.cs" />
+     <Compile Include="Assets\RainMaker\Demo\Standard Assets\Environment\Water\Water\Scripts\Water.cs" />
+     <Compile Include="Assets\RainMaker\Demo\Standard Assets\Environment\Water\Water\Scripts\WaterBase.cs" />
+     <Compile Include="Assets\RainMaker\Demo\Standard Assets\Environment\Water\Water\Scripts\WaterTile.cs" />
+     <Compile Include="Assets\RainMaker\Prefab\BaseRainScript.cs" />
+     <Compile Include="Assets\RainMaker\Prefab\RainCollision.cs" />
+     <Compile Include="Assets\RainMaker\Prefab\RainController.cs" />
+     <Compile Include="Assets\RainMaker\Prefab\RainScript.cs" />
+     <Compile Include="Assets\RainMaker\Prefab\RainScript2D.cs" />
+     <Compile Include="Assets\RegisterCommandAttribute.cs" />
+     <Compile Include="Assets\Samples\Remote Config\1.0.9\Example Sample\SampleExample.cs" />
+     <Compile Include="Assets\SaveSystem\Example\Scripts\CryptographyExample.cs" />
+     <Compile Include="Assets\SaveSystem\Example\Scripts\EasySaveExample.cs" />
+     <Compile Include="Assets\SaveSystem\Example\Scripts\FileSaveExample.cs" />
+     <Compile Include="Assets\SaveSystem\Example\Scripts\MyClass.cs" />
+     <Compile Include="Assets\SaveSystem\Example\Scripts\WebSaveExample.cs" />
+     <Compile Include="Assets\SaveSystem\Scripts\Cryptography.cs" />
+     <Compile Include="Assets\SaveSystem\Scripts\EasySave.cs" />
+     <Compile Include="Assets\SaveSystem\Scripts\FileFormat.cs" />
+     <Compile Include="Assets\SaveSystem\Scripts\FileSave.cs" />
+     <Compile Include="Assets\SaveSystem\Scripts\WebSave.cs" />
+     <Compile Include="Assets\Scripts\AnvilOpen.cs" />
+     <Compile Include="Assets\Scripts\ArcaneWorkbenchOpen.cs" />
+     <Compile Include="Assets\Scripts\BlockBreak.cs" />
+     <Compile Include="Assets\Scripts\BlockPlacement.cs" />
+     <Compile Include="Assets\Scripts\BowHolder.cs" />
+     <Compile Include="Assets\Scripts\CameraFollowMultiplayer.cs" />
+     <Compile Include="Assets\Scripts\CampfireOpen.cs" />
+     <Compile Include="Assets\Scripts\CaveGanerator.cs" />
+     <Compile Include="Assets\Scripts\ChangedWorld.cs" />
+     <Compile Include="Assets\Scripts\CharacterController2D.cs" />
+     <Compile Include="Assets\Scripts\COL.cs" />
+     <Compile Include="Assets\Scripts\Crafting.cs" />
+     <Compile Include="Assets\Scripts\Currency.cs" />
+     <Compile Include="Assets\Scripts\DiscordRP.cs" />
+     <Compile Include="Assets\Scripts\DropedItem.cs" />
+     <Compile Include="Assets\Scripts\EnemyProjectile.cs" />
+     <Compile Include="Assets\Scripts\Entities\AIBase.cs" />
+     <Compile Include="Assets\Scripts\Entities\Bosses\LeftProjTrigger.cs" />
+     <Compile Include="Assets\Scripts\Entities\Bosses\LordPyrmid.cs" />
+     <Compile Include="Assets\Scripts\Entities\Bosses\LordsPyrmites.cs" />
+     <Compile Include="Assets\Scripts\Entities\Bosses\RightProjTrigger.cs" />
+     <Compile Include="Assets\Scripts\Entities\Chicken.cs" />
+     <Compile Include="Assets\Scripts\Entities\DeathBat.cs" />
+     <Compile Include="Assets\Scripts\Entities\DemonFlower.cs" />
+     <Compile Include="Assets\Scripts\Entities\Dragon.cs" />
+     <Compile Include="Assets\Scripts\Entities\ManEater.cs" />
+     <Compile Include="Assets\Scripts\Entities\PettleDemon.cs" />
+     <Compile Include="Assets\Scripts\Entities\Projectiles\Arrow.cs" />
+     <Compile Include="Assets\Scripts\Entities\Projectiles\FlamingArrow.cs" />
+     <Compile Include="Assets\Scripts\Entities\Projectiles\IronArrow.cs" />
+     <Compile Include="Assets\Scripts\Entities\Projectiles\RedLaser.cs" />
+     <Compile Include="Assets\Scripts\Entities\Sludge.cs" />
+     <Compile Include="Assets\Scripts\EntitySpawner.cs" />
+     <Compile Include="Assets\Scripts\Equipment.cs" />
+     <Compile Include="Assets\Scripts\FurnaceOpen.cs" />
+     <Compile Include="Assets\Scripts\Generate.cs" />
+     <Compile Include="Assets\Scripts\GrassChange.cs" />
+     <Compile Include="Assets\Scripts\Health.cs" />
+     <Compile Include="Assets\Scripts\Hunger.cs" />
+     <Compile Include="Assets\Scripts\InDepthTime.cs" />
+     <Compile Include="Assets\Scripts\Inventory.cs" />
+     <Compile Include="Assets\Scripts\Inventory2.cs" />
+     <Compile Include="Assets\Scripts\Inventory2Data.cs" />
+     <Compile Include="Assets\Scripts\InventoryOaC.cs" />
+     <Compile Include="Assets\Scripts\Item.cs" />
+     <Compile Include="Assets\Scripts\ItemAssets.cs" />
+     <Compile Include="Assets\Scripts\ItemObject.cs" />
+     <Compile Include="Assets\Scripts\ItemWorld.cs" />
+     <Compile Include="Assets\Scripts\ItemWorldSpawner.cs" />
+     <Compile Include="Assets\Scripts\Launchpad.cs" />
+     <Compile Include="Assets\Scripts\LeavesChange.cs" />
+     <Compile Include="Assets\Scripts\LightCycle.cs" />
+     <Compile Include="Assets\Scripts\Loader.cs" />
+     <Compile Include="Assets\Scripts\MainMenu.cs" />
+     <Compile Include="Assets\Scripts\Materials.cs" />
+     <Compile Include="Assets\Scripts\MechanicalWorknenchOpen.cs" />
+     <Compile Include="Assets\Scripts\ModdingAPI\ModLoaderSetup.cs" />
+     <Compile Include="Assets\Scripts\NPCs\Leland.cs" />
+     <Compile Include="Assets\Scripts\NPCs\Ryan.cs" />
+     <Compile Include="Assets\Scripts\NPCSpawner.cs" />
+     <Compile Include="Assets\Scripts\ObjectView.cs" />
+     <Compile Include="Assets\Scripts\OptionsMenu.cs" />
+     <Compile Include="Assets\Scripts\Patrol.cs" />
+     <Compile Include="Assets\Scripts\PlayerDefence.cs" />
+     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
+     <Compile Include="Assets\Scripts\PlayerMovementMultiplayer.cs" />
+     <Compile Include="Assets\Scripts\PrefabSave.cs" />
+     <Compile Include="Assets\Scripts\SaveALoad.cs" />
+     <Compile Include="Assets\Scripts\SaveWorld.cs" />
+     <Compile Include="Assets\Scripts\Spacecraft.cs" />
+     <Compile Include="Assets\Scripts\SpecialGear.cs" />
+     <Compile Include="Assets\Scripts\SpellEffectDuration.cs" />
+     <Compile Include="Assets\Scripts\Spells.cs" />
+     <Compile Include="Assets\Scripts\Tools\Axes\DiamondAxe.cs" />
+     <Compile Include="Assets\Scripts\Tools\Axes\GoldAxe.cs" />
+     <Compile Include="Assets\Scripts\Tools\Axes\IronAxe.cs" />
+     <Compile Include="Assets\Scripts\Tools\Axes\StoneAxe.cs" />
+     <Compile Include="Assets\Scripts\Tools\Pickaxes\DiamondPickaxe.cs" />
+     <Compile Include="Assets\Scripts\Tools\Pickaxes\GoldPickaxe.cs" />
+     <Compile Include="Assets\Scripts\Tools\Pickaxes\IronPickaxe.cs" />
+     <Compile Include="Assets\Scripts\Tools\Pickaxes\StonePickaxe.cs" />
+     <Compile Include="Assets\Scripts\ToolSwing.cs" />
+     <Compile Include="Assets\Scripts\TravelingMerchantShop.cs" />
+     <Compile Include="Assets\Scripts\TravelToMoon.cs" />
+     <Compile Include="Assets\Scripts\UI_Inventory.cs" />
+     <Compile Include="Assets\Scripts\UI_InventoryMultiplayer.cs" />
+     <Compile Include="Assets\Scripts\UIManager.cs" />
+     <Compile Include="Assets\Scripts\Weapons\DiamondSword.cs" />
+     <Compile Include="Assets\Scripts\Weapons\GoldSword.cs" />
+     <Compile Include="Assets\Scripts\Weapons\IronSword.cs" />
+     <Compile Include="Assets\Scripts\Weapons\StoneSword.cs" />
+     <Compile Include="Assets\Scripts\WorkbenchOpen.cs" />
+     <Compile Include="Assets\Scripts\Worksation.cs" />
+     <Compile Include="Assets\Scripts\WorldGenerator.cs" />
+     <Compile Include="Assets\SlotButton.cs" />
+     <Compile Include="Assets\Terminal.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\Extras\CursorFollower.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\Extras\FaceCursor.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\Extras\MonoBehaviourSingleton.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\Extras\TexturedMesh.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\Fluid Dynamics\Advanced Fluid Dynamics\AdvancedFluidBlock.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\Fluid Dynamics\Advanced Fluid Dynamics\AdvancedFluidDynamics.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\Fluid Dynamics\Advanced Fluid Dynamics\FluidType.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\Fluid Dynamics\FluidBlock.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\Fluid Dynamics\FluidChunk.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\Fluid Dynamics\FluidDynamics.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\Fluid Dynamics\FluidRenderer.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\Lighting\Advanced Lighting\AdvancedLightSystem.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\Lighting\Advanced Lighting\Block Lighting\AmbientLight.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\Lighting\Advanced Lighting\Block Lighting\BlockLighting.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\Lighting\Advanced Lighting\Block Lighting\BlockLightMesh.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\Lighting\Advanced Lighting\Block Lighting\BlockLightNode.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\Lighting\Advanced Lighting\Block Lighting\BlockLightSource.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\Lighting\Advanced Lighting\LightRenderer.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\Lighting\Advanced Lighting\LightSource.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\Lighting\Advanced Lighting\Mesh Lights\AdvancedRaycastLight.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\Lighting\Advanced Lighting\Mesh Lights\FloodLight.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\Lighting\Advanced Lighting\Mesh Lights\MeshLight.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\Lighting\Advanced Lighting\Mesh Lights\RaycastLight.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\Lighting\LightSystem.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\Physics\PhysicsObject.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\Serialization\AdvancedFluidData.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\Serialization\BaseData.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\Serialization\BlockData.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\Serialization\FluidData.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\Serialization\SaveData.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\Serialization\Serialization.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\Serialization\SerializationHelper.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\Serialization\WorldData.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\Terrain\BlockGridMesh.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\Terrain\BlockInfo.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\Terrain\BlockLayer.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\Terrain\Chunk.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\Terrain\ChunkLoader.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\Terrain\ColliderGenerator.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\Terrain\FallingBlockSimulation.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\Terrain\TerrainGenerator.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\Terrain\TerrainGeneratorTemplate.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\Terrain\World.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\Terrain\WorldMultiplayer.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\Tools\CameraController.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\Tools\CameraControllerMultiplayer.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\Tools\ChildCameraController.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\Tools\GridSelectorImageSetter.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\Tools\GridSelectorImageSetterMultiplayer.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\Tools\OSDController.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\Tools\WorldInputHandler.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\Tools\WorldInputHandlerMultiplayer.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\Tools\WorldModifier.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\Tools\WorldModifierMultiplayer.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\UI\ColorPicker.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\UI\FluidDensityInputValidator.cs" />
+     <Compile Include="Assets\TerrainEngine2D\Assets\Scripts\UI\LinkBox.cs" />
+     <Compile Include="Assets\TerrainEngine2D\SideScrollerExample\Scripts\Cloud.cs" />
+     <Compile Include="Assets\TerrainEngine2D\SideScrollerExample\Scripts\CloudSpawner.cs" />
+     <Compile Include="Assets\TerrainEngine2D\SideScrollerExample\Scripts\Menu\GameManager.cs" />
+     <Compile Include="Assets\TerrainEngine2D\SideScrollerExample\Scripts\Menu\MainMenu.cs" />
+     <Compile Include="Assets\TerrainEngine2D\SideScrollerExample\Scripts\Menu\MenuManager.cs" />
+     <Compile Include="Assets\TerrainEngine2D\SideScrollerExample\Scripts\Menu\WorldGeneratorMenu.cs" />
+     <Compile Include="Assets\TerrainEngine2D\SideScrollerExample\Scripts\Menu\WorldSelectionMenu.cs" />
+     <Compile Include="Assets\TerrainEngine2D\SideScrollerExample\Scripts\ParallaxBackground.cs" />
+     <Compile Include="Assets\TerrainEngine2D\SideScrollerExample\Scripts\ParallaxBackgroundController.cs" />
+     <Compile Include="Assets\TerrainEngine2D\SideScrollerExample\Scripts\PlayerController.cs" />
+     <Compile Include="Assets\TerrainEngine2D\SideScrollerExample\Scripts\SideScrollerTerrainGenerator.cs" />
+     <Compile Include="Assets\TerrainEngine2D\SideScrollerExample\Scripts\Sun.cs" />
+     <Compile Include="Assets\TerrainEngine2D\TopDownExample\Scripts\PlayerController.cs" />
+     <Compile Include="Assets\TerrainEngine2D\TopDownExample\Scripts\TopDownTerrainGenerator.cs" />
+     <Compile Include="Assets\TerrainEngine2D\UnityGB\Scripts\DefaultAudioOutput.cs" />
+     <Compile Include="Assets\TerrainEngine2D\UnityGB\Scripts\DefaultEmulatorManager.cs" />
+     <Compile Include="Assets\TerrainEngine2D\UnityGB\Scripts\DefaultSaveMemory.cs" />
+     <Compile Include="Assets\TerrainEngine2D\UnityGB\Scripts\DefaultVideoOutput.cs" />
+     <Compile Include="Assets\TerrainEngine2D\UnityGB\Scripts\UnityGB\Audio\NoiseGenerator.cs" />
+     <Compile Include="Assets\TerrainEngine2D\UnityGB\Scripts\UnityGB\Audio\SoundChip.cs" />
+     <Compile Include="Assets\TerrainEngine2D\UnityGB\Scripts\UnityGB\Audio\SquareWaveGenerator.cs" />
+     <Compile Include="Assets\TerrainEngine2D\UnityGB\Scripts\UnityGB\Audio\VoluntaryWaveGenerator.cs" />
+     <Compile Include="Assets\TerrainEngine2D\UnityGB\Scripts\UnityGB\CPU.cs" />
+     <Compile Include="Assets\TerrainEngine2D\UnityGB\Scripts\UnityGB\Emulator.cs" />
+     <Compile Include="Assets\TerrainEngine2D\UnityGB\Scripts\UnityGB\EmulatorBase.cs" />
+     <Compile Include="Assets\TerrainEngine2D\UnityGB\Scripts\UnityGB\IAudioOutput.cs" />
+     <Compile Include="Assets\TerrainEngine2D\UnityGB\Scripts\UnityGB\ISaveMemory.cs" />
+     <Compile Include="Assets\TerrainEngine2D\UnityGB\Scripts\UnityGB\IVideoOutput.cs" />
+     <Compile Include="Assets\TerrainEngine2D\UnityGB\Scripts\UnityGB\ROM.cs" />
+     <Compile Include="Assets\Terrainify2D\Scripts\Camera\SimpleCameraMovement.cs" />
+     <Compile Include="Assets\Terrainify2D\Scripts\Chunks\Chunk.cs" />
+     <Compile Include="Assets\Terrainify2D\Scripts\Managers\ChunkLoadManager.cs" />
+     <Compile Include="Assets\Terrainify2D\Scripts\Managers\GenerationManager.cs" />
+     <Compile Include="Assets\Terrainify2D\Scripts\Managers\Singleton.cs" />
+     <Compile Include="Assets\Terrainify2D\Scripts\User Interface\GridItem.cs" />
+     <Compile Include="Assets\Terrainify2D\Scripts\User Interface\SliderData.cs" />
+     <Compile Include="Assets\Terrainify2D\Scripts\User Interface\SliderDataCustomizer.cs" />
+     <Compile Include="Assets\Terrainify2D\Scripts\User Interface\SliderObject.cs" />
+     <Compile Include="Assets\Terrainify2D\Scripts\User Interface\UserInterface.cs" />
+     <Compile Include="Assets\TSOLTerrainGenerator.cs" />
+     <Compile Include="Assets\WorkstationCrafting.cs" />
+     <None Include="Assets\ScriptTemplates\54-Mirror__Network Room Manager-NewNetworkRoomManager.cs.txt" />
+     <None Include="Assets\Install Bolt\README.txt" />
+     <None Include="Assets\ScriptTemplates\55-Mirror__Network Room Player-NewNetworkRoomPlayer.cs.txt" />
+     <None Include="Assets\SaveSystem\LICENSE.txt" />
+     <None Include="Assets\_\Stuff\Shaders\Endless_Sprites_Shadow_Vertical.shader" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.Web.Extensions.Design.xml" />
+     <None Include="Assets\Ludiq\Assemblies\Bolt.Core.Editor.xml" />
+     <None Include="Assets\Ludiq\Assemblies\Ludiq.Graphs.Runtime.xml" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.Data.Entity.xml" />
+     <None Include="Assets\_\Stuff\Shaders\Endless_BW.shader" />
+     <None Include="Assets\Assets\Mirror\Readme.txt" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
+     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
+     <None Include="Assets\TerrainEngine2D\Assets\Graphics\Shaders\Sprite.shader" />
+     <None Include="Assets\Ludiq\Assemblies\Bolt.Flow.Runtime.xml" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.Data.Entity.Design.xml" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.Configuration.xml" />
+     <None Include="Assets\_\Stuff\Shaders\Endless_UI_Greyscale.shader" />
+     <None Include="Assets\_\Stuff\Shaders\Endless_Sprites_Shadow.shader" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.Xml.Linq.xml" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\Microsoft.Build.Conversion.v3.5.xml" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\Microsoft.Build.Engine.xml" />
+     <None Include="Assets\TerrainEngine2D\SideScrollerExample\Scenes\readme.txt" />
+     <None Include="Assets\TerrainEngine2D\Assets\Graphics\Shaders\Lighting\AmbientLighting.shader" />
+     <None Include="Assets\_\Stuff\Shaders\GrayscaleToAlpha.shader" />
+     <None Include="Assets\TerrainEngine2D\Assets\Graphics\Shaders\Lighting\LightBlend.shader" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.DirectoryServices.AccountManagement.xml" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.Web.Services.xml" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.Messaging.xml" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.Windows.Presentation.xml" />
+     <None Include="Assets\_\Stuff\Shaders\Endless_TestUnlit.shader" />
+     <None Include="Assets\_\Stuff\Shaders\Endless_Sprites_SolidColorTint.shader" />
+     <None Include="Assets\_\Stuff\Shaders\Endless_FogOfWarPersistenEffect.shader" />
+     <None Include="Assets\StreamingAssets\TestResults.xml" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
+     <None Include="Assets\TerrainEngine2D\readme.txt" />
+     <None Include="Assets\Ludiq\Assemblies\Bolt.Core.Runtime.xml" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.Runtime.Serialization.xml" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.AddIn.xml" />
+     <None Include="Assets\TerrainEngine2D\Assets\Graphics\Shaders\Lighting\LightSource.shader" />
+     <None Include="Assets\_\Stuff\CodeMonkey\README.txt" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.Xml.xml" />
+     <None Include="Assets\Assets\Mirror\Version.txt" />
+     <None Include="Assets\TerrainEngine2D\Assets\Graphics\Shaders\Lighting\FastBlur.shader" />
+     <None Include="Assets\Ludiq\Assemblies\Ludiq.Graphs.Editor.xml" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\Microsoft.Build.Utilities.v3.5.xml" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
+     <None Include="Assets\RainMaker\Demo\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Simple.shader" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.Web.Routing.xml" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.Data.Services.Client.xml" />
+     <None Include="Assets\Assets\Mirror\Plugins\Mono.Cecil\License.txt" />
+     <None Include="Assets\Ludiq\Assemblies\Bolt.State.Runtime.xml" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.ServiceModel.Web.xml" />
+     <None Include="Assets\Ludiq\Assemblies\Ludiq.Core.Runtime.xml" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.Web.Entity.xml" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.Printing.xml" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.Drawing.xml" />
+     <None Include="Assets\Ludiq\Bolt\LICENSES.txt" />
+     <None Include="Assets\_\Stuff\Shaders\Endless_TransColor.shader" />
+     <None Include="Assets\Ludiq\Bolt\Documentation\0. READ ME FIRST.txt" />
+     <None Include="Assets\Scripts\moddingexample.txt" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.Runtime.Remoting.xml" />
+     <None Include="Assets\SaveSystem\DISCLAIMER.txt" />
+     <None Include="Assets\_\Stuff\Shaders\Endless_Sprites_Default.shader" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.Configuration.Install.xml" />
+     <None Include="Assets\Ludiq\Assemblies\YamlDotNet.xml" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.DirectoryServices.xml" />
+     <None Include="Assets\ScriptTemplates\56-Mirror__Network Discovery-NewNetworkDiscovery.cs.txt" />
+     <None Include="Assets\TheStonesOfLifeModdingSystemScriptLayout.txt" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.Transactions.xml" />
+     <None Include="Assets\RainMaker\Prefab\RainShader.shader" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.Web.DynamicData.Design.xml" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\mscorlib.xml" />
+     <None Include="Assets\ModTool\ModTool.Shared.xml" />
+     <None Include="Assets\_\Stuff\Shaders\Endless_TransDiffuseWithTint.shader" />
+     <None Include="Assets\TerrainEngine2D\license.txt" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.Net.xml" />
+     <None Include="Assets\Ludiq\Assemblies\Ludiq.Core.Editor.xml" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.Data.DataSetExtensions.xml" />
+     <None Include="Assets\_\Stuff\Shaders\VertexLitCG.shader" />
+     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.Core.xml" />
+     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.Runtime.Serialization.Formatters.Soap.xml" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Masking.shader" />
+     <None Include="Assets\ScriptTemplates\50-Mirror__Network Manager-NewNetworkManager.cs.txt" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.Management.Instrumentation.xml" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.ComponentModel.DataAnnotations.xml" />
+     <None Include="Assets\ScriptTemplates\53-Mirror__Network Observer-NewNetworkObserver.cs.txt" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.EnterpriseServices.xml" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.ServiceProcess.xml" />
+     <None Include="Assets\ModTool\ModTool.Interface.xml" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Mobile.shader" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.Data.xml" />
+     <None Include="Assets\ScriptTemplates\52-Mirror__Network Behaviour-NewNetworkBehaviour.cs.txt" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.Security.xml" />
+     <None Include="Assets\_\Stuff\Shaders\Endless_Sprites_Outline.shader" />
+     <None Include="Assets\_\Stuff\Shaders\MultiplyTwoTextures.shader" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.Deployment.xml" />
+     <None Include="Assets\LFC\Docs\readme.txt" />
+     <None Include="Assets\RainMaker\Demo\Standard Assets\Environment\Water\Water\Shaders\FXWaterPro.shader" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF Overlay.shader" />
+     <None Include="Assets\_\Stuff\Shaders\Endless_TransDiffuse_Alpha.shader" />
+     <None Include="Assets\TerrainEngine2D\Assets\Graphics\Shaders\Terrain.shader" />
+     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
+     <None Include="Assets\_\Stuff\Shaders\3DText.shader" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\Microsoft.Build.Framework.xml" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.Web.Abstractions.xml" />
+     <None Include="Assets\_\Stuff\Shaders\Endless_UI_SolidColorTint.shader" />
+     <None Include="Assets\SaveSystem\README.txt" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.Web.Entity.Design.xml" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Surface.cginc" />
+     <None Include="Assets\_\Stuff\Shaders\Endless_Sprites_Hue.shader" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.IdentityModel.xml" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.Web.Extensions.xml" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.Data.Services.Design.xml" />
+     <None Include="Assets\_\Stuff\Shaders\Endless_TransDiffuse.shader" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
+     <None Include="Assets\ScriptTemplates\51-Mirror__Network Authenticator-NewNetworkAuthenticator.cs.txt" />
+     <None Include="Assets\StreamingAssets\bpong.txt" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.Management.xml" />
+     <None Include="Assets\Ludiq\Assemblies\Bolt.Flow.Editor.xml" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\Microsoft.VisualC.STLCLR.xml" />
+     <None Include="Assets\RainMaker\Readme.txt" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.WorkflowServices.xml" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
+     <None Include="Assets\Assets\Mirror\Notice.txt" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.Data.SqlXml.xml" />
+     <None Include="Assets\ModTool\Mono.Cecil\LICENSE.txt" />
+     <None Include="Assets\ModTool\ModTool.xml" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.Web.DynamicData.xml" />
+     <None Include="Assets\RainMaker\Demo\Standard Assets\Environment\Water\Water4\Shaders\WaterInclude.cginc" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF.shader" />
+     <None Include="Assets\RainMaker\Demo\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Advanced.shader" />
+     <None Include="Assets\Ludiq\Assemblies\MiscUtil.xml" />
+     <None Include="Assets\_\Stuff\Shaders\Endless_Sprites_Test.shader" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.AddIn.Contract.xml" />
+     <None Include="Assets\Ludiq\Assemblies\Bolt.State.Editor.xml" />
+     <None Include="Assets\ModTool\Change log.txt" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile.shader" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.Data.Services.xml" />
+     <None Include="Assets\TerrainEngine2D\Assets\Graphics\Shaders\UI-Default.shader" />
+     <None Include="Assets\Ludiq\Assemblies\Ludiq.Platforms.xml" />
+     <None Include="Assets\TerrainEngine2D\Assets\Graphics\Shaders\Fluid.shader" />
+     <None Include="Assets\_\Stuff\Shaders\Endless_UI_Blur.shader" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.Windows.Forms.xml" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.ServiceModel.xml" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
+     <None Include="Assets\Ludiq\Assemblies\Ionic.Zip.xml" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.Data.Linq.xml" />
+     <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.xml" />
+ <Reference Include="UnityEngine.Purchasing">
+ <HintPath>C:/Users/22MartinR/Downloads/UnityProjects/TSOL/The Stones of Life (1)/Library/ScriptAssemblies/UnityEngine.Purchasing.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.Purchasing">
+ <HintPath>C:/Users/22MartinR/Downloads/UnityProjects/TSOL/The Stones of Life (1)/Library/ScriptAssemblies/UnityEditor.Purchasing.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.TextMeshPro.Editor">
+ <HintPath>C:/Users/22MartinR/Downloads/UnityProjects/TSOL/The Stones of Life (1)/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.CollabProxy.Editor">
+ <HintPath>C:/Users/22MartinR/Downloads/UnityProjects/TSOL/The Stones of Life (1)/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.TextMeshPro">
+ <HintPath>C:/Users/22MartinR/Downloads/UnityProjects/TSOL/The Stones of Life (1)/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.Analytics.DataPrivacy">
+ <HintPath>C:/Users/22MartinR/Downloads/UnityProjects/TSOL/The Stones of Life (1)/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.AIModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.ARModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.ARModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.AccessibilityModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AccessibilityModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.AnimationModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AnimationModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.AssetBundleModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AssetBundleModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.AudioModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AudioModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.BaselibModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.BaselibModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.ClothModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.ClothModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.ClusterInputModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.ClusterInputModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.ClusterRendererModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.ClusterRendererModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.CoreModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.CoreModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.CrashReportingModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.CrashReportingModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.DirectorModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.DirectorModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.FileSystemHttpModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.FileSystemHttpModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.GameCenterModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.GameCenterModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.GridModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.GridModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.HotReloadModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.HotReloadModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.IMGUIModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.IMGUIModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.ImageConversionModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.ImageConversionModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.InputModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.InputModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.JSONSerializeModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.JSONSerializeModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.LocalizationModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.LocalizationModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.ParticleSystemModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.ParticleSystemModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.PerformanceReportingModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.PerformanceReportingModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.PhysicsModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.PhysicsModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.Physics2DModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.Physics2DModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.ProfilerModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.ProfilerModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.ScreenCaptureModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.ScreenCaptureModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.SharedInternalsModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.SharedInternalsModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.SpriteMaskModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.SpriteMaskModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.SpriteShapeModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.SpriteShapeModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.StreamingModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.StreamingModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.StyleSheetsModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.StyleSheetsModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.SubstanceModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.SubstanceModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.TLSModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.TLSModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.TerrainModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.TerrainModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.TerrainPhysicsModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.TerrainPhysicsModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.TextCoreModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.TextCoreModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.TextRenderingModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.TextRenderingModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.TilemapModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.TilemapModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.TimelineModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.TimelineModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.UIModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.UIModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.UIElementsModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.UIElementsModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.UNETModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.UNETModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.UmbraModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.UmbraModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.UnityAnalyticsModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.UnityAnalyticsModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.UnityConnectModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.UnityConnectModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.UnityTestProtocolModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.UnityTestProtocolModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.UnityWebRequestModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.UnityWebRequestModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.UnityWebRequestAssetBundleModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.UnityWebRequestAssetBundleModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.UnityWebRequestAudioModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.UnityWebRequestAudioModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.UnityWebRequestTextureModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.UnityWebRequestTextureModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.UnityWebRequestWWWModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.VFXModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.VFXModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.VRModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.VRModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.VehiclesModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.VehiclesModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.VideoModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.VideoModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.WindModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.WindModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.XRModule">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.XRModule.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.Locator">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/Managed/Unity.Locator.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.UI">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.TestRunner">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/UnityExtensions/Unity/TestRunner/UnityEngine.TestRunner.dll</HintPath>
+ </Reference>
+ <Reference Include="nunit.framework">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/UnityExtensions/Unity/TestRunner/net35/unity-custom/nunit.framework.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.Timeline">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/UnityExtensions/Unity/Timeline/RuntimeEditor/UnityEngine.Timeline.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.Networking">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.GoogleAudioSpatializer">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/UnityExtensions/Unity/UnityGoogleAudioSpatializer/RuntimeEditor/UnityEngine.GoogleAudioSpatializer.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.SpatialTracking">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
+ </Reference>
+ <Reference Include="Mono.CecilX">
+ <HintPath>C:/Users/22MartinR/Downloads/UnityProjects/TSOL/The Stones of Life (1)/Assets/Assets/Mirror/Plugins/Mono.Cecil/Mono.CecilX.dll</HintPath>
+ </Reference>
+ <Reference Include="Mono.CecilX.Mdb">
+ <HintPath>C:/Users/22MartinR/Downloads/UnityProjects/TSOL/The Stones of Life (1)/Assets/Assets/Mirror/Plugins/Mono.Cecil/Mono.CecilX.Mdb.dll</HintPath>
+ </Reference>
+ <Reference Include="Mono.CecilX.Pdb">
+ <HintPath>C:/Users/22MartinR/Downloads/UnityProjects/TSOL/The Stones of Life (1)/Assets/Assets/Mirror/Plugins/Mono.Cecil/Mono.CecilX.Pdb.dll</HintPath>
+ </Reference>
+ <Reference Include="Mono.CecilX.Rocks">
+ <HintPath>C:/Users/22MartinR/Downloads/UnityProjects/TSOL/The Stones of Life (1)/Assets/Assets/Mirror/Plugins/Mono.Cecil/Mono.CecilX.Rocks.dll</HintPath>
+ </Reference>
+ <Reference Include="Antlr3.Runtime">
+ <HintPath>C:/Users/22MartinR/Downloads/UnityProjects/TSOL/The Stones of Life (1)/Assets/Ludiq/Assemblies/Antlr3.Runtime.dll</HintPath>
+ </Reference>
+ <Reference Include="Bolt.Core.Editor">
+ <HintPath>C:/Users/22MartinR/Downloads/UnityProjects/TSOL/The Stones of Life (1)/Assets/Ludiq/Assemblies/Bolt.Core.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="Bolt.Core.Runtime">
+ <HintPath>C:/Users/22MartinR/Downloads/UnityProjects/TSOL/The Stones of Life (1)/Assets/Ludiq/Assemblies/Bolt.Core.Runtime.dll</HintPath>
+ </Reference>
+ <Reference Include="Bolt.Flow.Editor">
+ <HintPath>C:/Users/22MartinR/Downloads/UnityProjects/TSOL/The Stones of Life (1)/Assets/Ludiq/Assemblies/Bolt.Flow.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="Bolt.Flow.Runtime">
+ <HintPath>C:/Users/22MartinR/Downloads/UnityProjects/TSOL/The Stones of Life (1)/Assets/Ludiq/Assemblies/Bolt.Flow.Runtime.dll</HintPath>
+ </Reference>
+ <Reference Include="Bolt.State.Editor">
+ <HintPath>C:/Users/22MartinR/Downloads/UnityProjects/TSOL/The Stones of Life (1)/Assets/Ludiq/Assemblies/Bolt.State.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="Bolt.State.Runtime">
+ <HintPath>C:/Users/22MartinR/Downloads/UnityProjects/TSOL/The Stones of Life (1)/Assets/Ludiq/Assemblies/Bolt.State.Runtime.dll</HintPath>
+ </Reference>
+ <Reference Include="Ionic.Zip">
+ <HintPath>C:/Users/22MartinR/Downloads/UnityProjects/TSOL/The Stones of Life (1)/Assets/Ludiq/Assemblies/Ionic.Zip.dll</HintPath>
+ </Reference>
+ <Reference Include="Ludiq.Core.Editor">
+ <HintPath>C:/Users/22MartinR/Downloads/UnityProjects/TSOL/The Stones of Life (1)/Assets/Ludiq/Assemblies/Ludiq.Core.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="Ludiq.Core.Runtime">
+ <HintPath>C:/Users/22MartinR/Downloads/UnityProjects/TSOL/The Stones of Life (1)/Assets/Ludiq/Assemblies/Ludiq.Core.Runtime.dll</HintPath>
+ </Reference>
+ <Reference Include="Ludiq.Graphs.Editor">
+ <HintPath>C:/Users/22MartinR/Downloads/UnityProjects/TSOL/The Stones of Life (1)/Assets/Ludiq/Assemblies/Ludiq.Graphs.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="Ludiq.Graphs.Runtime">
+ <HintPath>C:/Users/22MartinR/Downloads/UnityProjects/TSOL/The Stones of Life (1)/Assets/Ludiq/Assemblies/Ludiq.Graphs.Runtime.dll</HintPath>
+ </Reference>
+ <Reference Include="Ludiq.Platforms">
+ <HintPath>C:/Users/22MartinR/Downloads/UnityProjects/TSOL/The Stones of Life (1)/Assets/Ludiq/Assemblies/Ludiq.Platforms.dll</HintPath>
+ </Reference>
+ <Reference Include="MiscUtil">
+ <HintPath>C:/Users/22MartinR/Downloads/UnityProjects/TSOL/The Stones of Life (1)/Assets/Ludiq/Assemblies/MiscUtil.dll</HintPath>
+ </Reference>
+ <Reference Include="YamlDotNet">
+ <HintPath>C:/Users/22MartinR/Downloads/UnityProjects/TSOL/The Stones of Life (1)/Assets/Ludiq/Assemblies/YamlDotNet.dll</HintPath>
+ </Reference>
+ <Reference Include="ModTool">
+ <HintPath>C:/Users/22MartinR/Downloads/UnityProjects/TSOL/The Stones of Life (1)/Assets/ModTool/ModTool.dll</HintPath>
+ </Reference>
+ <Reference Include="ModTool.Interface">
+ <HintPath>C:/Users/22MartinR/Downloads/UnityProjects/TSOL/The Stones of Life (1)/Assets/ModTool/ModTool.Interface.dll</HintPath>
+ </Reference>
+ <Reference Include="ModTool.Shared">
+ <HintPath>C:/Users/22MartinR/Downloads/UnityProjects/TSOL/The Stones of Life (1)/Assets/ModTool/ModTool.Shared.dll</HintPath>
+ </Reference>
+ <Reference Include="TSOL_Modding_API">
+ <HintPath>C:/Users/22MartinR/Downloads/UnityProjects/TSOL/The Stones of Life (1)/Assets/ModTool/TSOL_Modding_API.dll</HintPath>
+ </Reference>
+ <Reference Include="Mono.Cecil">
+ <HintPath>C:/Users/22MartinR/Downloads/UnityProjects/TSOL/The Stones of Life (1)/Assets/ModTool/Mono.Cecil/Mono.Cecil.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.Analytics.StandardEvents">
+ <HintPath>C:/Users/22MartinR/Downloads/UnityProjects/TSOL/The Stones of Life (1)/Library/PackageCache/com.unity.analytics@3.2.3/AnalyticsStandardEvents/Unity.Analytics.StandardEvents.dll</HintPath>
+ </Reference>
+ <Reference Include="netstandard">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
+ </Reference>
+ <Reference Include="Microsoft.Win32.Primitives">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/Microsoft.Win32.Primitives.dll</HintPath>
+ </Reference>
+ <Reference Include="System.AppContext">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.AppContext.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Collections.Concurrent">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Collections.Concurrent.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Collections">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Collections.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Collections.NonGeneric">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Collections.NonGeneric.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Collections.Specialized">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Collections.Specialized.dll</HintPath>
+ </Reference>
+ <Reference Include="System.ComponentModel">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.ComponentModel.dll</HintPath>
+ </Reference>
+ <Reference Include="System.ComponentModel.EventBasedAsync">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.ComponentModel.EventBasedAsync.dll</HintPath>
+ </Reference>
+ <Reference Include="System.ComponentModel.Primitives">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.ComponentModel.Primitives.dll</HintPath>
+ </Reference>
+ <Reference Include="System.ComponentModel.TypeConverter">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.ComponentModel.TypeConverter.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Console">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Console.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Data.Common">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Data.Common.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Diagnostics.Contracts">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Diagnostics.Contracts.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Diagnostics.Debug">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Diagnostics.Debug.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Diagnostics.FileVersionInfo">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Diagnostics.FileVersionInfo.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Diagnostics.Process">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Diagnostics.Process.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Diagnostics.StackTrace">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Diagnostics.StackTrace.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Diagnostics.TextWriterTraceListener">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Diagnostics.TextWriterTraceListener.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Diagnostics.Tools">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Diagnostics.Tools.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Diagnostics.TraceSource">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Diagnostics.TraceSource.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Diagnostics.Tracing">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Diagnostics.Tracing.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Drawing.Primitives">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Drawing.Primitives.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Dynamic.Runtime">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Dynamic.Runtime.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Globalization.Calendars">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Globalization.Calendars.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Globalization">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Globalization.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Globalization.Extensions">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Globalization.Extensions.dll</HintPath>
+ </Reference>
+ <Reference Include="System.IO.Compression">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.IO.Compression.dll</HintPath>
+ </Reference>
+ <Reference Include="System.IO.Compression.ZipFile">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.IO.Compression.ZipFile.dll</HintPath>
+ </Reference>
+ <Reference Include="System.IO">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.IO.dll</HintPath>
+ </Reference>
+ <Reference Include="System.IO.FileSystem">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.IO.FileSystem.dll</HintPath>
+ </Reference>
+ <Reference Include="System.IO.FileSystem.DriveInfo">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.IO.FileSystem.DriveInfo.dll</HintPath>
+ </Reference>
+ <Reference Include="System.IO.FileSystem.Primitives">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.IO.FileSystem.Primitives.dll</HintPath>
+ </Reference>
+ <Reference Include="System.IO.FileSystem.Watcher">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.IO.FileSystem.Watcher.dll</HintPath>
+ </Reference>
+ <Reference Include="System.IO.IsolatedStorage">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.IO.IsolatedStorage.dll</HintPath>
+ </Reference>
+ <Reference Include="System.IO.MemoryMappedFiles">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.IO.MemoryMappedFiles.dll</HintPath>
+ </Reference>
+ <Reference Include="System.IO.Pipes">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.IO.Pipes.dll</HintPath>
+ </Reference>
+ <Reference Include="System.IO.UnmanagedMemoryStream">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.IO.UnmanagedMemoryStream.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Linq">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Linq.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Linq.Expressions">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Linq.Expressions.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Linq.Parallel">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Linq.Parallel.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Linq.Queryable">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Linq.Queryable.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Net.Http">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Net.Http.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Net.NameResolution">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Net.NameResolution.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Net.NetworkInformation">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Net.NetworkInformation.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Net.Ping">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Net.Ping.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Net.Primitives">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Net.Primitives.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Net.Requests">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Net.Requests.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Net.Security">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Net.Security.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Net.Sockets">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Net.Sockets.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Net.WebHeaderCollection">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Net.WebHeaderCollection.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Net.WebSockets.Client">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Net.WebSockets.Client.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Net.WebSockets">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Net.WebSockets.dll</HintPath>
+ </Reference>
+ <Reference Include="System.ObjectModel">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.ObjectModel.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Reflection">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Reflection.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Reflection.Extensions">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Reflection.Extensions.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Reflection.Primitives">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Reflection.Primitives.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Resources.Reader">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Resources.Reader.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Resources.ResourceManager">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Resources.ResourceManager.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Resources.Writer">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Resources.Writer.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Runtime.CompilerServices.VisualC">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Runtime.CompilerServices.VisualC.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Runtime">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Runtime.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Runtime.Extensions">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Runtime.Extensions.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Runtime.Handles">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Runtime.Handles.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Runtime.InteropServices">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Runtime.InteropServices.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Runtime.InteropServices.RuntimeInformation">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Runtime.Numerics">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Runtime.Numerics.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Runtime.Serialization.Formatters">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Runtime.Serialization.Formatters.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Runtime.Serialization.Json">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Runtime.Serialization.Json.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Runtime.Serialization.Primitives">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Runtime.Serialization.Primitives.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Runtime.Serialization.Xml">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Runtime.Serialization.Xml.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Security.Claims">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Security.Claims.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Security.Cryptography.Algorithms">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Security.Cryptography.Algorithms.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Security.Cryptography.Csp">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Security.Cryptography.Csp.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Security.Cryptography.Encoding">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Security.Cryptography.Encoding.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Security.Cryptography.Primitives">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Security.Cryptography.Primitives.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Security.Cryptography.X509Certificates">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Security.Cryptography.X509Certificates.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Security.Principal">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Security.Principal.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Security.SecureString">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Security.SecureString.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Text.Encoding">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Text.Encoding.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Text.Encoding.Extensions">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Text.Encoding.Extensions.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Text.RegularExpressions">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Text.RegularExpressions.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Threading">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Threading.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Threading.Overlapped">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Threading.Overlapped.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Threading.Tasks">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Threading.Tasks.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Threading.Tasks.Parallel">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Threading.Tasks.Parallel.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Threading.Thread">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Threading.Thread.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Threading.ThreadPool">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Threading.ThreadPool.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Threading.Timer">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Threading.Timer.dll</HintPath>
+ </Reference>
+ <Reference Include="System.ValueTuple">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.ValueTuple.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Xml.ReaderWriter">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Xml.ReaderWriter.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Xml.XDocument">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Xml.XDocument.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Xml.XmlDocument">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Xml.XmlDocument.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Xml.XmlSerializer">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Xml.XmlSerializer.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Xml.XPath">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Xml.XPath.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Xml.XPath.XDocument">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Xml.XPath.XDocument.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Numerics.Vectors">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/Extensions/2.0.0/System.Numerics.Vectors.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Runtime.InteropServices.WindowsRuntime">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/Extensions/2.0.0/System.Runtime.InteropServices.WindowsRuntime.dll</HintPath>
+ </Reference>
+ <Reference Include="mscorlib">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/mscorlib.dll</HintPath>
+ </Reference>
+ <Reference Include="System.ComponentModel.Composition">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.ComponentModel.Composition.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Core">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Core.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Data">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Data.dll</HintPath>
+ </Reference>
+ <Reference Include="System">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Drawing">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Drawing.dll</HintPath>
+ </Reference>
+ <Reference Include="System.IO.Compression.FileSystem">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.IO.Compression.FileSystem.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Net">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Net.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Numerics">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Numerics.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Runtime.Serialization">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Runtime.Serialization.dll</HintPath>
+ </Reference>
+ <Reference Include="System.ServiceModel.Web">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.ServiceModel.Web.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Transactions">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Transactions.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Web">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Web.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Windows">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Windows.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Xml">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Xml.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Xml.Linq">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Xml.Linq.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Xml.Serialization">
+ <HintPath>C:/Users/22MartinR/Downloads/Unity/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Xml.Serialization.dll</HintPath>
+ </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{2D5A5E03-307A-1F41-F77C-1F615CF6E566}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
+    <ProjectReference Include="Mirror.Weaver.csproj">
+      <Project>{EF397FBF-89E6-E636-4489-418C116C5F89}</Project>      <Name>Mirror.Weaver</Name>    </ProjectReference>
+    <ProjectReference Include="Mirror.Authenticators.csproj">
+      <Project>{D38AAB33-12F0-51D9-47DA-537868B83717}</Project>      <Name>Mirror.Authenticators</Name>    </ProjectReference>
+    <ProjectReference Include="Mirror.Components.csproj">
+      <Project>{861849EF-76BC-174B-0ECF-41090F897FB3}</Project>      <Name>Mirror.Components</Name>    </ProjectReference>
+    <ProjectReference Include="Mirror.Examples.csproj">
+      <Project>{6C160491-8FAD-3712-23C9-D322562A80D0}</Project>      <Name>Mirror.Examples</Name>    </ProjectReference>
+    <ProjectReference Include="Mirror.CompilerSymbols.csproj">
+      <Project>{C8BBE55E-C552-E86F-BCD1-A983ACA5C056}</Project>      <Name>Mirror.CompilerSymbols</Name>    </ProjectReference>
+    <ProjectReference Include="Mirror.Cloud.csproj">
+      <Project>{1188834A-2994-1A2C-83F9-56ECF7D11209}</Project>      <Name>Mirror.Cloud</Name>    </ProjectReference>
+    <ProjectReference Include="Telepathy.csproj">
+      <Project>{70EF6B18-FD36-6F79-B847-1AB87035612B}</Project>      <Name>Telepathy</Name>    </ProjectReference>
+    <ProjectReference Include="Mirror.Examples.Cloud.Pong.csproj">
+      <Project>{BB48ADC9-C2B7-7FDD-83F2-DE0CB15407F3}</Project>      <Name>Mirror.Examples.Cloud.Pong</Name>    </ProjectReference>
+    <ProjectReference Include="Mirror.csproj">
+      <Project>{58DB1F88-473C-2CE7-0C3E-E8094D47B3D1}</Project>      <Name>Mirror</Name>    </ProjectReference>
+    <ProjectReference Include="V_Animation.csproj">
+      <Project>{E22FD6B7-41D4-DE47-B73F-896154C5239C}</Project>      <Name>V_Animation</Name>    </ProjectReference>
+    <ProjectReference Include="Mirror.Editor.csproj">
+      <Project>{ABB653BC-9B0A-433D-B114-2AB1EC9E0F58}</Project>      <Name>Mirror.Editor</Name>    </ProjectReference>
+    <ProjectReference Include="kcp2k.csproj">
+      <Project>{C2C40294-CE22-B53A-AE1A-D9E3996DDE6F}</Project>      <Name>kcp2k</Name>    </ProjectReference>
+    <ProjectReference Include="Mirror.Examples.Cloud.GUI.csproj">
+      <Project>{69FDAB30-A61C-C1B2-B233-7AE3108FBF69}</Project>      <Name>Mirror.Examples.Cloud.GUI</Name>    </ProjectReference>
+    <ProjectReference Include="SimpleWebTransport.csproj">
+      <Project>{44E82191-59ED-E17E-8EFD-693764F9C92E}</Project>      <Name>SimpleWebTransport</Name>    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  
+</Project>

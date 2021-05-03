@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Mirror;
 
 // Copyright (C) 2018 Matthew K Wilson
 
@@ -10,6 +11,7 @@ namespace TerrainEngine2D {
     public class ChunkLoader : MonoBehaviourSingleton<ChunkLoader>
     {
         private World world;
+        private WorldMultiplayer worldMultiplayer;
         [SerializeField]
         private GameObject chunkPrefab;
         public GameObject ChunkPrefab
@@ -132,28 +134,60 @@ namespace TerrainEngine2D {
                 throw new UnassignedReferenceException("The Chunk Prefab is missing! Assign the Chunk Prefab to the corresponding field on the ChunkLoader.");
 
             //Set Properties
-            chunkSize = World.WorldData.ChunkSize;
-            loadRate = World.WorldData.ChunkLoadRate;
-            horizontalChunkLoadDist = World.WorldData.ChunkLoadDistance;
+            if (GameObject.Find("NetworkManager") != null)
+            {
+                chunkSize = WorldMultiplayer.WorldData.ChunkSize;
+                loadRate = WorldMultiplayer.WorldData.ChunkLoadRate;
 
-            world = GetComponentInParent<World>();
-            //Round the horizontal chunk loading distance up to the nearest Chunk Size
-            horizontalChunkLoadDist = Mathf.CeilToInt(horizontalChunkLoadDist / (float)chunkSize) * chunkSize;
-            //Calculate the vertical chunk loading distance using the screen aspect ratio
-            float screenAspectRatio = (float)Screen.height / Screen.width;
-            float rawVerticalChunkLoadDist = horizontalChunkLoadDist * screenAspectRatio;
-            //Round to nearest Chunk Size
-            verticalChunkLoadDist = Mathf.CeilToInt(rawVerticalChunkLoadDist / chunkSize) * chunkSize;
+                horizontalChunkLoadDist = WorldMultiplayer.WorldData.ChunkLoadDistance;
 
-            //Calculate the width and height of the loaded world (in Unity units (blocks))
-            loadedWorldWidth = (Mathf.CeilToInt(horizontalChunkLoadDist / (float)chunkSize) * 2 + 1) * chunkSize;
-            loadedWorldHeight = (Mathf.CeilToInt(VerticalChunkLoadDist / (float)chunkSize) * 2 + 1) * chunkSize;
-            loadedWorldWidth = Mathf.Min(loadedWorldWidth, world.WorldWidth);
-            loadedWorldHeight = Mathf.Min(loadedWorldHeight, world.WorldHeight);
-            //Calculate the maximum number of chunks that can be instantiated
-            maxChunks = Mathf.CeilToInt(loadedWorldWidth / (float)chunkSize) * Mathf.CeilToInt(loadedWorldHeight / (float)chunkSize);
-            //Allocate memory to store chunks for easy access based on a coordinate grid system
-            chunks = new Chunk[world.WorldWidth / chunkSize, world.WorldHeight / chunkSize];
+                worldMultiplayer = GetComponentInParent<WorldMultiplayer>();
+
+                //Round the horizontal chunk loading distance up to the nearest Chunk Size
+                horizontalChunkLoadDist = Mathf.CeilToInt(horizontalChunkLoadDist / (float)chunkSize) * chunkSize;
+                //Calculate the vertical chunk loading distance using the screen aspect ratio
+                float screenAspectRatio = (float)Screen.height / Screen.width;
+                float rawVerticalChunkLoadDist = horizontalChunkLoadDist * screenAspectRatio;
+                //Round to nearest Chunk Size
+                verticalChunkLoadDist = Mathf.CeilToInt(rawVerticalChunkLoadDist / chunkSize) * chunkSize;
+
+                //Calculate the width and height of the loaded world (in Unity units (blocks))
+                loadedWorldWidth = (Mathf.CeilToInt(horizontalChunkLoadDist / (float)chunkSize) * 2 + 1) * chunkSize;
+                loadedWorldHeight = (Mathf.CeilToInt(VerticalChunkLoadDist / (float)chunkSize) * 2 + 1) * chunkSize;
+                loadedWorldWidth = Mathf.Min(loadedWorldWidth, worldMultiplayer.WorldWidth);
+                loadedWorldHeight = Mathf.Min(loadedWorldHeight, worldMultiplayer.WorldHeight);
+                //Calculate the maximum number of chunks that can be instantiated
+                maxChunks = Mathf.CeilToInt(loadedWorldWidth / (float)chunkSize) * Mathf.CeilToInt(loadedWorldHeight / (float)chunkSize);
+                //Allocate memory to store chunks for easy access based on a coordinate grid system
+                chunks = new Chunk[worldMultiplayer.WorldWidth / chunkSize, worldMultiplayer.WorldHeight / chunkSize];
+            }
+            else
+            {
+                chunkSize = World.WorldData.ChunkSize;
+                loadRate = World.WorldData.ChunkLoadRate;
+
+                horizontalChunkLoadDist = World.WorldData.ChunkLoadDistance;
+
+                world = GetComponentInParent<World>();
+
+                //Round the horizontal chunk loading distance up to the nearest Chunk Size
+                horizontalChunkLoadDist = Mathf.CeilToInt(horizontalChunkLoadDist / (float)chunkSize) * chunkSize;
+                //Calculate the vertical chunk loading distance using the screen aspect ratio
+                float screenAspectRatio = (float)Screen.height / Screen.width;
+                float rawVerticalChunkLoadDist = horizontalChunkLoadDist * screenAspectRatio;
+                //Round to nearest Chunk Size
+                verticalChunkLoadDist = Mathf.CeilToInt(rawVerticalChunkLoadDist / chunkSize) * chunkSize;
+
+                //Calculate the width and height of the loaded world (in Unity units (blocks))
+                loadedWorldWidth = (Mathf.CeilToInt(horizontalChunkLoadDist / (float)chunkSize) * 2 + 1) * chunkSize;
+                loadedWorldHeight = (Mathf.CeilToInt(VerticalChunkLoadDist / (float)chunkSize) * 2 + 1) * chunkSize;
+                loadedWorldWidth = Mathf.Min(loadedWorldWidth, world.WorldWidth);
+                loadedWorldHeight = Mathf.Min(loadedWorldHeight, world.WorldHeight);
+                //Calculate the maximum number of chunks that can be instantiated
+                maxChunks = Mathf.CeilToInt(loadedWorldWidth / (float)chunkSize) * Mathf.CeilToInt(loadedWorldHeight / (float)chunkSize);
+                //Allocate memory to store chunks for easy access based on a coordinate grid system
+                chunks = new Chunk[world.WorldWidth / chunkSize, world.WorldHeight / chunkSize];
+            }
         }
 
         /// <summary>
@@ -180,55 +214,109 @@ namespace TerrainEngine2D {
         /// <param name="initialLoad">Whether this function is being called the first time the chunks are loaded</param>
         public void LoadChunksAtPosition(int posX, int posY, bool initialLoad = false)
         {
-            loadTransform.position = new Vector3(posX, posY, loadTransform.position.z);
-
-            //Set the LoadTransform's position to ensure it is within the world bounds
-            int xPosition = (int)Mathf.Clamp(loadTransform.position.x, horizontalChunkLoadDist, world.WorldWidth - horizontalChunkLoadDist - chunkSize);
-            int yPosition = (int)Mathf.Clamp(loadTransform.position.y, verticalChunkLoadDist, world.WorldHeight - verticalChunkLoadDist - chunkSize);
-            chunkLoadPosition = new Vector2Int(xPosition, yPosition);
-
-            //Set the intial world coordinates in chunk units
-            //The x point of the origin is the x coordinate of the furthest chunk within horizontal range, left of the loadTransform
-            int originXChunks = Mathf.FloorToInt((chunkLoadPosition.x - horizontalChunkLoadDist) / chunkSize);
-            int originYChunks = Mathf.FloorToInt((chunkLoadPosition.y - verticalChunkLoadDist) / chunkSize);
-            //The x point of the end point is the x coordinate of the of the furthest chunk within horizontal range, right of the loadTransform
-            int endPointXChunks = originXChunks + Mathf.CeilToInt(horizontalChunkLoadDist / (float)chunkSize) * 2;
-            int endPointYChunks = originYChunks + Mathf.CeilToInt(verticalChunkLoadDist / (float)chunkSize) * 2;
-            //Ensure chunks loaded are within the world bounds
-            originXChunks = Mathf.Clamp(originXChunks, 0, world.WorldWidth / chunkSize - 1);
-            originYChunks = Mathf.Clamp(originYChunks, 0, world.WorldHeight / chunkSize - 1);
-            endPointXChunks = Mathf.Clamp(endPointXChunks, 0, world.WorldWidth / chunkSize - 1);
-            endPointYChunks = Mathf.Clamp(endPointYChunks, 0, world.WorldHeight / chunkSize - 1);
-
-            //Load in all the chunks
-            if (initialLoad)
+            if (GameObject.Find("NetworkManager") != null)
             {
-                //Load in chunks at a new position using new chunks
-                for (int x = originXChunks; x <= endPointXChunks; x++)
+                loadTransform.position = new Vector3(posX, posY, loadTransform.position.z);
+
+                //Set the LoadTransform's position to ensure it is within the world bounds
+                int xPosition = (int)Mathf.Clamp(loadTransform.position.x, horizontalChunkLoadDist, worldMultiplayer.WorldWidth - horizontalChunkLoadDist - chunkSize);
+                int yPosition = (int)Mathf.Clamp(loadTransform.position.y, verticalChunkLoadDist, worldMultiplayer.WorldHeight - verticalChunkLoadDist - chunkSize);
+                chunkLoadPosition = new Vector2Int(xPosition, yPosition);
+
+                //Set the intial world coordinates in chunk units
+                //The x point of the origin is the x coordinate of the furthest chunk within horizontal range, left of the loadTransform
+                int originXChunks = Mathf.FloorToInt((chunkLoadPosition.x - horizontalChunkLoadDist) / chunkSize);
+                int originYChunks = Mathf.FloorToInt((chunkLoadPosition.y - verticalChunkLoadDist) / chunkSize);
+                //The x point of the end point is the x coordinate of the of the furthest chunk within horizontal range, right of the loadTransform
+                int endPointXChunks = originXChunks + Mathf.CeilToInt(horizontalChunkLoadDist / (float)chunkSize) * 2;
+                int endPointYChunks = originYChunks + Mathf.CeilToInt(verticalChunkLoadDist / (float)chunkSize) * 2;
+                //Ensure chunks loaded are within the world bounds
+                originXChunks = Mathf.Clamp(originXChunks, 0, worldMultiplayer.WorldWidth / chunkSize - 1);
+                originYChunks = Mathf.Clamp(originYChunks, 0, worldMultiplayer.WorldHeight / chunkSize - 1);
+                endPointXChunks = Mathf.Clamp(endPointXChunks, 0, worldMultiplayer.WorldWidth / chunkSize - 1);
+                endPointYChunks = Mathf.Clamp(endPointYChunks, 0, worldMultiplayer.WorldHeight / chunkSize - 1);
+
+                //Load in all the chunks
+                if (initialLoad)
                 {
-                    for (int y = originYChunks; y <= endPointYChunks; y++)
+                    //Load in chunks at a new position using new chunks
+                    for (int x = originXChunks; x <= endPointXChunks; x++)
                     {
-                        LoadChunk(x, y);
+                        for (int y = originYChunks; y <= endPointYChunks; y++)
+                        {
+                            LoadChunk(x, y);
+                        }
                     }
                 }
-            }
-            else
-            {
-                //Load chunks in a new position by reusing old chunks
-                for (int x = 0; x <= endPointXChunks - originXChunks; x++)
+                else
                 {
-                    for (int y = 0; y <= endPointYChunks - originYChunks; y++)
+                    //Load chunks in a new position by reusing old chunks
+                    for (int x = 0; x <= endPointXChunks - originXChunks; x++)
                     {
-                        LoadChunk(originXChunks + x, originYChunks + y, true, originLoadedChunks.x / chunkSize + x, originLoadedChunks.y / chunkSize + y);
+                        for (int y = 0; y <= endPointYChunks - originYChunks; y++)
+                        {
+                            LoadChunk(originXChunks + x, originYChunks + y, true, originLoadedChunks.x / chunkSize + x, originLoadedChunks.y / chunkSize + y);
+                        }
                     }
                 }
-            }
-            //Store the world coordinates converted to block units (Unity units)
-            originLoadedChunks = new Vector2Int(originXChunks, originYChunks) * chunkSize;
-            endPointLoadedChunks = new Vector2Int(endPointXChunks, endPointYChunks) * chunkSize;
+                //Store the world coordinates converted to block units (Unity units)
+                originLoadedChunks = new Vector2Int(originXChunks, originYChunks) * chunkSize;
+                endPointLoadedChunks = new Vector2Int(endPointXChunks, endPointYChunks) * chunkSize;
 
-            //Call event for chunk loading
-            OnChunksLoaded();
+                //Call event for chunk loading
+                OnChunksLoaded();
+            } else
+            {
+                loadTransform.position = new Vector3(posX, posY, loadTransform.position.z);
+
+                //Set the LoadTransform's position to ensure it is within the world bounds
+                int xPosition = (int)Mathf.Clamp(loadTransform.position.x, horizontalChunkLoadDist, world.WorldWidth - horizontalChunkLoadDist - chunkSize);
+                int yPosition = (int)Mathf.Clamp(loadTransform.position.y, verticalChunkLoadDist, world.WorldHeight - verticalChunkLoadDist - chunkSize);
+                chunkLoadPosition = new Vector2Int(xPosition, yPosition);
+
+                //Set the intial world coordinates in chunk units
+                //The x point of the origin is the x coordinate of the furthest chunk within horizontal range, left of the loadTransform
+                int originXChunks = Mathf.FloorToInt((chunkLoadPosition.x - horizontalChunkLoadDist) / chunkSize);
+                int originYChunks = Mathf.FloorToInt((chunkLoadPosition.y - verticalChunkLoadDist) / chunkSize);
+                //The x point of the end point is the x coordinate of the of the furthest chunk within horizontal range, right of the loadTransform
+                int endPointXChunks = originXChunks + Mathf.CeilToInt(horizontalChunkLoadDist / (float)chunkSize) * 2;
+                int endPointYChunks = originYChunks + Mathf.CeilToInt(verticalChunkLoadDist / (float)chunkSize) * 2;
+                //Ensure chunks loaded are within the world bounds
+                originXChunks = Mathf.Clamp(originXChunks, 0, world.WorldWidth / chunkSize - 1);
+                originYChunks = Mathf.Clamp(originYChunks, 0, world.WorldHeight / chunkSize - 1);
+                endPointXChunks = Mathf.Clamp(endPointXChunks, 0, world.WorldWidth / chunkSize - 1);
+                endPointYChunks = Mathf.Clamp(endPointYChunks, 0, world.WorldHeight / chunkSize - 1);
+
+                //Load in all the chunks
+                if (initialLoad)
+                {
+                    //Load in chunks at a new position using new chunks
+                    for (int x = originXChunks; x <= endPointXChunks; x++)
+                    {
+                        for (int y = originYChunks; y <= endPointYChunks; y++)
+                        {
+                            LoadChunk(x, y);
+                        }
+                    }
+                }
+                else
+                {
+                    //Load chunks in a new position by reusing old chunks
+                    for (int x = 0; x <= endPointXChunks - originXChunks; x++)
+                    {
+                        for (int y = 0; y <= endPointYChunks - originYChunks; y++)
+                        {
+                            LoadChunk(originXChunks + x, originYChunks + y, true, originLoadedChunks.x / chunkSize + x, originLoadedChunks.y / chunkSize + y);
+                        }
+                    }
+                }
+                //Store the world coordinates converted to block units (Unity units)
+                originLoadedChunks = new Vector2Int(originXChunks, originYChunks) * chunkSize;
+                endPointLoadedChunks = new Vector2Int(endPointXChunks, endPointYChunks) * chunkSize;
+
+                //Call event for chunk loading
+                OnChunksLoaded();
+            }
         }
 
         /// <summary>
@@ -240,7 +328,8 @@ namespace TerrainEngine2D {
             //Calculate the vertical distance of the top bordering chunks to the ChunkLoader
             float distFromChunkLoader = endPointLoadedChunks.y + chunkSize - loadTransform.position.y;
             //Check to see if the ChunkLoader has reached the top of the world
-            bool withinWorldBounds = (int)endPointLoadedChunks.y / chunkSize < chunks.GetLength(1) - 1;
+            bool v = (int)endPointLoadedChunks.y / chunkSize < chunks.GetLength(1) - 1;
+            bool withinWorldBounds = v;
             //Check if chunks were loaded
             bool chunksLoaded = false;
             //Load a new top row of chunks if that row is within range and within the bounds of the world

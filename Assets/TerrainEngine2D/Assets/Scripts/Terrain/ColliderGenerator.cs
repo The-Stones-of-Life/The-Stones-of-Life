@@ -21,6 +21,7 @@ namespace TerrainEngine2D
         //Adjacent collider point types
         private enum RelativeColliderPoints { Top, Right, Left, Bottom };
         private World world;
+        private WorldMultiplayer worldMultiplayer;
         private Chunk chunk;
         //The side length in blocks of the chunk
         private int chunkSize;
@@ -66,15 +67,29 @@ namespace TerrainEngine2D
         /// </summary>
         public void Initialize(int chunkSize)
         {
-            world = World.Instance;
-            this.chunkSize = chunkSize;
-            //Sets the max number of collider paths to half the number of blocks in the chunk
-            int maxNumColliderPaths = Mathf.CeilToInt(chunkSize * chunkSize / 2f);
-            //Sets the max number of collider points to the number of points in the chunk
-            maxNumColliderPoints = chunkSize * chunkSize + 2 * chunkSize;
-            //Allocates the collider paths with the max number of collider paths possible (reduces garbage)
-            colliderPaths = new List<List<Vector2>>(maxNumColliderPaths);
-            checkedColliderPoints = new byte[chunkSize + 1, chunkSize + 1];
+            if (GameObject.Find("NetworkManager") != null)
+            {
+                worldMultiplayer = WorldMultiplayer.Instance;
+                this.chunkSize = chunkSize;
+                //Sets the max number of collider paths to half the number of blocks in the chunk
+                int maxNumColliderPaths = Mathf.CeilToInt(chunkSize * chunkSize / 2f);
+                //Sets the max number of collider points to the number of points in the chunk
+                maxNumColliderPoints = chunkSize * chunkSize + 2 * chunkSize;
+                //Allocates the collider paths with the max number of collider paths possible (reduces garbage)
+                colliderPaths = new List<List<Vector2>>(maxNumColliderPaths);
+                checkedColliderPoints = new byte[chunkSize + 1, chunkSize + 1];
+            } else
+            {
+                world = World.Instance;
+                this.chunkSize = chunkSize;
+                //Sets the max number of collider paths to half the number of blocks in the chunk
+                int maxNumColliderPaths = Mathf.CeilToInt(chunkSize * chunkSize / 2f);
+                //Sets the max number of collider points to the number of points in the chunk
+                maxNumColliderPoints = chunkSize * chunkSize + 2 * chunkSize;
+                //Allocates the collider paths with the max number of collider paths possible (reduces garbage)
+                colliderPaths = new List<List<Vector2>>(maxNumColliderPaths);
+                checkedColliderPoints = new byte[chunkSize + 1, chunkSize + 1];
+            }
         }
 
         /// <summary>
@@ -315,17 +330,34 @@ namespace TerrainEngine2D
         /// <returns>Returns true if a block exists at that coordinate</returns>
         bool IsBlockAt(int x, int y)
         {
-            //Block coordinate outside the bounds of the chunk
-            if (x >= chunkSize || x < 0 || y >= chunkSize || y < 0)
-                return false;
-            //Loop through all the collider layers
-            for (int i = 0; i < world.ColliderLayers.Length; i++)
+            if (GameObject.Find("NetworkManager") != null)
             {
-                //If a block exists in the current layer, return true
-                if (world.GetBlockLayer(world.ColliderLayers[i]).IsBlockAt(x + chunk.ChunkX, y + chunk.ChunkY))
-                    return true;
+                //Block coordinate outside the bounds of the chunk
+                if (x >= chunkSize || x < 0 || y >= chunkSize || y < 0)
+                    return false;
+                //Loop through all the collider layers
+                for (int i = 0; i < worldMultiplayer.ColliderLayers.Length; i++)
+                {
+                    //If a block exists in the current layer, return true
+                    if (worldMultiplayer.GetBlockLayer(worldMultiplayer.ColliderLayers[i]).IsBlockAt(x + chunk.ChunkX, y + chunk.ChunkY))
+                        return true;
+                }
+                return false;
             }
-            return false;
+            else
+            {
+                //Block coordinate outside the bounds of the chunk
+                if (x >= chunkSize || x < 0 || y >= chunkSize || y < 0)
+                    return false;
+                //Loop through all the collider layers
+                for (int i = 0; i < world.ColliderLayers.Length; i++)
+                {
+                    //If a block exists in the current layer, return true
+                    if (world.GetBlockLayer(world.ColliderLayers[i]).IsBlockAt(x + chunk.ChunkX, y + chunk.ChunkY))
+                        return true;
+                }
+                return false;
+            }
         }
 
         /// <summary>
